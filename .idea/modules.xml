@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Hibernate.iml" filepath="$PROJECT_DIR$/.idea/Hibernate.iml" />
       <module fileurl="file://$PROJECT_DIR$/mehrchant/merchant.iml" filepath="$PROJECT_DIR$/mehrchant/merchant.iml" />
+      <module fileurl="file://$PROJECT_DIR$/order/order.iml" filepath="$PROJECT_DIR$/order/order.iml" />
     </modules>
   </component>
 </project>
