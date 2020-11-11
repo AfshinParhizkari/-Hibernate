@@ -11,17 +11,17 @@ public class Mysession {
 
     static {
         try {
-            session=new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Product.class).buildSessionFactory();
-        }catch (Throwable e){
+            session = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Product.class).addAnnotatedClass(Productline.class).buildSessionFactory();
+        } catch (Throwable e) {
             throw new ExceptionInInitializerError(e);
         }
     }
 
-    public static Session getsession(){
+    public static Session getsession() {
         return session.openSession();
     }
 
-    public static void closesession(){
+    public static void closesession() {
         session.getCurrentSession().close();
     }
 }

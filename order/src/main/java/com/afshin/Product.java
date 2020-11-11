@@ -1,9 +1,7 @@
 package com.afshin;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "products")
@@ -35,10 +33,14 @@ public class Product {
     private Integer quantityInStock;
 
     @Column(name = "buyPrice")
-    private Float buyPrice;
+    private BigDecimal buyPrice;
 
     @Column(name = "MSRP")
-    private Float MSRP;
+    private BigDecimal MSRP;
+
+    @ManyToOne
+    @JoinColumn(name = "productLine" ,insertable = false,updatable = false)
+    private Productline productline;
 
     public String getProductCode() {
         return productCode;
@@ -96,20 +98,28 @@ public class Product {
         this.quantityInStock = quantityInStock;
     }
 
-    public Float getBuyPrice() {
+    public BigDecimal getBuyPrice() {
         return buyPrice;
     }
 
-    public void setBuyPrice(Float buyPrice) {
+    public void setBuyPrice(BigDecimal buyPrice) {
         this.buyPrice = buyPrice;
     }
 
-    public Float getMSRP() {
+    public BigDecimal getMSRP() {
         return MSRP;
     }
 
-    public void setMSRP(Float MSRP) {
+    public void setMSRP(BigDecimal MSRP) {
         this.MSRP = MSRP;
+    }
+
+    public Productline getProductline() {
+        return productline;
+    }
+
+    public void setProductline(Productline productline) {
+        this.productline = productline;
     }
 
     @Override
@@ -124,6 +134,7 @@ public class Product {
                 ", quantityInStock=" + quantityInStock +
                 ", buyPrice=" + buyPrice +
                 ", MSRP=" + MSRP +
+                ", productline=" + productline +
                 '}';
     }
 }
