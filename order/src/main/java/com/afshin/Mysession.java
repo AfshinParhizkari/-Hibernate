@@ -11,7 +11,17 @@ public class Mysession {
 
     static {
         try {
-            session = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Product.class).addAnnotatedClass(Productline.class).buildSessionFactory();
+            session = new Configuration().configure("hibernate.cfg.xml")
+                    .addAnnotatedClass(Product.class)
+                    .addAnnotatedClass(Productline.class)
+                    .addAnnotatedClass(Office.class)
+                    .addAnnotatedClass(Employee.class)
+                    .addAnnotatedClass(Customer.class)
+                    .addAnnotatedClass(Payment.class)
+                    .addAnnotatedClass(PaymentPK.class)
+                    .addAnnotatedClass(Order.class)
+                    .addAnnotatedClass(Orderdetails.class)
+                    .buildSessionFactory();
         } catch (Throwable e) {
             throw new ExceptionInInitializerError(e);
         }
