@@ -18,4 +18,12 @@ public class GenralDaoTest {
             System.out.println(tmp);
         }
     }
+
+
+    @Test
+    public void findbyid() {
+        EmployeeDao dao=new EmployeeDao();
+        Employee tmp =dao.findbyid();
+        System.out.println(tmp);
+    }
 }

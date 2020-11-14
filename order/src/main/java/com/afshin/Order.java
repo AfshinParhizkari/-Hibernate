@@ -32,7 +32,7 @@ public class Order {
     @Column(name = "customerNumber")
     private Integer customerNumber;
 
-    @OneToMany(mappedBy = "orderNumber")
+    @OneToMany(mappedBy = "order")
     private List<Orderdetails> orderdetails;
 
 

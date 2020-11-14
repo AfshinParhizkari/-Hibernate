@@ -11,4 +11,9 @@ public class EmployeeDao {
         Session neshast = Mysession.getsession();
         return neshast.createQuery("from Employee ").list();
     }
+
+    public Employee findbyid(){
+        Session neshast = Mysession.getsession();
+        return neshast.find(Employee.class,1143);
+    }
 }

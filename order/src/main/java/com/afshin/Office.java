@@ -38,7 +38,7 @@ public class Office {
     @Column(name = "territory")
     private String territory;
 
-    @OneToMany(mappedBy = "officeCode")
+    @OneToMany(mappedBy = "office")
     private List<Employee> employees;
 
     public String getOfficeCode() {
@@ -133,7 +133,7 @@ public class Office {
                 ", country='" + country + '\'' +
                 ", postalCode='" + postalCode + '\'' +
                 ", territory='" + territory + '\'' +
-                ", employees=" + employees +
+                //", employees=" + employees +
                 '}';
     }
 }

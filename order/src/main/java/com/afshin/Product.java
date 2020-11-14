@@ -43,7 +43,7 @@ public class Product {
     @JoinColumn(name = "productLine" ,insertable = false,updatable = false)
     private Productline productline;
 
-    @OneToMany(mappedBy = "productCode")
+    @OneToMany(mappedBy = "product")
     private List<Orderdetails> orderdetailsList;
 
     public String getProductCode() {

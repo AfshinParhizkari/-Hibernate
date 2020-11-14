@@ -50,8 +50,12 @@ public class Customer {
     @Column(name = "creditLimit")
     private BigDecimal creditLimit;
 
-    @OneToMany(mappedBy = "customerNumber")
+    @OneToMany(mappedBy = "customer")
     private List<Payment> payments;
+
+    @ManyToOne
+    @JoinColumn(name = "salesRepEmployeeNumber",referencedColumnName = "employeeNumber",insertable = false,updatable = false)
+    private Employee employee;
 
 
     public Integer getCustomerNumber() {
@@ -164,6 +168,14 @@ public class Customer {
 
     public void setPayments(List<Payment> payments) {
         this.payments = payments;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.afshin;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "employees")
@@ -38,7 +39,14 @@ public class Employee {
     @JoinColumn(name = "officeCode",insertable = false,updatable = false)
     private Office office;
 
+    @OneToMany(mappedBy = "employee")
+    private List<Customer> customers;
 
+//    @ManyToMany
+//    private List<Employee> managers;
+//
+//    @ManyToMany(mappedBy = "managers")
+//    private List<Employee> employeeList;
 
     public Integer getEmployeeNumber() {
         return employeeNumber;
@@ -112,6 +120,30 @@ public class Employee {
         this.office = office;
     }
 
+    public List<Customer> getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(List<Customer> customers) {
+        this.customers = customers;
+    }
+
+//    public List<Employee> getManagers() {
+//        return managers;
+//    }
+//
+//    public void setManagers(List<Employee> managers) {
+//        this.managers = managers;
+//    }
+//
+//    public List<Employee> getEmployeeList() {
+//        return employeeList;
+//    }
+//
+//    public void setEmployeeList(List<Employee> employeeList) {
+//        this.employeeList = employeeList;
+//    }
+
     @Override
     public String toString() {
         return "Employee{" +
@@ -123,7 +155,8 @@ public class Employee {
                 ", officeCode='" + officeCode + '\'' +
                 ", reportsTo=" + reportsTo +
                 ", jobTitle='" + jobTitle + '\'' +
-                //", office=" + office +
+                ", office=" + office +
+                ", customers=" + customers +
                 '}';
     }
 }

@@ -23,7 +23,7 @@ public class Productline {
     @Column(name = "image")
     private byte[] image;
 
-    @OneToMany(mappedBy = "productLine")
+    @OneToMany(mappedBy = "productline")
     private List<Product> products;
 
     public String getProductLine() {
