@@ -3,16 +3,17 @@ package com.afshin;
 import java.io.Serializable;
 
 public class OrderdetailsPK implements Serializable {
+
     public OrderdetailsPK() {
     }
 
-    public OrderdetailsPK(Integer orderNumber, String productCode) {
+    public OrderdetailsPK(Integer orderNumber, Integer productCode) {
         this.orderNumber = orderNumber;
         this.productCode = productCode;
     }
 
     private Integer orderNumber;
-    private String productCode;
+    private Integer productCode;
 
     public Integer getOrderNumber() {
         return orderNumber;
@@ -22,11 +23,12 @@ public class OrderdetailsPK implements Serializable {
         this.orderNumber = orderNumber;
     }
 
-    public String getProductCode() {
+    public Integer getProductCode() {
         return productCode;
     }
 
-    public void setProductCode(String productCode) {
+    public void setProductCode(Integer productCode) {
         this.productCode = productCode;
     }
+
 }

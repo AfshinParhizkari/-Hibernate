@@ -2,6 +2,7 @@ package com.afshin;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "orderdetails")
@@ -16,7 +17,7 @@ public class Orderdetails {
 
     @Id
     @Column(name = "productCode")
-    private String productCode;
+    private Integer productCode;
 
     @Column(name = "quantityOrdered")
     private Integer quantityOrdered;
@@ -27,9 +28,13 @@ public class Orderdetails {
     @Column(name = "orderLineNumber")
     private Integer orderLineNumber;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "orderNumber",insertable = false,updatable = false)
     private Order order;
+
+    @ManyToOne
+    @JoinColumn(name = "productCode",insertable = false,updatable = false)
+    private Product product;
 
     public Integer getOrderNumber() {
         return orderNumber;
@@ -39,11 +44,11 @@ public class Orderdetails {
         this.orderNumber = orderNumber;
     }
 
-    public String getProductCode() {
+    public Integer getProductCode() {
         return productCode;
     }
 
-    public void setProductCode(String productCode) {
+    public void setProductCode(Integer productCode) {
         this.productCode = productCode;
     }
 
@@ -79,16 +84,22 @@ public class Orderdetails {
         this.order = order;
     }
 
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
     @Override
     public String toString() {
         return "Orderdetails{" +
                 "orderNumber=" + orderNumber +
-                ", productCode='" + productCode + '\'' +
+                ", productCode=" + productCode +
                 ", quantityOrdered=" + quantityOrdered +
                 ", priceEach=" + priceEach +
                 ", orderLineNumber=" + orderLineNumber +
-                //", order=" + order +
                 '}';
     }
 }
-

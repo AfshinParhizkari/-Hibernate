@@ -2,6 +2,7 @@ package com.afshin;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -41,6 +42,9 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "productLine" ,insertable = false,updatable = false)
     private Productline productline;
+
+    @OneToMany(mappedBy = "productCode")
+    private List<Orderdetails> orderdetailsList;
 
     public String getProductCode() {
         return productCode;
@@ -120,6 +124,14 @@ public class Product {
 
     public void setProductline(Productline productline) {
         this.productline = productline;
+    }
+
+    public List<Orderdetails> getOrderdetailsList() {
+        return orderdetailsList;
+    }
+
+    public void setOrderdetailsList(List<Orderdetails> orderdetailsList) {
+        this.orderdetailsList = orderdetailsList;
     }
 
     @Override

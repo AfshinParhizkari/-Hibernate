@@ -38,6 +38,8 @@ public class Employee {
     @JoinColumn(name = "officeCode",insertable = false,updatable = false)
     private Office office;
 
+
+
     public Integer getEmployeeNumber() {
         return employeeNumber;
     }
