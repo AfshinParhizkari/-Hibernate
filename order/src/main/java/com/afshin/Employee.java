@@ -5,10 +5,22 @@ import java.util.List;
 
 @Entity
 @Table(name = "employees")
+@NamedQueries({
+        @NamedQuery(name = "JoinEmployeeMitOffice",query = "Select o from Employee o inner join fetch o.customers"),
+        @NamedQuery(name = "CountGroup",query = "Select o.officeCode, count(o.employeeNumber) from Employee o " +
+                "group by o.officeCode order by o.officeCode"),
+        //parameterized query: named parameter
+        @NamedQuery(name = "Selectedquery",query = "select o.employeeNumber,o.firstName,o.lastName " +
+                "from Employee o"+" where o.employeeNumber=:empnum"
+        )
+})
 public class Employee {
 
     public Employee() {
     }
+
+    @Transient
+        private Integer count;
 
     @Id
     @Column(name = "employeeNumber")
@@ -42,11 +54,12 @@ public class Employee {
     @OneToMany(mappedBy = "employee")
     private List<Customer> customers;
 
-//    @ManyToMany
-//    private List<Employee> managers;
-//
-//    @ManyToMany(mappedBy = "managers")
-//    private List<Employee> employeeList;
+    @OneToMany(mappedBy = "manager")
+    private List<Employee> employeeList;
+
+    @ManyToOne()
+    @JoinColumn(name = "reportsTo",referencedColumnName = "employeeNumber",insertable = false,updatable = false)
+    private Employee manager;
 
     public Integer getEmployeeNumber() {
         return employeeNumber;
@@ -128,21 +141,21 @@ public class Employee {
         this.customers = customers;
     }
 
-//    public List<Employee> getManagers() {
-//        return managers;
-//    }
-//
-//    public void setManagers(List<Employee> managers) {
-//        this.managers = managers;
-//    }
-//
-//    public List<Employee> getEmployeeList() {
-//        return employeeList;
-//    }
-//
-//    public void setEmployeeList(List<Employee> employeeList) {
-//        this.employeeList = employeeList;
-//    }
+    public List<Employee> getEmployeeList() {
+        return employeeList;
+    }
+
+    public void setEmployeeList(List<Employee> employeeList) {
+        this.employeeList = employeeList;
+    }
+
+    public Employee getManager() {
+        return manager;
+    }
+
+    public void setManager(Employee manager) {
+        this.manager = manager;
+    }
 
     @Override
     public String toString() {
@@ -155,8 +168,10 @@ public class Employee {
                 ", officeCode='" + officeCode + '\'' +
                 ", reportsTo=" + reportsTo +
                 ", jobTitle='" + jobTitle + '\'' +
-                ", office=" + office +
-                ", customers=" + customers +
+//                "\n, office=" + office +
+//                "\n, customers=" + customers +
+//               "\n, employeeList=" + employeeList +
+//                "\n, manager=" + manager +
                 '}';
     }
 }
