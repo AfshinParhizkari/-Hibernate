@@ -7,10 +7,4 @@ public class OrderDao {
     public OrderDao() {
     }
 
-    public List<Order> findall(){
-        Session neshast = Mysession.getsession();
-        return neshast.createQuery("from Order ").list();
-    }
-
-
 }

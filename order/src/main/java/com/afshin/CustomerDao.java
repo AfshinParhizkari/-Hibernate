@@ -10,8 +10,4 @@ public class CustomerDao {
     public CustomerDao() {
     }
 
-    public List<Customer> findall() {
-        Session neshast = Mysession.getsession();
-        return neshast.createQuery("from Customer ").list();
-    }
 }

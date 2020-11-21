@@ -11,8 +11,9 @@ public class EmployeeDao {
     //ExecuteQuery
     public EmployeeDao() {}
     public List<Employee> findall(){
-        Query query = neshast.createQuery("from Employee");
-        return query.list();
+        try(Session localneshast=Mysession.getsession();) { //try with Resources
+            return neshast.createQuery("from Employee").list();
+        }
     }
     public Employee findbyid(Integer empnum){
         return neshast.find(Employee.class, empnum);

@@ -10,6 +10,11 @@ public class Productline {
     public Productline() {
     }
 
+    public Productline(String productLine, String textDescription) {
+        this.productLine = productLine;
+        this.textDescription = textDescription;
+    }
+
     @Id
     @Column(name = "productLine")
     private String productLine;
