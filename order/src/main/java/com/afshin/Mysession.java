@@ -4,10 +4,15 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 
 public class Mysession {
 
     private static final SessionFactory session;
+    private static EntityManagerFactory entityManagerFactory = null;
 
     static {
         try {
@@ -34,4 +39,19 @@ public class Mysession {
     public static void closesession() {
         session.getCurrentSession().close();
     }
+
+    public static EntityManager getEntityManager() {
+        try {
+            entityManagerFactory = Persistence.createEntityManagerFactory("persistenceorder");
+            return entityManagerFactory.createEntityManager();
+        }catch (Exception e) {
+            System.out.print(e.toString());
+            // TODO: handle exception
+        }
+        finally {
+            return null;
+        }
+    }
+
+
 }

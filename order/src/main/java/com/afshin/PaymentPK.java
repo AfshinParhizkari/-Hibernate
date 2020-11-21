@@ -2,6 +2,7 @@ package com.afshin;
 
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class PaymentPK implements Serializable {
     public PaymentPK() {
@@ -23,4 +24,17 @@ public class PaymentPK implements Serializable {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PaymentPK paymentPK = (PaymentPK) o;
+        return Objects.equals(customerNumber, paymentPK.customerNumber) &&
+                Objects.equals(checkNumber, paymentPK.checkNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(customerNumber, checkNumber);
+    }
 }
