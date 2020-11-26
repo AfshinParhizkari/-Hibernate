@@ -16,11 +16,34 @@ public class ProductlineTest {
 	}
 	@Test
 	public void someColumnTest() {
-		List<Productline> productlines = productlineDao.someColumn();
-		for (Productline productline:productlines){System.out.println(productline);}
-/*		for (int i = 0; i < productlines.size(); i++) {
-			Object[] row = (Object[]) productlines.get(i);
+		List<?> list= productlineDao.someColumn();
+		for (int i = 0; i < list.size(); i++) {
+			Object[] row = (Object[]) list.get(i);
 			System.out.println(row[0] + ", " + row[1]);
-		}*/
+		}
+	}
+	@Test
+	public void whereClauseTest() {
+		List<?> list= productlineDao.whereClause("Ships");
+		for (int i = 0; i < list.size(); i++) {
+			Object[] row = (Object[]) list.get(i);
+			System.out.println(row[0] + ", " + row[1]);
+		}
+	}
+	@Test
+	public void aggregationTest() {
+		List<?> list= productlineDao.aggregation();
+		for (int i = 0; i < list.size(); i++) {
+			Object[] row = (Object[]) list.get(i);
+			System.out.println(row[0] + ", " + row[1]);
+		}
+	}
+	@Test
+	public void joinedQueryTest() {
+		List<?> list= productlineDao.joinedQuery();
+		for (int i = 0; i < list.size(); i++) {
+			Object[] row = (Object[]) list.get(i);
+			System.out.println(row[0] + ", " + row[1]+ ", " + row[2]+ ", " + row[3]);
+		}
 	}
 }
