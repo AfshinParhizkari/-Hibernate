@@ -6,7 +6,7 @@ package com.afshin;
  * @Time 5:59 AM
  * Created by   IntelliJ IDEA
  * Email:       Afshin.Parhizkari@gmail.com
- * Description:
+ * Description: Hibernate - Criteria(discontinue)
  */
 import org.hibernate.Session;
 

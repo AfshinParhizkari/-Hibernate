@@ -6,7 +6,7 @@ package com.afshin;
  * @Time 5:59 AM
  * Created by   IntelliJ IDEA
  * Email:       Afshin.Parhizkari@gmail.com
- * Description: JPA Criteria
+ * Description: JPA - Criteria
  */
 import java.util.List;
 import javax.persistence.EntityManager;

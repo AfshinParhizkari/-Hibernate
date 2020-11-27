@@ -6,7 +6,7 @@ package com.afshin;
  * @Time 5:59 AM
  * Created by   IntelliJ IDEA
  * Email:       Afshin.Parhizkari@gmail.com
- * Description:
+ * Description: JPA - Criteria
  */
 import org.hibernate.Session;
 
