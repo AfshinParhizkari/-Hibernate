@@ -1,16 +1,25 @@
 package com.afshin;
-
+/**
+ * @Project order
+ * @Author Afshin Parhizkari
+ * @Date 2020 - 11 - 27
+ * @Time 5:59 AM
+ * Created by   IntelliJ IDEA
+ * Email:       Afshin.Parhizkari@gmail.com
+ * Description: JPA Criteria
+ */
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
+import javax.persistence.metamodel.CollectionAttribute;
 
 
 public class ProductlineDao {
-	EntityManager entityManager=Myentitymanager.getEntityManager();//manage entities : Session
-	CriteriaBuilder criteriaBuilder=entityManager.getCriteriaBuilder();
+	EntityManager entityManager=Myentitymanager.getEntityManager();//manage entities : Session created by factory
+	CriteriaBuilder criteriaBuilder=entityManager.getCriteriaBuilder(); // Build contract template
 
 	public List<Productline> findall()	{
 		CriteriaQuery<Productline> cq =entityManager.getCriteriaBuilder().createQuery(Productline.class); // recognize Entity
@@ -50,16 +59,15 @@ public class ProductlineDao {
 		Query q=entityManager.createQuery(criteriaQuery);
 		return q.getResultList();
 	}
-
-	//Not working yet!
 	public List<?> joinedQuery(){
 		CriteriaQuery criteriaQuery=criteriaBuilder.createQuery();
-		Root<Product> p=criteriaQuery.from(Product.class);
-		Root<Productline> pl=criteriaQuery.from(Productline.class);
-		//Join<Product,Productline> associate= p.join("ProductLine");
-
-
-		criteriaQuery.multiselect(p.get("productCode"),p.get("productName"),p.get("productLine"),pl.get("productLine"));
+		//Root<Product> p=criteriaQuery.from(Product.class);
+		Root<Productline> pl=criteriaQuery.from(Productline.class); //Root Class
+		Join<Productline,Product> product= pl.join("products"); // inner join : OneToManyAttribute existed in Productline class
+		criteriaQuery.multiselect(product.get("productCode"),product.get("productName"),
+				product.get("productLine"),pl.get("productLine"));
+		criteriaQuery.where(criteriaBuilder.equal(product.get("productLine"),pl.get("productLine"))); // on Product.productLine= pl.productLine
 		return entityManager.createQuery(criteriaQuery).getResultList();
 	}
+
 }

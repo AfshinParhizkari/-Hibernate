@@ -1,5 +1,13 @@
 package com.afshin;
-
+/**
+ * @Project order
+ * @Author Afshin Parhizkari
+ * @Date 2020 - 11 - 27
+ * @Time 5:59 AM
+ * Created by   IntelliJ IDEA
+ * Email:       Afshin.Parhizkari@gmail.com
+ * Description:
+ */
 import javax.persistence.*;
 import java.util.Arrays;
 import java.util.List;
@@ -9,12 +17,6 @@ import java.util.List;
 public class Productline {
     public Productline() {
     }
-
-    public Productline(String productLine, String textDescription) {
-        this.productLine = productLine;
-        this.textDescription = textDescription;
-    }
-
     @Id
     @Column(name = "productLine")
     private String productLine;
