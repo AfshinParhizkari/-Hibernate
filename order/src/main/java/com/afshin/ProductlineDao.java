@@ -8,10 +8,7 @@ package com.afshin;
  * Email:       Afshin.Parhizkari@gmail.com
  * Description: JPA Criteria
  */
-import org.hibernate.Transaction;
-
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.criteria.*;
@@ -20,7 +17,7 @@ import javax.persistence.criteria.*;
 public class ProductlineDao {
 	EntityManager entityManager=Myentitymanager.getEntityManager();//manage entities : Session created by factory
 	CriteriaBuilder criteriaBuilder=entityManager.getCriteriaBuilder(); // Build contract template
-	//ExecuteQuery
+	//ExecuteQuery : Criteria
 	public List<Productline> findall()	{
 		CriteriaQuery<Productline> cq =entityManager.getCriteriaBuilder().createQuery(Productline.class); // recognize Entity
 		Root<Productline> pl=cq.from(Productline.class); //alias from Entity(in HQL : from productline pl)
@@ -32,8 +29,8 @@ public class ProductlineDao {
 		 */
 		return entityManager.createQuery(myselect).getResultList();
 	}
-	public Productline findbyid(String key){
-		return entityManager.find(Productline.class,key);
+	public Productline findbyid(String userInput){
+		return entityManager.find(Productline.class,userInput);
 	}
 	public List<?> someColumn(){
 		CriteriaQuery<?> criteriaQuery=criteriaBuilder.createQuery();
@@ -47,7 +44,7 @@ public class ProductlineDao {
 	public List<?> whereClause(String input){
 		CriteriaQuery<?> criteriaQuery=criteriaBuilder.createQuery();
 		Root<?> pl=criteriaQuery.from(Productline.class);
-		criteriaQuery.orderBy(criteriaBuilder.desc(pl.get("productLine")));
+		//criteriaQuery.orderBy(criteriaBuilder.desc(pl.get("productLine")));
 		criteriaQuery.where(criteriaBuilder.equal(pl.get("productLine"),input));
 		criteriaQuery.multiselect(pl.get("productLine"),pl.get("textDescription"));
 		Query q=entityManager.createQuery(criteriaQuery);
@@ -73,7 +70,7 @@ public class ProductlineDao {
 		return entityManager.createQuery(criteriaQuery).getResultList();
 	}
 
-	//ExecuteUpdate
+	//ExecuteUpdate : JPA
 	public void insert(Productline productline){
 		entityManager.getTransaction().begin();
 		entityManager.persist(productline);

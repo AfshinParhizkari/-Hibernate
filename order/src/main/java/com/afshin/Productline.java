@@ -71,7 +71,6 @@ public class Productline {
                 "productLine='" + productLine + '\'' +
                 ", textDescription='" + textDescription + '\'' +
                 ", htmlDescription='" + htmlDescription + '\'' +
-                ", image=" + Arrays.toString(image) +
                 '}';
     }
 }

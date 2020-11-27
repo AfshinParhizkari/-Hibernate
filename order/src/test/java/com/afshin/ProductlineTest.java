@@ -3,6 +3,14 @@ package com.afshin;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.sql.Blob;
 import java.util.List;
 /**
  * @Project order
@@ -66,7 +74,12 @@ public class ProductlineTest {
 		pl.setProductLine("airplane");
 		pl.setTextDescription("B50");
 		pl.setHtmlDescription("https://github.com/AfshinParhizkari");
-		pl.setImage(null);
+		try{
+		//System.out.println(Paths.get("").toAbsolutePath().toString());
+		pl.setImage(Files.readAllBytes(Paths.get("b52.jpg").toAbsolutePath()));
+		}catch (Exception e) {
+			System.out.println(e.toString());
+		}
 		productlineDao.insert(pl);
 		System.out.println(productlineDao.findbyid("airplane"));
 	}
