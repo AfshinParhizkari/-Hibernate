@@ -8,19 +8,19 @@ package com.afshin;
  * Email:       Afshin.Parhizkari@gmail.com
  * Description: JPA Criteria
  */
+import org.hibernate.Transaction;
+
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
-import javax.persistence.metamodel.CollectionAttribute;
 
 
 public class ProductlineDao {
 	EntityManager entityManager=Myentitymanager.getEntityManager();//manage entities : Session created by factory
 	CriteriaBuilder criteriaBuilder=entityManager.getCriteriaBuilder(); // Build contract template
-
+	//ExecuteQuery
 	public List<Productline> findall()	{
 		CriteriaQuery<Productline> cq =entityManager.getCriteriaBuilder().createQuery(Productline.class); // recognize Entity
 		Root<Productline> pl=cq.from(Productline.class); //alias from Entity(in HQL : from productline pl)
@@ -31,6 +31,9 @@ public class ProductlineDao {
 			return productlines;
 		 */
 		return entityManager.createQuery(myselect).getResultList();
+	}
+	public Productline findbyid(String key){
+		return entityManager.find(Productline.class,key);
 	}
 	public List<?> someColumn(){
 		CriteriaQuery<?> criteriaQuery=criteriaBuilder.createQuery();
@@ -68,6 +71,24 @@ public class ProductlineDao {
 				product.get("productLine"),pl.get("productLine"));
 		criteriaQuery.where(criteriaBuilder.equal(product.get("productLine"),pl.get("productLine"))); // on Product.productLine= pl.productLine
 		return entityManager.createQuery(criteriaQuery).getResultList();
+	}
+
+	//ExecuteUpdate
+	public void insert(Productline productline){
+		entityManager.getTransaction().begin();
+		entityManager.persist(productline);
+		entityManager.getTransaction().commit();
+	}
+	public void update(Productline pl){
+		entityManager.getTransaction().begin();
+		pl.setTextDescription(pl.getTextDescription());
+		pl.setHtmlDescription(pl.getHtmlDescription());
+		entityManager.getTransaction().commit();
+	}
+	public void delete(Productline productline){
+		entityManager.getTransaction().begin();
+		entityManager.remove(productline);
+		entityManager.getTransaction().commit();
 	}
 
 }

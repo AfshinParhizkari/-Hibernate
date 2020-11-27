@@ -23,6 +23,11 @@ public class ProductlineTest {
         Assert.assertEquals("Productline count" ,productlines.size()==7,true);
 	}
 	@Test
+	public void findbyidTest(){
+		Productline pl =new Productline();
+		System.out.println(productlineDao.findbyid("Planes"));
+	}
+	@Test
 	public void someColumnTest() {
 		List<?> list= productlineDao.someColumn();
 		for (int i = 0; i < list.size(); i++) {
@@ -53,5 +58,30 @@ public class ProductlineTest {
 			Object[] row = (Object[]) list.get(i);
 			System.out.println(row[0] + ", " + row[1]+ ", " + row[2]+ ", " + row[3]);
 		}
+	}
+
+	@Test
+	public void insertTest(){
+		Productline pl=new Productline();
+		pl.setProductLine("airplane");
+		pl.setTextDescription("B50");
+		pl.setHtmlDescription("https://github.com/AfshinParhizkari");
+		pl.setImage(null);
+		productlineDao.insert(pl);
+		System.out.println(productlineDao.findbyid("airplane"));
+	}
+	@Test
+	public void updateTest(){
+		Productline pl=productlineDao.findbyid("airplane");
+		pl.setTextDescription("updated B50");
+		pl.setHtmlDescription("https://www.linkedin.com/in/afshin-parhizkari/");
+		pl.setImage(pl.getImage());
+		productlineDao.update(pl);
+		System.out.println(productlineDao.findbyid("airplane"));
+	}
+	@Test
+	public void deleteTest(){
+		Productline pl=productlineDao.findbyid("airplane");
+		productlineDao.delete(pl);
 	}
 }
