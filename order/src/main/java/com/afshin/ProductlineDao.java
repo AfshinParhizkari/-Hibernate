@@ -13,7 +13,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.criteria.*;
 
-
 public class ProductlineDao {
 	EntityManager entityManager=Myentitymanager.getEntityManager();//manage entities : Session created by factory
 	CriteriaBuilder criteriaBuilder=entityManager.getCriteriaBuilder(); // Build contract template
@@ -87,5 +86,4 @@ public class ProductlineDao {
 		entityManager.remove(productline);
 		entityManager.getTransaction().commit();
 	}
-
 }

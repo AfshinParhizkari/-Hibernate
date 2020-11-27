@@ -9,7 +9,6 @@ package com.afshin;
  * Description:
  */
 import javax.persistence.*;
-import java.util.Arrays;
 import java.util.List;
 
 @Entity
