@@ -1,11 +1,5 @@
 package com.afshin;
 
-import org.junit.Test;
-
-import java.util.List;
-
-import static org.junit.Assert.*;
-
 /**
  * @Project order
  * @Author Afshin Parhizkari
@@ -15,6 +9,12 @@ import static org.junit.Assert.*;
  * Email:       Afshin.Parhizkari@gmail.com
  * Description: Hibernate - Criteria(discontinue)
  */
+import org.junit.Test;
+
+import java.util.List;
+
+import static org.junit.Assert.*;
+
 public class OfficeDaoTest {
     OfficeDao dao=new OfficeDao();
     //ExecuteQuery

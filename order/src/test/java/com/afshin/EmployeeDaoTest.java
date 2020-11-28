@@ -17,24 +17,24 @@ public class EmployeeDaoTest {
     EmployeeDao dao=new EmployeeDao();
     //ExecuteQuery
     @Test
-    public void findall() {
+    public void findallTest() {
         List<Employee> List =dao.findall();
         for(Employee tmp:List)
         {System.out.println(tmp);}
     }
     @Test
-    public void findbyid() {
+    public void findbyidTest() {
         Employee tmp =dao.findbyid(1143);
         System.out.println(tmp);
     }
     @Test
-    public void joinedQuey() {
+    public void joinedQueyTest() {
         List<Employee> List =dao.joinedQuey();
         for(Employee tmp:List)
         {System.out.println(tmp);}
     }
     @Test
-    public void aggregation() {
+    public void aggregationTest() {
         List<?> list = dao.aggregation();
         for (int i = 0; i < list.size(); i++) {
             Object[] row = (Object[]) list.get(i);
@@ -42,7 +42,7 @@ public class EmployeeDaoTest {
         }
     }
     @Test
-    public void parameterized() {
+    public void parameterizedTest() {
         List<?> list = dao.parameterized(1143);
         for (int i = 0; i < list.size(); i++) {
             Object[] row = (Object[]) list.get(i);
