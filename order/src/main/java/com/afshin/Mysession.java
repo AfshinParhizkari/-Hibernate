@@ -35,6 +35,7 @@ public class Mysession {
 
     public static Session getsession() {
         return session.openSession();
+        //return session.getCurrentSession();
     }
     public static void closesession() {
         session.getCurrentSession().close();
