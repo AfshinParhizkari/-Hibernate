@@ -82,7 +82,7 @@ public class Payment {
         return "Payment{" +
                 "customerNumber=" + customerNumber +
                 ", checkNumber='" + checkNumber + '\'' +
-                ", paymentDate=" + paymentDate +
+                ", Shamsi_paymentDate=" + GregorianDate.miladi2shamsi(paymentDate) +
                 ", amount=" + amount +
                 ", customer=" + customer +
                 '}';
