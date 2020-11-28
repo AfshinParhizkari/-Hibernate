@@ -82,7 +82,8 @@ public class Payment {
         return "Payment{" +
                 "customerNumber=" + customerNumber +
                 ", checkNumber='" + checkNumber + '\'' +
-                ", Shamsi_paymentDate=" + GregorianDate.miladi2shamsi(paymentDate) +
+                ", Miladi_paymentDate=" + GregorianDate.miladiStr(paymentDate) +
+                ", Shamsi_paymentDate=" + GregorianDate.shamsiStr(GregorianDate.miladi2shamsi(paymentDate)) +
                 ", amount=" + amount +
                 ", customer=" + customer +
                 '}';

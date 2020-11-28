@@ -45,23 +45,29 @@ public class PaymentDaoTest {
         Payment p=new Payment();
         p.setCustomerNumber(496);
         p.setCheckNumber("FN155234");
-        p.setPaymentDate(new Date());
+        p.setPaymentDate(GregorianDate.shamsi2miladi(1399,9-1,8));
         p.setAmount(new BigDecimal(10000.50));
         int tmp =dao.insert(p);
-        if(tmp>0) System.out.println("1 row affected"); else System.out.println("Error!");
+        if(tmp>0){
+            System.out.println("1 row affected");
+            System.out.println(dao.findbyid(496,"FN155234"));
+        } else System.out.println("Error!");
     }
     @Test
     public void updateTest(){
         Payment p=dao.findbyid(496,"FN155234");
-        p.setPaymentDate(new Date(2020-1900,00,30));
+        p.setPaymentDate(GregorianDate.shamsi2miladi(1400,8-1,15));
         p.setAmount(new BigDecimal(15000));
         int tmp =dao.update(p);
-        if(tmp>0) System.out.println("1 row affected"); else System.out.println("Error!");
+        if(tmp>0){
+            System.out.println("1 row affected");
+            System.out.println(dao.findbyid(496,"FN155234"));
+        }  else System.out.println("Error!");
     }
     @Test
     public void deleteTest(){
         Payment p=dao.findbyid(496,"FN155234");
-        int tmp =dao.update(p);
+        int tmp =dao.delete(p);
         if(tmp>0) System.out.println("1 row affected"); else System.out.println("Error!");
     }
 }

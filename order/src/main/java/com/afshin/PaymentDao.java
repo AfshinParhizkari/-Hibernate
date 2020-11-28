@@ -74,7 +74,7 @@ public class PaymentDao {
             return rowaffect;
         }
     }
-    public int deleteTest(Payment payment) {
+    public int delete(Payment payment) {
         try (Session localneshast = Mysession.getsession();) { //try with Resources
             localneshast.beginTransaction();
             SQLQuery query = localneshast.createSQLQuery(
