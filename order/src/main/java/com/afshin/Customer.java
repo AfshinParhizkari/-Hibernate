@@ -14,6 +14,16 @@ import java.util.List;
 
 @Entity
 @Table(name = "customers")
+@NamedQueries({
+        @NamedQuery(name = "JoinCustomerMitOrder",query = "Select c.customerNumber,c.country,o.customerNumber,o.status from" +
+                " Customer c inner join c.orders o where c.customerNumber=o.customerNumber"),
+        @NamedQuery(name = "AggrigateCustCountry",query = "Select c.country, count(c), sum(c.creditLimit), " +
+                "avg(c.creditLimit), min(c.creditLimit),max(c.creditLimit) from Customer c group by c.country"),
+        //parameterized query: named parameter
+        @NamedQuery(name = "Multiselect",query = "select c.customerNumber,c.customerName,c.city " +
+                "from Customer c"+" where c.customerName=:custname"
+        )
+})
 public class Customer {
     public Customer() {
     }
@@ -64,6 +74,9 @@ public class Customer {
     @ManyToOne
     @JoinColumn(name = "salesRepEmployeeNumber",referencedColumnName = "employeeNumber",insertable = false,updatable = false)
     private Employee employee;
+
+    @OneToMany(mappedBy = "customer")
+    private  List<Order> orders;
 
 
     public Integer getCustomerNumber() {

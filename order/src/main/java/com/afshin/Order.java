@@ -43,6 +43,10 @@ public class Order {
     @OneToMany(mappedBy = "order")
     private List<Orderdetails> orderdetails;
 
+    @ManyToOne
+    @JoinColumn(name = "customerNumber",referencedColumnName = "customerNumber",insertable = false,updatable = false)
+    private Customer customer;
+
 
     public Integer getOrderNumber() {
         return orderNumber;

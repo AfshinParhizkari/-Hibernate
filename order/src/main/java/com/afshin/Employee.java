@@ -14,7 +14,7 @@ import java.util.List;
 @Entity
 @Table(name = "employees")
 @NamedQueries({
-        @NamedQuery(name = "JoinEmployeeMitOffice",query = "Select o from Employee o inner join fetch o.customers"),
+        @NamedQuery(name = "JoinEmployeeMitOffice",query = "Select o,c from Employee o inner join fetch o.customers c where o.employeeNumber=c.salesRepEmployeeNumber"),
         @NamedQuery(name = "CountGroup",query = "Select o.officeCode, count(o.employeeNumber) from Employee o " +
                 "group by o.officeCode order by o.officeCode"),
         //parameterized query: named parameter
@@ -177,7 +177,7 @@ public class Employee {
                 ", reportsTo=" + reportsTo +
                 ", jobTitle='" + jobTitle + '\'' +
 //                "\n, office=" + office +
-//                "\n, customers=" + customers +
+                "\n, customers=" + customers +
 //               "\n, employeeList=" + employeeList +
 //                "\n, manager=" + manager +
                 '}';
