@@ -154,7 +154,7 @@ public class Product {
                 ", quantityInStock=" + quantityInStock +
                 ", buyPrice=" + buyPrice +
                 ", MSRP=" + MSRP +
-                ", productline=" + productline +
+                "\n, productline=" + productline +
                 '}';
     }
 }
