@@ -18,15 +18,13 @@ public class ProductlineDao {
 	CriteriaBuilder criteriaBuilder=entityManager.getCriteriaBuilder(); // Build contract template
 	//ExecuteQuery : Criteria
 	public List<Productline> findall()	{
-		CriteriaQuery<Productline> cq =entityManager.getCriteriaBuilder().createQuery(Productline.class); // recognize Entity
-		Root<Productline> pl=cq.from(Productline.class); //alias from Entity(in HQL : from productline pl)
-		CriteriaQuery<Productline> myselect=cq.select(pl); // in HQL select pl
-		/*
-			Query q=entityManager.createQuery(myselect);
-			List<Productline> productlines=q.getResultList();
-			return productlines;
-		 */
-		return entityManager.createQuery(myselect).getResultList();
+		CriteriaQuery<Productline> criteriaQuery =entityManager.getCriteriaBuilder().createQuery(Productline.class); // recognize Entity
+		Root<Productline> pl=criteriaQuery.from(Productline.class); //alias from Entity(in HQL : from productline pl)
+		criteriaQuery.select(pl); // in HQL select pl
+		criteriaQuery.orderBy(criteriaBuilder.desc(pl.get("productLine")));
+		Query q=entityManager.createQuery(criteriaQuery);//select pl from Productline pl
+		return q.getResultList();
+		//return entityManager.createQuery(myselect).getResultList();
 	}
 	public Productline findbyid(String userInput){
 		return entityManager.find(Productline.class,userInput);
@@ -34,8 +32,8 @@ public class ProductlineDao {
 	public List<?> someColumn(){
 		CriteriaQuery<?> criteriaQuery=criteriaBuilder.createQuery();
 		Root<?> pl=criteriaQuery.from(Productline.class);
-		CriteriaQuery<?> myselect= criteriaQuery.multiselect(pl.get("productLine"),pl.get("textDescription"));
-		Query q=entityManager.createQuery(myselect);
+		criteriaQuery.multiselect(pl.get("productLine"),pl.get("textDescription"));
+		Query q=entityManager.createQuery(criteriaQuery);
 		List<?> list=q.getResultList();
 		return list;
 		//return entityManager.createQuery(criteriaQuery).getResultList();
@@ -43,8 +41,7 @@ public class ProductlineDao {
 	public List<?> whereClause(String input){
 		CriteriaQuery<?> criteriaQuery=criteriaBuilder.createQuery();
 		Root<?> pl=criteriaQuery.from(Productline.class);
-		//criteriaQuery.orderBy(criteriaBuilder.desc(pl.get("productLine")));
-		criteriaQuery.where(criteriaBuilder.equal(pl.get("productLine"),input));
+		criteriaQuery.where(criteriaBuilder.equal(pl.get("productLine"),input)); //where pl.productLine=input
 		criteriaQuery.multiselect(pl.get("productLine"),pl.get("textDescription"));
 		Query q=entityManager.createQuery(criteriaQuery);
 		List<?> list=q.getResultList();
@@ -53,20 +50,21 @@ public class ProductlineDao {
 	}
 	public List<?> aggregation(){
 		CriteriaQuery<?> criteriaQuery=criteriaBuilder.createQuery();
-		Root<?> pl=criteriaQuery.from(Productline.class);
+		Root<?> pl=criteriaQuery.from(Productline.class); // from Productline pl
 		criteriaQuery.multiselect(pl.get("productLine"),criteriaBuilder.count(pl)).groupBy(pl.get("productLine"));
+		//select pl.productLine,count(pl) ..... group by pl.productLine
 		Query q=entityManager.createQuery(criteriaQuery);
 		return q.getResultList();
 	}
 	public List<?> joinedQuery(){
-		CriteriaQuery criteriaQuery=criteriaBuilder.createQuery();
-		//Root<Product> p=criteriaQuery.from(Product.class);
+		CriteriaQuery<?> criteriaQuery=criteriaBuilder.createQuery();
 		Root<Productline> pl=criteriaQuery.from(Productline.class); //Root Class
 		Join<Productline,Product> product= pl.join("products"); // inner join : OneToManyAttribute existed in Productline class
 		criteriaQuery.multiselect(product.get("productCode"),product.get("productName"),
 				product.get("productLine"),pl.get("productLine"));
-		criteriaQuery.where(criteriaBuilder.equal(product.get("productLine"),pl.get("productLine"))); // on Product.productLine= pl.productLine
-		return entityManager.createQuery(criteriaQuery).getResultList();
+		// on Product.productLine= pl.productLine
+		Query q=entityManager.createQuery(criteriaQuery);
+		return q.getResultList();
 	}
 
 	//ExecuteUpdate : JPA

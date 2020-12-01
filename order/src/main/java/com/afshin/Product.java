@@ -48,7 +48,7 @@ public class Product {
     private BigDecimal MSRP;
 
     @ManyToOne
-    @JoinColumn(name = "productLine" ,insertable = false,updatable = false)
+    @JoinColumn(name = "productLine",referencedColumnName = "productLine",insertable = false,updatable = false)
     private Productline productline;
 
     @OneToMany(mappedBy = "product")
