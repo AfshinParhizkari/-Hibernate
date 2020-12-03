@@ -25,7 +25,7 @@ public class Orderdetails {
 
     @Id
     @Column(name = "productCode")
-    private Integer productCode;
+    private String productCode;
 
     @Column(name = "quantityOrdered")
     private Integer quantityOrdered;
@@ -52,11 +52,11 @@ public class Orderdetails {
         this.orderNumber = orderNumber;
     }
 
-    public Integer getProductCode() {
+    public String getProductCode() {
         return productCode;
     }
 
-    public void setProductCode(Integer productCode) {
+    public void setProductCode(String productCode) {
         this.productCode = productCode;
     }
 

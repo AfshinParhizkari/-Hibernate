@@ -14,12 +14,13 @@ import java.util.List;
 @Entity
 @Table(name = "employees")
 @NamedQueries({
-        @NamedQuery(name = "JoinEmployeeMitOffice",query = "Select o,c from Employee o inner join fetch o.customers c where o.employeeNumber=c.salesRepEmployeeNumber"),
-        @NamedQuery(name = "CountGroup",query = "Select o.officeCode, count(o.employeeNumber) from Employee o " +
-                "group by o.officeCode order by o.officeCode"),
+        @NamedQuery(name = "JoinEmployeeMitOffice",query = "Select e from Employee e inner join fetch e.customers c" +
+                " where e.employeeNumber=c.salesRepEmployeeNumber"),
+        @NamedQuery(name = "CountGroup",query = "Select e.officeCode, count(e.employeeNumber) from Employee e " +
+                "group by e.officeCode order by e.officeCode"),
         //parameterized query: named parameter
-        @NamedQuery(name = "Selectedquery",query = "select o.employeeNumber,o.firstName,o.lastName " +
-                "from Employee o"+" where o.employeeNumber=:empnum"
+        @NamedQuery(name = "Selectedquery",query = "select e.employeeNumber,e.firstName,e.lastName " +
+                "from Employee e"+" where e.employeeNumber=:empnum"
         )
 })
 public class Employee {

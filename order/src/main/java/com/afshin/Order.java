@@ -116,13 +116,13 @@ public class Order {
     public String toString() {
         return "Order{" +
                 "orderNumber=" + orderNumber +
-                ", orderDate=" + orderDate +
-                ", requiredDate=" + requiredDate +
-                ", shippedDate=" + shippedDate +
+                //", orderDate=" + GregorianDate.shamsiStr(GregorianDate.miladi2shamsi(orderDate)) +
+                ", requiredDate=" + GregorianDate.shamsiStr(GregorianDate.miladi2shamsi(requiredDate)) +
+                //", shippedDate=" +GregorianDate.shamsiStr(GregorianDate.miladi2shamsi(shippedDate))+
                 ", status='" + status + '\'' +
                 ", comments='" + comments + '\'' +
                 ", customerNumber=" + customerNumber +
-                ", orderdetails=" + orderdetails +
+                //", orderdetails=" + orderdetails +
                 '}';
     }
 }

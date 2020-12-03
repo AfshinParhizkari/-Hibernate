@@ -16,13 +16,13 @@ public class OrderdetailsPK implements Serializable {
     public OrderdetailsPK() {
     }
 
-    public OrderdetailsPK(Integer orderNumber, Integer productCode) {
+    public OrderdetailsPK(Integer orderNumber, String productCode) {
         this.orderNumber = orderNumber;
         this.productCode = productCode;
     }
 
     private Integer orderNumber;
-    private Integer productCode;
+    private String productCode;
 
     public Integer getOrderNumber() {
         return orderNumber;
@@ -32,11 +32,11 @@ public class OrderdetailsPK implements Serializable {
         this.orderNumber = orderNumber;
     }
 
-    public Integer getProductCode() {
+    public String getProductCode() {
         return productCode;
     }
 
-    public void setProductCode(Integer productCode) {
+    public void setProductCode(String productCode) {
         this.productCode = productCode;
     }
 
