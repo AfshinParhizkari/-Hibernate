@@ -16,8 +16,7 @@ import java.util.List;
 @Table(name = "orderdetails")
 @IdClass(OrderdetailsPK.class)
 public class Orderdetails {
-    public Orderdetails() {
-    }
+    public Orderdetails() {}
 
     @Id
     @Column(name = "orderNumber")
@@ -37,11 +36,11 @@ public class Orderdetails {
     private Integer orderLineNumber;
 
     @ManyToOne
-    @JoinColumn(name = "orderNumber",insertable = false,updatable = false)
+    @JoinColumn(name = "orderNumber",referencedColumnName = "orderNumber",insertable = false,updatable = false)
     private Order order;
 
     @ManyToOne
-    @JoinColumn(name = "productCode",insertable = false,updatable = false)
+    @JoinColumn(name = "productCode",referencedColumnName = "productCode",insertable = false,updatable = false)
     private Product product;
 
     public Integer getOrderNumber() {
