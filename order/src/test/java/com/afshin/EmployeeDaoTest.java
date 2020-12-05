@@ -8,11 +8,12 @@ package com.afshin;
  * Email:       Afshin.Parhizkari@gmail.com
  * Description:
  */
+import com.afshin.Dao.EmployeeDao;
+import com.afshin.Entity.Employee;
 import org.junit.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
 public class EmployeeDaoTest {
     EmployeeDao dao=new EmployeeDao();
     //ExecuteQuery

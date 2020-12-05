@@ -1,4 +1,4 @@
-package com.afshin;
+package com.afshin.Entity;
 /**
  * @Project order
  * @Author Afshin Parhizkari
@@ -8,6 +8,7 @@ package com.afshin;
  * Email:       Afshin.Parhizkari@gmail.com
  * Description:
  */
+
 import javax.persistence.*;
 import java.util.List;
 

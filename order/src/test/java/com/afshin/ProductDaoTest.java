@@ -8,11 +8,12 @@ package com.afshin;
  * Email:       Afshin.Parhizkari@gmail.com
  * Description:
  */
+import com.afshin.Entity.Product;
+import com.afshin.Dao.ProductDao;
 import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.util.List;
-import static org.junit.Assert.*;
 
 public class ProductDaoTest {
     ProductDao dao=new ProductDao();

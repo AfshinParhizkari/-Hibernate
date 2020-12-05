@@ -9,11 +9,11 @@ package com.afshin;
  * Email:       Afshin.Parhizkari@gmail.com
  * Description: Hibernate - Criteria(discontinue)
  */
+import com.afshin.Entity.Office;
+import com.afshin.Dao.OfficeDao;
 import org.junit.Test;
 
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 public class OfficeDaoTest {
     OfficeDao dao=new OfficeDao();

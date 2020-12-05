@@ -1,6 +1,6 @@
-package com.afshin;
+package com.afshin.Dao;
 /**
- * @Project order
+ /home/afshin/myprojects/github/afshin/Hibernate/order/src/main/java/com/afshin/Dao* @Project order
  * @Author Afshin Parhizkari
  * @Date 2020 - 11 - 27
  * @Time 5:59 AM
@@ -8,6 +8,8 @@ package com.afshin;
  * Email:       Afshin.Parhizkari@gmail.com
  * Description: Hibernate - SQL
  */
+import com.afshin.Entity.Payment;
+import com.afshin.General.Mysession;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import java.util.List;

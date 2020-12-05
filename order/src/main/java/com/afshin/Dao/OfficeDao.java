@@ -1,4 +1,4 @@
-package com.afshin;
+package com.afshin.Dao;
 
 /**
  * @Project order
@@ -9,6 +9,8 @@ package com.afshin;
  * Email:       Afshin.Parhizkari@gmail.com
  * Description: Hibernate - Criteria(discontinue)
  */
+import com.afshin.Entity.Office;
+import com.afshin.General.Mysession;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -17,7 +19,7 @@ import org.hibernate.criterion.Order;
 import java.util.List;
 
 public class OfficeDao {
-    Session neshast=Mysession.getsession();
+    Session neshast= Mysession.getsession();
     //ExecuteQuery
     public List<Office> findall(){
         Criteria criteria=neshast.createCriteria(Office.class,"o");

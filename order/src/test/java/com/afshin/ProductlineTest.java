@@ -1,5 +1,7 @@
 package com.afshin;
 
+import com.afshin.Entity.Productline;
+import com.afshin.Dao.ProductlineDao;
 import org.junit.Assert;
 import org.junit.Test;
 import java.nio.file.Files;
@@ -69,7 +71,7 @@ public class ProductlineTest {
 		pl.setHtmlDescription("https://github.com/AfshinParhizkari");
 		try{
 		//System.out.println(Paths.get("").toAbsolutePath().toString());
-		pl.setImage(Files.readAllBytes(Paths.get("b52.jpg").toAbsolutePath()));
+		pl.setImage(Files.readAllBytes(Paths.get("db.jpg").toAbsolutePath()));
 		}catch (Exception e) {
 			System.out.println(e.toString());
 		}

@@ -1,4 +1,4 @@
-package com.afshin;
+package com.afshin.Entity;
 /**
  * @Project order
  * @Author Afshin Parhizkari
@@ -8,6 +8,8 @@ package com.afshin;
  * Email:       Afshin.Parhizkari@gmail.com
  * Description:
  */
+import com.afshin.General.GregorianDate;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;

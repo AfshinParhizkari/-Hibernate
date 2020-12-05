@@ -1,4 +1,4 @@
-package com.afshin;
+package com.afshin.Dao;
 /**
  * @Project order
  * @Author Afshin Parhizkari
@@ -8,11 +8,14 @@ package com.afshin;
  * Email:       Afshin.Parhizkari@gmail.com
  * Description: JPA - JPQL
  */
+import com.afshin.Entity.Customer;
+import com.afshin.General.Myentitymanager;
+
 import javax.persistence.EntityManager;
 import java.util.List;
 
 public class CustomerDao {
-    EntityManager entityManager=Myentitymanager.getEntityManager();
+    EntityManager entityManager= Myentitymanager.getEntityManager();
     public CustomerDao() {}
     //ExecuteQuery
     public List<Customer> findall(){

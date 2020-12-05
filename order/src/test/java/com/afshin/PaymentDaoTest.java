@@ -1,11 +1,11 @@
 package com.afshin;
 
+import com.afshin.Dao.PaymentDao;
+import com.afshin.Entity.Payment;
+import com.afshin.General.GregorianDate;
 import org.junit.Test;
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 /**
  * @Project order

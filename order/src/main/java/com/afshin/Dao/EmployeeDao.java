@@ -1,4 +1,4 @@
-package com.afshin;
+package com.afshin.Dao;
 /**
  * @Project order
  * @Author Afshin Parhizkari
@@ -8,6 +8,8 @@ package com.afshin;
  * Email:       Afshin.Parhizkari@gmail.com
  * Description: Hibernate - HQL
  */
+import com.afshin.Entity.Employee;
+import com.afshin.General.Mysession;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import java.util.List;

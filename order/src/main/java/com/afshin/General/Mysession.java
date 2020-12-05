@@ -1,4 +1,4 @@
-package com.afshin;
+package com.afshin.General;
 /**
  * @Project order
  * @Author Afshin Parhizkari
@@ -8,6 +8,7 @@ package com.afshin;
  * Email:       Afshin.Parhizkari@gmail.com
  * Description:
  */
+import com.afshin.Entity.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;

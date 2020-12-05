@@ -1,4 +1,4 @@
-package com.afshin;
+package com.afshin.Dao;
 /**
  * @Project order
  * @Author Afshin Parhizkari
@@ -8,6 +8,11 @@ package com.afshin;
  * Email:       Afshin.Parhizkari@gmail.com
  * Description: JPA - Criteria
  */
+import com.afshin.Entity.Orderdetails;
+import com.afshin.Entity.Product;
+import com.afshin.Entity.Productline;
+import com.afshin.General.Myentitymanager;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.criteria.*;
@@ -15,7 +20,7 @@ import java.util.List;
 
 public class ProductDao {
     public ProductDao() {}
-    EntityManager entityManager=Myentitymanager.getEntityManager();
+    EntityManager entityManager= Myentitymanager.getEntityManager();
     CriteriaBuilder criteriaBuilder=entityManager.getCriteriaBuilder();
     //ExecuteQuery : Criteria
     public List<Product> findall(){
@@ -53,7 +58,7 @@ public class ProductDao {
     public List<Object[]> joinedQuery(){
         CriteriaQuery criteriaQuery=criteriaBuilder.createQuery();
         Root<?> p=criteriaQuery.from(Product.class);
-        Join<Product,Productline> pl=p.join("productline");
+        Join<Product, Productline> pl=p.join("productline");
         criteriaQuery.multiselect(p.get("productCode"),pl.get("productLine"),pl.get("productLine"));
         Query q=entityManager.createQuery(criteriaQuery);
         return q.getResultList();

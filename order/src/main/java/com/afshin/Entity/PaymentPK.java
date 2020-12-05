@@ -1,4 +1,4 @@
-package com.afshin;
+package com.afshin.Entity;
 /**
  * @Project order
  * @Author Afshin Parhizkari

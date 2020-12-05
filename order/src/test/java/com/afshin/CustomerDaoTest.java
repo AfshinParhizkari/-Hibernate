@@ -1,12 +1,11 @@
 package com.afshin;
 
+import com.afshin.Dao.CustomerDao;
+import com.afshin.Entity.Customer;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
-import static org.junit.Assert.*;
 
 /**
  * @Project order

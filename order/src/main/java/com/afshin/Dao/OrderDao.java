@@ -1,4 +1,4 @@
-package com.afshin;
+package com.afshin.Dao;
 /**
  * @Project order
  * @Author Afshin Parhizkari
@@ -8,6 +8,10 @@ package com.afshin;
  * Email:       Afshin.Parhizkari@gmail.com
  * Description:
  */
+import com.afshin.Entity.Customer;
+import com.afshin.Entity.Order;
+import com.afshin.General.Myentitymanager;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.criteria.*;
@@ -19,27 +23,27 @@ public class OrderDao {
     EntityManager entityManager = Myentitymanager.getEntityManager();
     CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
     //ExecuteQuery
-    public List<Order> findAll(){
-        CriteriaQuery<Order> criteriaQuery = criteriaBuilder.createQuery(Order.class);
-        Root<Order> o = criteriaQuery.from(Order.class);
+    public List<com.afshin.Entity.Order> findAll(){
+        CriteriaQuery<com.afshin.Entity.Order> criteriaQuery = criteriaBuilder.createQuery(com.afshin.Entity.Order.class);
+        Root<com.afshin.Entity.Order> o = criteriaQuery.from(com.afshin.Entity.Order.class);
         criteriaQuery.select(o);
         criteriaQuery.orderBy(criteriaBuilder.asc(o.get("orderNumber")));
         Query q = entityManager.createQuery(criteriaQuery);
         return q.getResultList();
     }
-    public Order findById(Integer ordNum){
-        return entityManager.find(Order.class, ordNum);
+    public com.afshin.Entity.Order findById(Integer ordNum){
+        return entityManager.find(com.afshin.Entity.Order.class, ordNum);
     }
     public List<?> someColumn(){
         CriteriaQuery<?> criteriaQuery = criteriaBuilder.createQuery();
-        Root<?> o = criteriaQuery.from(Order.class);
+        Root<?> o = criteriaQuery.from(com.afshin.Entity.Order.class);
         criteriaQuery.multiselect(o.get("orderNumber"), o.get("orderDate"), o.get("status"));
         Query q = entityManager.createQuery(criteriaQuery);
         return q.getResultList();
     }
-    public List<Order> whereClause(String stat){
-        CriteriaQuery<Order> criteriaQuery = criteriaBuilder.createQuery(Order.class);
-        Root<Order> o = criteriaQuery.from(Order.class);
+    public List<com.afshin.Entity.Order> whereClause(String stat){
+        CriteriaQuery<com.afshin.Entity.Order> criteriaQuery = criteriaBuilder.createQuery(com.afshin.Entity.Order.class);
+        Root<com.afshin.Entity.Order> o = criteriaQuery.from(com.afshin.Entity.Order.class);
         criteriaQuery.select(o);
         //WhereClause with list of Predicates : مبتنی بر
         List<Predicate> predicates=new ArrayList<>();
@@ -51,7 +55,7 @@ public class OrderDao {
     }
     public List<?> aggregation(){
         CriteriaQuery<?> criteriaQuery = criteriaBuilder.createQuery();
-        Root<?> o = criteriaQuery.from(Order.class);
+        Root<?> o = criteriaQuery.from(com.afshin.Entity.Order.class);
         criteriaQuery.multiselect(o.get("status"), criteriaBuilder.max(o.<Number>get("orderDate")),
                 criteriaBuilder.min(o.<Number>get("shippedDate"))).groupBy(o.get("status"));
         Query q = entityManager.createQuery(criteriaQuery);
@@ -59,20 +63,20 @@ public class OrderDao {
     }
     public List<?> joinedQuery(){
         CriteriaQuery<?> criteriaQuery = criteriaBuilder.createQuery();
-        Root<Order> o = criteriaQuery.from(Order.class);
-        Join<Order, Customer> c = o.join("customer");// from Order o inner join Customer c on
+        Root<com.afshin.Entity.Order> o = criteriaQuery.from(com.afshin.Entity.Order.class);
+        Join<com.afshin.Entity.Order, Customer> c = o.join("customer");// from Order o inner join Customer c on
         criteriaQuery.multiselect(o.get("orderNumber"), c.get("customerName"), o.get("status"));
         Query q = entityManager.createQuery(criteriaQuery);
         return q.getResultList();
     }
 
     //ExecuteUpdate
-    public void insert(Order order){
+    public void insert(com.afshin.Entity.Order order){
         entityManager.getTransaction().begin();
         entityManager.persist(order);
         entityManager.getTransaction().commit();
     }
-    public void update(Order order){
+    public void update(com.afshin.Entity.Order order){
         entityManager.getTransaction().begin();
         order.setOrderDate(order.getOrderDate());
         order.setRequiredDate(order.getRequiredDate());

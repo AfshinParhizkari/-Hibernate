@@ -1,4 +1,4 @@
-package com.afshin;
+package com.afshin.Dao;
 /**
  * @Project order
  * @Author Afshin Parhizkari
@@ -8,6 +8,12 @@ package com.afshin;
  * Email:       Afshin.Parhizkari@gmail.com
  * Description: JPA - Criteria
  */
+import com.afshin.Entity.Order;
+import com.afshin.Entity.Orderdetails;
+import com.afshin.Entity.OrderdetailsPK;
+import com.afshin.Entity.Product;
+import com.afshin.General.Myentitymanager;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.criteria.*;
@@ -63,8 +69,8 @@ public class OrderdetailsDao {
     public List<Object[]> joinedQuery(){
         CriteriaQuery<?> criteriaQuery = criteriaBuilder.createQuery();
         Root<Orderdetails> od = criteriaQuery.from(Orderdetails.class);
-        Join<Orderdetails,Order> o=od.join("order");
-        Join<Orderdetails,Product> p=od.join("product");
+        Join<Orderdetails, Order> o=od.join("order");
+        Join<Orderdetails, Product> p=od.join("product");
         criteriaQuery.multiselect(o.get("orderNumber"), o.get("status"),
                                   p.get("productName"), p.get("buyPrice"),
                                   od.get("quantityOrdered"), od.get("priceEach"));
