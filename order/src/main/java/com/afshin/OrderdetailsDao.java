@@ -42,6 +42,7 @@ public class OrderdetailsDao {
         CriteriaQuery<?> criteriaQuery = criteriaBuilder.createQuery();
         Root<Orderdetails> od = criteriaQuery.from(Orderdetails.class);
         criteriaQuery.multiselect(od.get("orderNumber"), od.get("productCode"), od.get("quantityOrdered"), od.get("priceEach"));
+        //WhereClause with Predicates : مبتنی بر
         Predicate lt = criteriaBuilder.lessThan((od.<Integer>get("quantityOrdered")), lessthan);
         Predicate btwn = criteriaBuilder.between((od.<Integer>get("quantityOrdered")), btwn1, btwn2);
         Predicate in = criteriaBuilder.in((od.<Integer>get("orderLineNumber"))).value(val1).value(val2).value(val3);

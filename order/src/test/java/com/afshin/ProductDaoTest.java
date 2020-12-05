@@ -56,7 +56,11 @@ public class ProductDaoTest {
                     " , textDescription:"+someatribute.get(i)[2]);
 
     }
-
+    @Test
+    public void subqueryTest() {
+        List<Product> productList=dao.subQuery();
+        for(Product product:productList) System.out.println(product);
+    }
     @Test
     public void insertTest(){
         Product product=new Product();

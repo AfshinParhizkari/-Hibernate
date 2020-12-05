@@ -10,10 +10,8 @@ package com.afshin;
  */
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDao {
@@ -43,7 +41,11 @@ public class OrderDao {
         CriteriaQuery<Order> criteriaQuery = criteriaBuilder.createQuery(Order.class);
         Root<Order> o = criteriaQuery.from(Order.class);
         criteriaQuery.select(o);
-        criteriaQuery.where(criteriaBuilder.equal(o.get("status"), stat));
+        //WhereClause with list of Predicates : مبتنی بر
+        List<Predicate> predicates=new ArrayList<>();
+        predicates.add(criteriaBuilder.equal(o.get("status"), stat));
+        predicates.add(criteriaBuilder.isNull(o.get("shippedDate")));
+        criteriaQuery.where(criteriaBuilder.and(predicates.toArray(new Predicate[0])));
         Query q = entityManager.createQuery(criteriaQuery);// select o from Order o where o.status=:stat
         return q.getResultList();
     }

@@ -10,10 +10,7 @@ package com.afshin;
  */
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.List;
 
 public class ProductDao {
@@ -58,6 +55,20 @@ public class ProductDao {
         Root<?> p=criteriaQuery.from(Product.class);
         Join<Product,Productline> pl=p.join("productline");
         criteriaQuery.multiselect(p.get("productCode"),pl.get("productLine"),pl.get("productLine"));
+        Query q=entityManager.createQuery(criteriaQuery);
+        return q.getResultList();
+    }
+    public List<Product> subQuery(){
+        //SELECT * FROM products p where p.productCode not in (select od.productCode from orderdetails od);
+        CriteriaQuery<Product> criteriaQuery =criteriaBuilder.createQuery(Product.class);
+        //from products p
+        Root<Product> p=criteriaQuery.from(Product.class);
+        //SubQuery: (select od.productCode from orderdetails od)
+        Subquery<String> subquery= criteriaQuery.subquery(String.class);
+        Root<Orderdetails> od=subquery.from(Orderdetails.class);
+        subquery.select(od.<String>get("productCode")).distinct(true);
+        //Select p .... WhereClause on Subquery: where p.productCode not in
+        criteriaQuery.select(p).where(criteriaBuilder.not(p.get("productCode").in(subquery)));
         Query q=entityManager.createQuery(criteriaQuery);
         return q.getResultList();
     }
