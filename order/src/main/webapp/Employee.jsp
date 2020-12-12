@@ -16,7 +16,12 @@
     <title>Title</title>
 </head>
 <body>
-<table>
+<form action="EmployeeAct" method="post">
+    <input type="button" value="Home" onclick="location.href='index.jsp';">
+    Employee Number: <input type="number" name="empNum">
+    <input type="submit" value="Show Employee">
+</form>
+<table border="1">
     <th>
         <td>employeeNumber</td>
         <td>lastName</td>
@@ -27,10 +32,17 @@
         <td>reportsTo</td>
         <td>jobTitle</td>
     </th>
-<%
+    <%
     List<Employee> emps = (List<Employee>)request.getAttribute("employees");
-    for (Employee employee:emps){
-%>
+    if(emps==null || emps.isEmpty())
+        System.out.println("empty");
+    else
+    {
+        for (Employee employee:emps){
+           if(employee==null)
+               System.out.println("empty");
+            else {
+    %>
     <tr>
         <td><%=employee.getEmployeeNumber()%></td>
         <td><%=employee.getLastName()%></td>
@@ -41,7 +53,7 @@
         <td><%=employee.getReportsTo()%></td>
         <td><%=employee.getJobTitle()%></td>
     </tr>
-<%}%>
+<%}}}%>
 </table>
 </body>
 </html>

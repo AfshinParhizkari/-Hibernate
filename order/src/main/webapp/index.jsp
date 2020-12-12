@@ -1,8 +1,6 @@
 <html>
 <body>
 <h2>Hello World!</h2>
-<form action="EmployeeAct" method="post">
-    <input type="submit" value="Show Employees">
-</form>
+<input type="button" value="Show Employees" onclick="location.href='Employee.jsp';" />
 </body>
 </html>
