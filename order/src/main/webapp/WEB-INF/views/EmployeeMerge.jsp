@@ -10,9 +10,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Add or Update Employee</title>
 </head>
 <body>
+<form action="/Dispatcher" method="get">
+    <input type="hidden" name="entity" value="Employee">
+    <input type="submit" value="Back">
+</form>
 <form action="/EmployeeAct" method="post">
     <%
         Employee employee = (Employee) request.getAttribute("employee");
@@ -26,8 +30,8 @@
     OfficeCode: <input type="text" name="offcode"><br>
     Reportto: <input type="number" name="repto"><br>
     JobTitle: <input type="text" name="jobtit"><br><br>
-    <input type="submit" value="add">
     <input type="hidden" value="add" name="crud">
+    <input type="submit" value="Add">
     <%}else{%>
     <input type="hidden" value="<%=employee.getEmployeeNumber()%>" name="empnum">
     LastName: <input value="<%=employee.getLastName()%>" name="lname"><br>
@@ -38,7 +42,7 @@
     Reportto: <input value="<%=employee.getReportsTo()%>" name="repto"><br>
     JobTitle: <input value="<%=employee.getJobTitle()%>" name="jobtit"><br><br>
     <input type="hidden" name="crud" value="update">
-    <input type="submit" value="update">
+    <input type="submit" value="Update">
     <%}%>
 
 </form>

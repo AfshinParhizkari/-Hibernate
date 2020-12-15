@@ -63,7 +63,7 @@ public class EmployeeCon extends HttpServlet {
             employeeList.add(employee);
             req.setAttribute("employees", employeeList);
         }
-        req.getRequestDispatcher("/views/Employee.jsp").forward(req,resp);
+        req.getRequestDispatcher("WEB-INF/views/Employee.jsp").forward(req,resp);
     }
 
     @Override
@@ -74,23 +74,24 @@ public class EmployeeCon extends HttpServlet {
             Employee employee= dao.findbyid(Integer.parseInt(req.getParameter("employeenum")));
             dao.delete(employee);
             req.setAttribute("message","record is deleted");
-            req.getRequestDispatcher("/views/Employee.jsp").forward(req,resp);
+            req.getRequestDispatcher("WEB-INF/views/Employee.jsp").forward(req,resp);
         }
         if(action.equals("edit")) {
             Employee employee= dao.findbyid(Integer.parseInt(req.getParameter("employeenum")));
             req.setAttribute("employee",employee);
-            req.getRequestDispatcher("/views/EmployeeMerge.jsp").forward(req,resp);
+            req.getRequestDispatcher("WEB-INF/views/EmployeeMerge.jsp").forward(req,resp);
+
         }
         if(action.equals("mngof")) {
             employeeList= dao.parameterized(Integer.parseInt(req.getParameter("manageof")));
             req.setAttribute("employees", employeeList);
-            req.getRequestDispatcher("/views/Employee.jsp").forward(req,resp);
+            req.getRequestDispatcher("WEB-INF/views/Employee.jsp").forward(req,resp);
         }
         if(action.equals("mngby")) {
             Employee employee= dao.findbyid(Integer.parseInt(req.getParameter("manageby")));
             employeeList.add(employee);
             req.setAttribute("employees", employeeList);
-            req.getRequestDispatcher("/views/Employee.jsp").forward(req,resp);
+            req.getRequestDispatcher("WEB-INF/views/Employee.jsp").forward(req,resp);
         }
     }
 }

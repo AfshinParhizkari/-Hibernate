@@ -17,7 +17,10 @@
 </head>
 <body>
 <input type="button" value="Home" onclick="location.href='index.jsp';">
-<input type="button" value="Add" onclick="location.href='/views/EmployeeMerge.jsp';">
+<form action="/Dispatcher" method="get">
+    <input type="hidden" name="entity" value="EmployeeMerge">
+    <input type="submit" value="AddEmployee">
+</form>
 <form action="/EmployeeAct" method="post">
     Employee Number: <input type="number" name="empNum">
     <input type="hidden" name="crud" value="read">
