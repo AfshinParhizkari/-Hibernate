@@ -17,8 +17,8 @@
 </head>
 <body>
 <input type="button" value="Home" onclick="location.href='index.jsp';">
-<input type="button" value="Add" onclick="location.href='EmployeeMerge.jsp';">
-<form action="EmployeeAct" method="post">
+<input type="button" value="Add" onclick="location.href='/views/EmployeeMerge.jsp';">
+<form action="/EmployeeAct" method="post">
     Employee Number: <input type="number" name="empNum">
     <input type="hidden" name="crud" value="read">
     <input type="submit" value="Show Employee">
@@ -30,7 +30,7 @@
         <td>firstName</td>
         <td>extension</td>
         <td>email</td>
-        <td>officeCity</td>
+        <td>officeCode</td>
         <td>reportsTo</td>
         <td>jobTitle</td>
         <td>edit</td>
@@ -48,7 +48,7 @@
         <td><%=employee.getFirstName()%></td>
         <td><%=employee.getExtension()%></td>
         <td><%=employee.getEmail()%></td>
-        <td><%=employee.getOffice().getCity()%></td>
+        <td><%=employee.getOfficeCode()%></td>
         <td><a href="/EmployeeAct?manageby=<%=employee.getReportsTo()%>&crud=mngby"> <%=employee.getReportsTo()%> </a></td>
         <td><%=employee.getJobTitle()%></td>
         <td><a href="/EmployeeAct?employeenum=<%=employee.getEmployeeNumber()%>&crud=edit"> edit </a></td>

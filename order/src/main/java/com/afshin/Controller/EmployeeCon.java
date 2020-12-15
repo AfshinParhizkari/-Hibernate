@@ -27,6 +27,7 @@ public class EmployeeCon extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        employeeList.clear();
         String action=req.getParameter("crud");
         if(action.equals("read")){
             String employeeid= req.getParameter("empNum");
@@ -62,34 +63,34 @@ public class EmployeeCon extends HttpServlet {
             employeeList.add(employee);
             req.setAttribute("employees", employeeList);
         }
-        req.getRequestDispatcher("/Employee.jsp").forward(req,resp);
+        req.getRequestDispatcher("/views/Employee.jsp").forward(req,resp);
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        employeeList.clear();
         String action=req.getParameter("crud");
         if(action.equals("delete")) {
             Employee employee= dao.findbyid(Integer.parseInt(req.getParameter("employeenum")));
             dao.delete(employee);
             req.setAttribute("message","record is deleted");
-            req.getRequestDispatcher("/Employee.jsp").forward(req,resp);
+            req.getRequestDispatcher("/views/Employee.jsp").forward(req,resp);
         }
         if(action.equals("edit")) {
             Employee employee= dao.findbyid(Integer.parseInt(req.getParameter("employeenum")));
             req.setAttribute("employee",employee);
-            req.getRequestDispatcher("/EmployeeMerge.jsp").forward(req,resp);
+            req.getRequestDispatcher("/views/EmployeeMerge.jsp").forward(req,resp);
         }
         if(action.equals("mngof")) {
             employeeList= dao.parameterized(Integer.parseInt(req.getParameter("manageof")));
             req.setAttribute("employees", employeeList);
-            req.getRequestDispatcher("/Employee.jsp").forward(req,resp);
+            req.getRequestDispatcher("/views/Employee.jsp").forward(req,resp);
         }
         if(action.equals("mngby")) {
             Employee employee= dao.findbyid(Integer.parseInt(req.getParameter("manageby")));
-            employeeList.clear();
             employeeList.add(employee);
             req.setAttribute("employees", employeeList);
-            req.getRequestDispatcher("/Employee.jsp").forward(req,resp);
+            req.getRequestDispatcher("/views/Employee.jsp").forward(req,resp);
         }
     }
 }

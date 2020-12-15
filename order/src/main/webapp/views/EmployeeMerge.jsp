@@ -13,7 +13,7 @@
     <title>Title</title>
 </head>
 <body>
-<form action="EmployeeAct" method="post">
+<form action="/EmployeeAct" method="post">
     <%
         Employee employee = (Employee) request.getAttribute("employee");
         if(employee ==null){
