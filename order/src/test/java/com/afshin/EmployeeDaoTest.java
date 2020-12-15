@@ -44,11 +44,9 @@ public class EmployeeDaoTest {
     }
     @Test
     public void parameterizedTest() {
-        List<?> list = dao.parameterized(1143);
-        for (int i = 0; i < list.size(); i++) {
-            Object[] row = (Object[]) list.get(i);
-            System.out.println(row[0] + "-> " + row[1]+" " + row[2]);
-        }
+        List<Employee> list = dao.parameterized(1143);
+        for(Employee tmp:list)
+        {System.out.println(tmp);}
     }
 
     //ExecuteUpdate

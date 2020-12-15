@@ -35,7 +35,7 @@ public class EmployeeDao {
     public List<?> aggregation(){
         return neshast.createNamedQuery("CountGroup").list();
     }
-    public List<?> parameterized(Integer inputnumber){
+    public List<Employee> parameterized(Integer inputnumber){
         return neshast.createNamedQuery("Selectedquery").setParameter("empnum",inputnumber).setMaxResults(10).list();
     }
 

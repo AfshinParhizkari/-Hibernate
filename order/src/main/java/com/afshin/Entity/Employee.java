@@ -20,8 +20,7 @@ import java.util.List;
         @NamedQuery(name = "CountGroup",query = "Select e.officeCode, count(e.employeeNumber) from Employee e " +
                 "group by e.officeCode order by e.officeCode"),
         //parameterized query: named parameter
-        @NamedQuery(name = "Selectedquery",query = "select e.employeeNumber,e.firstName,e.lastName " +
-                "from Employee e"+" where e.employeeNumber=:empnum"
+        @NamedQuery(name = "Selectedquery",query = "select e from Employee e where e.reportsTo=:empnum"
         )
 })
 public class Employee {
