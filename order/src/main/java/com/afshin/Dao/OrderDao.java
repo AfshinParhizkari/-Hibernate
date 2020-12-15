@@ -72,23 +72,38 @@ public class OrderDao {
 
     //ExecuteUpdate
     public void insert(com.afshin.Entity.Order order){
-        entityManager.getTransaction().begin();
-        entityManager.persist(order);
-        entityManager.getTransaction().commit();
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.persist(order);
+            entityManager.getTransaction().commit();
+        }catch(Exception e){
+            System.out.println("Exception: " + e.getMessage() + " happened!");
+            e.printStackTrace();
+        }
     }
     public void update(com.afshin.Entity.Order order){
-        entityManager.getTransaction().begin();
-        order.setOrderDate(order.getOrderDate());
-        order.setRequiredDate(order.getRequiredDate());
-        order.setShippedDate(order.getShippedDate());
-        order.setStatus(order.getStatus());
-        order.setComments(order.getComments());
-        order.setCustomerNumber(order.getCustomerNumber());
-        entityManager.getTransaction().commit();
+        try{
+            entityManager.getTransaction().begin();
+            order.setOrderDate(order.getOrderDate());
+            order.setRequiredDate(order.getRequiredDate());
+            order.setShippedDate(order.getShippedDate());
+            order.setStatus(order.getStatus());
+            order.setComments(order.getComments());
+            order.setCustomerNumber(order.getCustomerNumber());
+            entityManager.getTransaction().commit();
+        }catch(Exception e){
+            System.out.println("Exception: " + e.getMessage() + " happened!");
+            e.printStackTrace();
+        }
     }
     public void delete(Order order){
-        entityManager.getTransaction().begin();
-        entityManager.remove(order);
-        entityManager.getTransaction().commit();
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.remove(order);
+            entityManager.getTransaction().commit();
+        }catch(Exception e){
+            System.out.println("Exception: " + e.getMessage() + " happened!");
+            e.printStackTrace();
+        }
     }
 }

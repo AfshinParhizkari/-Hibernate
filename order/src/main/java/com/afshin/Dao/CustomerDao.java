@@ -35,30 +35,47 @@ public class CustomerDao {
     }
     //ExecuteUpdate : JPA
     public void insert(Customer customer){
-        entityManager.getTransaction().begin();
-        entityManager.persist(customer);
-        entityManager.getTransaction().commit();
+
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.persist(customer);
+            entityManager.getTransaction().commit();
+        }catch(Exception e){
+            System.out.println("Exception: " + e.getMessage() + " happened!");
+            e.printStackTrace();
+        }
+
     }
     public void update(Customer customer){
-        entityManager.getTransaction().begin();
-        customer.setCustomerName(customer.getCustomerName());
-        customer.setContactLastName(customer.getContactLastName());
-        customer.setContactFirstName(customer.getContactFirstName());
-        customer.setContactLastName(customer.getContactLastName());
-        customer.setPhone(customer.getPhone());
-        customer.setAddressLine1(customer.getAddressLine1());
-        customer.setAddressLine2(customer.getAddressLine2());
-        customer.setCity(customer.getCity());
-        customer.setState(customer.getState());
-        customer.setPostalCode(customer.getPostalCode());
-        customer.setCountry(customer.getCountry());
-        customer.setSalesRepEmployeeNumber(customer.getSalesRepEmployeeNumber());
-        customer.setCreditLimit(customer.getCreditLimit());
-        entityManager.getTransaction().commit();
+        try{
+            entityManager.getTransaction().begin();
+            customer.setCustomerName(customer.getCustomerName());
+            customer.setContactLastName(customer.getContactLastName());
+            customer.setContactFirstName(customer.getContactFirstName());
+            customer.setContactLastName(customer.getContactLastName());
+            customer.setPhone(customer.getPhone());
+            customer.setAddressLine1(customer.getAddressLine1());
+            customer.setAddressLine2(customer.getAddressLine2());
+            customer.setCity(customer.getCity());
+            customer.setState(customer.getState());
+            customer.setPostalCode(customer.getPostalCode());
+            customer.setCountry(customer.getCountry());
+            customer.setSalesRepEmployeeNumber(customer.getSalesRepEmployeeNumber());
+            customer.setCreditLimit(customer.getCreditLimit());
+            entityManager.getTransaction().commit();
+        }catch(Exception e){
+            System.out.println("Exception: " + e.getMessage() + " happened!");
+            e.printStackTrace();
+        }
     }
     public void delete(Customer customer){
-        entityManager.getTransaction().begin();
-        entityManager.remove(customer);
-        entityManager.getTransaction().commit();
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.remove(customer);
+            entityManager.getTransaction().commit();
+        }catch(Exception e){
+            System.out.println("Exception: " + e.getMessage() + " happened!");
+            e.printStackTrace();
+        }
     }
 }

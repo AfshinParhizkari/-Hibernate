@@ -41,18 +41,33 @@ public class EmployeeDao {
 
     //ExecuteUpdate
     public void insert(Employee employee){
-        Transaction tx=neshast.beginTransaction();
-         neshast.persist(employee);
-        tx.commit();
+        try{
+            Transaction tx=neshast.beginTransaction();
+             neshast.persist(employee);
+            tx.commit();
+        }catch(Exception e){
+            System.out.println("Exception: " + e.getMessage() + " happened!");
+            e.printStackTrace();
+        }
     }
     public void update(Employee employee){
-        Transaction tx=neshast.beginTransaction();
-        neshast.update(employee);
-        tx.commit();
+        try{
+            Transaction tx=neshast.beginTransaction();
+            neshast.merge(employee);
+            tx.commit();
+        }catch(Exception e){
+            System.out.println("Exception: " + e.getMessage() + " happened!");
+            e.printStackTrace();
+        }
     }
     public void delete(Employee employee){
-        Transaction tx=neshast.beginTransaction();
-        neshast.delete(employee);
-        tx.commit();
+        try{
+            Transaction tx=neshast.beginTransaction();
+            neshast.delete(employee);
+            tx.commit();
+        }catch(Exception e){
+            System.out.println("Exception: " + e.getMessage() + " happened!");
+            e.printStackTrace();
+        }
     }
 }

@@ -73,19 +73,34 @@ public class ProductlineDao {
 
 	//ExecuteUpdate : JPA
 	public void insert(Productline productline){
-		entityManager.getTransaction().begin();
-		entityManager.persist(productline);
-		entityManager.getTransaction().commit();
+		try{
+			entityManager.getTransaction().begin();
+			entityManager.persist(productline);
+			entityManager.getTransaction().commit();
+		}catch(Exception e){
+			System.out.println("Exception: " + e.getMessage() + " happened!");
+			e.printStackTrace();
+		}
 	}
 	public void update(Productline pl){
-		entityManager.getTransaction().begin();
-		pl.setTextDescription(pl.getTextDescription());
-		pl.setHtmlDescription(pl.getHtmlDescription());
-		entityManager.getTransaction().commit();
+		try{
+			entityManager.getTransaction().begin();
+			pl.setTextDescription(pl.getTextDescription());
+			pl.setHtmlDescription(pl.getHtmlDescription());
+			entityManager.getTransaction().commit();
+		}catch(Exception e){
+			System.out.println("Exception: " + e.getMessage() + " happened!");
+			e.printStackTrace();
+		}
 	}
 	public void delete(Productline productline){
-		entityManager.getTransaction().begin();
-		entityManager.remove(productline);
-		entityManager.getTransaction().commit();
+		try{
+			entityManager.getTransaction().begin();
+			entityManager.remove(productline);
+			entityManager.getTransaction().commit();
+		}catch(Exception e){
+			System.out.println("Exception: " + e.getMessage() + " happened!");
+			e.printStackTrace();
+		}
 	}
 }

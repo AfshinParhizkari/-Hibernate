@@ -80,26 +80,41 @@ public class ProductDao {
 
     //ExecuteUpdate : JPA
     public void insert(Product product){
-        entityManager.getTransaction().begin();
-        entityManager.persist(product);
-        entityManager.getTransaction().commit();
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.persist(product);
+            entityManager.getTransaction().commit();
+        }catch(Exception e){
+            System.out.println("Exception: " + e.getMessage() + " happened!");
+            e.printStackTrace();
+        }
     }
     public void update(Product product){
-        entityManager.getTransaction().begin();
-        product.setProductName(product.getProductName());
-        product.setProductLine(product.getProductLine());
-        product.setProductScale(product.getProductScale());
-        product.setProductVendor(product.getProductVendor());
-        product.setProductDescription(product.getProductDescription());
-        product.setQuantityInStock(product.getQuantityInStock());
-        product.setBuyPrice(product.getBuyPrice());
-        product.setMSRP(product.getMSRP());
-        entityManager.getTransaction().commit();
+        try{
+            entityManager.getTransaction().begin();
+            product.setProductName(product.getProductName());
+            product.setProductLine(product.getProductLine());
+            product.setProductScale(product.getProductScale());
+            product.setProductVendor(product.getProductVendor());
+            product.setProductDescription(product.getProductDescription());
+            product.setQuantityInStock(product.getQuantityInStock());
+            product.setBuyPrice(product.getBuyPrice());
+            product.setMSRP(product.getMSRP());
+            entityManager.getTransaction().commit();
+        }catch(Exception e){
+            System.out.println("Exception: " + e.getMessage() + " happened!");
+            e.printStackTrace();
+        }
     }
     public void delete(Product product){
+    try{
         entityManager.getTransaction().begin();
         entityManager.remove(product);
         entityManager.getTransaction().commit();
+    }catch(Exception e){
+        System.out.println("Exception: " + e.getMessage() + " happened!");
+        e.printStackTrace();
+    }
     }
 
 }

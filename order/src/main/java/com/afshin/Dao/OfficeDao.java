@@ -58,18 +58,33 @@ public class OfficeDao {
 
     //ExecuteUpdate
     public void insert(Office office){
-        Transaction tx=neshast.beginTransaction();
-        neshast.persist(office);
-        tx.commit();
+        try{
+            Transaction tx=neshast.beginTransaction();
+            neshast.persist(office);
+            tx.commit();
+        }catch(Exception e){
+            System.out.println("Exception: " + e.getMessage() + " happened!");
+            e.printStackTrace();
+        }
     }
     public void update(Office office){
-        Transaction tx=neshast.beginTransaction();
-        neshast.merge(office);
-        tx.commit();
+        try{
+            Transaction tx=neshast.beginTransaction();
+            neshast.merge(office);
+            tx.commit();
+        }catch(Exception e){
+            System.out.println("Exception: " + e.getMessage() + " happened!");
+            e.printStackTrace();
+        }
     }
     public void delete(Office office){
-        Transaction tx=neshast.beginTransaction();
-        neshast.delete(office);
-        tx.commit();
+        try{
+            Transaction tx=neshast.beginTransaction();
+            neshast.delete(office);
+            tx.commit();
+        }catch(Exception e){
+            System.out.println("Exception: " + e.getMessage() + " happened!");
+            e.printStackTrace();
+        }
     }
 }

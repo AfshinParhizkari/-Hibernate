@@ -80,20 +80,35 @@ public class OrderdetailsDao {
 
     //ExecuteUpdate
     public void insert(Orderdetails orderdetails){
-        entityManager.getTransaction().begin();
-        entityManager.persist(orderdetails);
-        entityManager.getTransaction().commit();
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.persist(orderdetails);
+            entityManager.getTransaction().commit();
+        }catch(Exception e){
+            System.out.println("Exception: " + e.getMessage() + " happened!");
+            e.printStackTrace();
+        }
     }
     public void update(Orderdetails orderdetails){
-        entityManager.getTransaction().begin();
-        orderdetails.setQuantityOrdered(orderdetails.getQuantityOrdered());
-        orderdetails.setPriceEach(orderdetails.getPriceEach());
-        orderdetails.setOrderLineNumber(orderdetails.getOrderLineNumber());
-        entityManager.getTransaction().commit();
+        try {
+            entityManager.getTransaction().begin();
+            orderdetails.setQuantityOrdered(orderdetails.getQuantityOrdered());
+            orderdetails.setPriceEach(orderdetails.getPriceEach());
+            orderdetails.setOrderLineNumber(orderdetails.getOrderLineNumber());
+            entityManager.getTransaction().commit();
+        }catch(Exception e){
+            System.out.println("Exception: " + e.getMessage() + " happened!");
+            e.printStackTrace();
+        }
     }
     public void delete(Orderdetails orderdetails){
-        entityManager.getTransaction().begin();
-        entityManager.remove(orderdetails);
-        entityManager.getTransaction().commit();
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.remove(orderdetails);
+            entityManager.getTransaction().commit();
+        }catch(Exception e){
+            System.out.println("Exception: " + e.getMessage() + " happened!");
+            e.printStackTrace();
+        }
     }
 }
