@@ -21,7 +21,7 @@
     <input type="hidden" name="entity" value="PaymentMerge">
     <input type="submit" value="Add">
 </form>
-<form action="/PatmentAct" method="post">
+<form action="/PaymentAct" method="post">
     Customer Number: <input type="number" name="custnum">
     Check Number: <input type="text" name="checknum">
     <input type="hidden" name="crud" value="read">
@@ -47,9 +47,8 @@
         <td><%=payment.getCheckNumber()%></td>
         <td><%=GregorianDate.shamsiStr(GregorianDate.miladi2shamsi(payment.getPaymentDate()))%></td>
         <td><%=payment.getAmount()%></td>
-        <td><a href="/PaymentAct?custNum=<%=payment.getCustomerNumber()%>&checkNum=<%=payment.getCheckNumber()%>&crud=edit">delete</a></td>
-        <td><a href="/PaymentAct?custNum=<%=payment.getCustomerNumber()%>&checkNum=<%=payment.getCheckNumber()%>&crud=delete">delete</a></td>
-
+        <td><a href="/PaymentAct?custnum=<%=payment.getCustomerNumber()%>&checknum=<%=payment.getCheckNumber()%>&crud=edit"> edit </a></td>
+        <td><a href="/PaymentAct?custnum=<%=payment.getCustomerNumber()%>&checknum=<%=payment.getCheckNumber()%>&crud=delete"> delete </a></td>
     </tr>
     <%}}}%>
 </table>

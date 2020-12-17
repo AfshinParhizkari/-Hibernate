@@ -8,7 +8,7 @@ div.calendar { position: relative; }
   color: #000;
   cursor: default;
   background: #ffd;
-  font-family: tahoma,verdana,sans-serif;
+  font-family: tahoma,verdana,Vazir;
   filter:
 progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr=#DDDCCC,EndColorStr=#FFFFFF);
 }

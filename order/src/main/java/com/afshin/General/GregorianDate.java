@@ -35,12 +35,18 @@ public class GregorianDate {
         return df1.format(shamsidate);
     }
 
-    public static Date shamsi2miladi (Integer year,Integer month,Integer date) {
+    public static Date shamsi2miladi (Integer year,Integer month,Integer day) {
         Calendar gregorianCalendar = Calendar.getInstance(PERSIAN_LOCALE);
         gregorianCalendar.clear();
         gregorianCalendar.setTimeZone(TimeZone.getTimeZone("Asia/Tehran"));
-        gregorianCalendar.set(year,month,date);
+        gregorianCalendar.set(year,month,day);
         return gregorianCalendar.getTime();
+    }
+    public static Date picker2miladi (String shamsidate) {
+        int year=Integer.parseInt(shamsidate.substring(0,4));
+        int month=Integer.parseInt(shamsidate.substring(5,7))-1;
+        int day=Integer.parseInt(shamsidate.substring(8,10));
+        return shamsi2miladi (year,month,day);
     }
     public static String miladiStr(Date miladidate){
         if(miladidate==null) return null;
