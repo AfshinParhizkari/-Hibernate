@@ -71,30 +71,31 @@ public class ProductlineTest {
 		pl.setHtmlDescription("https://github.com/AfshinParhizkari");
 		try{
 		//System.out.println(Paths.get("").toAbsolutePath().toString());
-		pl.setImage(Files.readAllBytes(Paths.get("db.jpg").toAbsolutePath()));
+			System.out.println(Paths.get("","/main/webapp/statics/images/","db.jpg"));
+		pl.setImage(Files.readAllBytes(Paths.get(System.getProperty("user.dir"),"/src/main/webapp/statics/images/","db.jpg")));
 		}catch (Exception e) {
 			System.out.println(e.toString());
 		}
 		productlineDao.insert(pl);
-		System.out.println(productlineDao.findbyid("airplane"));
+		System.out.println(productlineDao.findbyid("dbmodel"));
 	}
 	@Test
 	public void updateTest(){
 		/* wrong way to update!
 		Productline pl=new Productline();
 		pl.setProductLine("dbmodel");*/
-		Productline pl=productlineDao.findbyid("airplane");
+		Productline pl=productlineDao.findbyid("dbmodel");
 		pl.setTextDescription("just update order database model");
 		pl.setHtmlDescription("https://www.linkedin.com/in/afshin-parhizkari/");
-		try{pl.setImage(Files.readAllBytes(Paths.get("b52changed.jpg").toAbsolutePath()));}
+		try{pl.setImage(Files.readAllBytes(Paths.get(System.getProperty("user.dir"),"/src/main/webapp/statics/images/","b52changed.jpg")));}
 		catch (Exception e) {
 			System.out.println(e.toString());
 		}		productlineDao.update(pl);
-		System.out.println(productlineDao.findbyid("airplane"));
+		System.out.println(productlineDao.findbyid("dbmodel"));
 	}
 	@Test
 	public void deleteTest(){
-		Productline pl=productlineDao.findbyid("airplane");
+		Productline pl=productlineDao.findbyid("dbmodel");
 		productlineDao.delete(pl);
 	}
 }
