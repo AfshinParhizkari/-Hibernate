@@ -87,6 +87,7 @@ public class ProductlineDao {
 			entityManager.getTransaction().begin();
 			pl.setTextDescription(pl.getTextDescription());
 			pl.setHtmlDescription(pl.getHtmlDescription());
+			pl.setImage(pl.getImage());
 			entityManager.getTransaction().commit();
 		}catch(Exception e){
 			System.out.println("Exception: " + e.getMessage() + " happened!");

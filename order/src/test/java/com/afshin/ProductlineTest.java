@@ -66,8 +66,8 @@ public class ProductlineTest {
 	@Test
 	public void insertTest(){
 		Productline pl=new Productline();
-		pl.setProductLine("airplane");
-		pl.setTextDescription("B50");
+		pl.setProductLine("dbmodel");
+		pl.setTextDescription("order database model in graphic's way");
 		pl.setHtmlDescription("https://github.com/AfshinParhizkari");
 		try{
 		//System.out.println(Paths.get("").toAbsolutePath().toString());
@@ -80,11 +80,16 @@ public class ProductlineTest {
 	}
 	@Test
 	public void updateTest(){
+		/* wrong way to update!
+		Productline pl=new Productline();
+		pl.setProductLine("dbmodel");*/
 		Productline pl=productlineDao.findbyid("airplane");
-		pl.setTextDescription("updated B50");
+		pl.setTextDescription("just update order database model");
 		pl.setHtmlDescription("https://www.linkedin.com/in/afshin-parhizkari/");
-		pl.setImage(pl.getImage());
-		productlineDao.update(pl);
+		try{pl.setImage(Files.readAllBytes(Paths.get("b52changed.jpg").toAbsolutePath()));}
+		catch (Exception e) {
+			System.out.println(e.toString());
+		}		productlineDao.update(pl);
 		System.out.println(productlineDao.findbyid("airplane"));
 	}
 	@Test

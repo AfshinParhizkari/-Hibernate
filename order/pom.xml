@@ -60,6 +60,12 @@
       <artifactId>jstl-api</artifactId>
       <version>1.2</version>
     </dependency>
+    <dependency>
+      <!-- change part to byte[] -->
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.6</version>
+    </dependency>
   </dependencies>
 
   <build>

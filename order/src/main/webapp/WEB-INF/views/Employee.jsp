@@ -16,15 +16,15 @@
     <title>Employee form</title>
 </head>
 <body>
-<input type="button" value="Home" onclick="location.href='index.jsp';">
 <form action="/Dispatcher" method="get">
+    <input type="button" value="Home" onclick="location.href='index.jsp';">
     <input type="hidden" name="entity" value="EmployeeMerge">
-    <input type="submit" value="AddEmployee">
+    <input type="submit" value="Add">
 </form>
 <form action="/EmployeeAct" method="post">
     Employee Number: <input type="number" name="empNum">
     <input type="hidden" name="crud" value="read">
-    <input type="submit" value="Show Employee">
+    <input type="submit" value="ShowEmployee">
 </form>
 <table border="1">
     <tr>

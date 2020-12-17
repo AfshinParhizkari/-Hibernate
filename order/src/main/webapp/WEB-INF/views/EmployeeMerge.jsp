@@ -17,6 +17,7 @@
     <input type="hidden" name="entity" value="Employee">
     <input type="submit" value="Back">
 </form>
+</br>
 <form action="/EmployeeAct" method="post">
     <%
         Employee employee = (Employee) request.getAttribute("employee");
@@ -44,7 +45,7 @@
     <input type="hidden" name="crud" value="update">
     <input type="submit" value="Update">
     <%}%>
-
 </form>
+
 </body>
 </html>

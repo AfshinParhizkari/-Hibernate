@@ -2,9 +2,11 @@
 <body>
 <h2>Welcome to order projects</h2>
 <form action="Dispatcher" method="get">
+    Select Form:
     <select name="entity">
         <option value="Employee" selected="Employee">Employee</option>
         <option value="Payment">Payment</option>
+        <option value="Productline">Productline</option>
     </select>
 <input type="submit" value="Show Form">
 </form>
