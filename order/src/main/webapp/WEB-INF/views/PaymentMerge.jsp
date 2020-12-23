@@ -68,7 +68,7 @@
         if(payment ==null){
     %>
                 Customer Number: <input name="custNum" type="number"></br>
-                Check Number: <input name="checkNum" type="checkNumber"></br>
+                Check Number: <input name="checkNum" type="text"></br>
                 Amount : <input name="turnOver" type="text"></br>
 
                 <div class="example">

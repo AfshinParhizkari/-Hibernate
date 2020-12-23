@@ -7,6 +7,7 @@
         <option value="Employee" selected="Employee">Employee</option>
         <option value="Payment">Payment</option>
         <option value="Productline">Productline</option>
+        <option value="User">User</option>
     </select>
 <input type="submit" value="Show Form">
 </form>
