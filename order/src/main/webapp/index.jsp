@@ -4,9 +4,10 @@
 <form action="Dispatcher" method="get">
     Select Form:
     <select name="entity">
-        <option value="Employee" selected="Employee">Employee</option>
+        <option value="Employee">Employee</option>
         <option value="Payment">Payment</option>
         <option value="Productline">Productline</option>
+        <option value="Product" selected="Product">Product</option>
         <option value="User">User</option>
     </select>
 <input type="submit" value="Show Form">
