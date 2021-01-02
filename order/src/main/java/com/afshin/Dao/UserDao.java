@@ -1,13 +1,10 @@
 package com.afshin.Dao;
 
 import com.afshin.Entity.*;
-import com.afshin.Entity.Order;
 import com.afshin.General.Myentitymanager;
-
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.criteria.*;
-import java.math.BigDecimal;
 import java.util.List;
 
 /**

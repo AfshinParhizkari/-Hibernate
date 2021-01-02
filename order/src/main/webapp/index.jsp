@@ -5,7 +5,8 @@
     Select Form:
     <select name="entity">
         <option value="Employee">Employee</option>
-        <option value="Customer" selected="Customer">Customer</option>
+        <option value="Customer">Customer</option>
+        <option value="Order" selected="Order">Order</option>
         <option value="Payment">Payment</option>
         <option value="Productline">Productline</option>
         <option value="Product">Product</option>
@@ -15,7 +16,5 @@
     </select>
 <input type="submit" value="Show Form">
 </form>
-<!--<input type="button" value="Show Employees" onclick="location.href='WEB-INF/views/Employee.jsp';"/>-->
-
 </body>
 </html>
