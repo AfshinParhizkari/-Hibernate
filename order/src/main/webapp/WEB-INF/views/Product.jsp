@@ -5,9 +5,9 @@
   @Time        6:16 PM
   Created by   IntelliJ IDEA
   Email:       Afshin.Parhizkari@gmail.com
-  Description:  
+  Description:  JSTL
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page isELIgnored="false" %>
 <html>
@@ -44,7 +44,7 @@
         <c:forEach var="product" items="${requestScope.products}">
    <tr>
        <td><c:out value="${product.productCode}"/></td>
-       <td><c:out value="${product.productName}"/></td>
+       <td><c:out value="${product['productName']}"/></td>
        <td><c:out value="${product.productLine}"/></td>
        <td><c:out value="${product.productScale}"/></td>
        <td><c:out value="${product.productVendor}"/></td>

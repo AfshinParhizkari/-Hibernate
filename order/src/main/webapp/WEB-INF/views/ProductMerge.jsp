@@ -21,7 +21,7 @@
 </form>
 <br>
 <form action="/ProductAct" method="post">
-    <c:if test="${product ==null}">
+    <c:if test="${empty product}">
         Product code : <input type="text" name="proNum"><br>
         Product Name : <input type="text" name="proNam"><br>
         Product Line : <input type="text" name="proLin"><br>
@@ -34,7 +34,7 @@
         <input type="hidden" name="crud" value="add">
         <input type="submit" value="Add">
     </c:if>
-    <c:if test="${product !=null}">
+    <c:if test="${product ne null}">
         Product code : <input type="text" name="proNum" value="${product.productCode}"><br>
         Product Name : <input type="text" name="proNam" value="${product.productName}"><br>
         Product Line : <input type="text" name="proLin" value="${product.productLine}"><br>

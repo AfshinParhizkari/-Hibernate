@@ -70,8 +70,8 @@ public class Employee {
     @JoinColumn(name = "reportsTo",referencedColumnName = "employeeNumber",insertable = false,updatable = false)
     private Employee manager;
 
-    @OneToMany(mappedBy = "employee")
-    List<User> users;
+/*    @OneToMany(mappedBy = "employee")
+    List<User> users;*/
 
     public Integer getEmployeeNumber() {
         return employeeNumber;
@@ -169,9 +169,9 @@ public class Employee {
         this.manager = manager;
     }
 
-    public List<User> getUsers() {return users;}
+/*    public List<User> getUsers() {return users;}
 
-    public void setUsers(List<User> users) {this.users = users;}
+    public void setUsers(List<User> users) {this.users = users;}*/
 
     @Override
     public String toString() {

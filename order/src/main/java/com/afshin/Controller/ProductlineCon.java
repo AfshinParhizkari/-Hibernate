@@ -56,8 +56,10 @@ public class ProductlineCon extends HttpServlet {
             dao.update(productline);
             productlines.add(productline);
         }
-        req.setAttribute("productlines",productlines);
+        req.setAttribute("products",productlines);
         req.getRequestDispatcher("WEB-INF/views/Productline.jsp").forward(req,resp);
+        //req.getRequestDispatcher("WEB-INF/views/ProductlineJSP.jsp").forward(req,resp);
+
     }
 
     @Override
@@ -66,13 +68,12 @@ public class ProductlineCon extends HttpServlet {
         String action = req.getParameter("crud");
         if(action.equals("delete")){
             dao.delete(dao.findbyid(req.getParameter("proline")));
-            req.getRequestDispatcher("WEB-INF/views/Productline.jsp").forward(req,resp);
         }
         if(action.equals("edit")){
             Productline productline=dao.findbyid(req.getParameter("proline"));
             req.setAttribute("productline",productline);
-            req.getRequestDispatcher("WEB-INF/views/ProductlineMerge.jsp").forward(req,resp);
         }
-
+        req.getRequestDispatcher("WEB-INF/views/ProductlineMerge.jsp").forward(req,resp);
+        //req.getRequestDispatcher("WEB-INF/views/ProductlineMergeJSP.jsp").forward(req,resp);
     }
 }

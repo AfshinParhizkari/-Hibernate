@@ -6,9 +6,11 @@
     <select name="entity">
         <option value="Employee">Employee</option>
         <option value="Payment">Payment</option>
-        <option value="Productline">Productline</option>
-        <option value="Product" selected="Product">Product</option>
+        <option value="Productline" selected="Productline">Productline</option>
+        <option value="Product">Product</option>
+        <option value="Office" >Office</option>
         <option value="User">User</option>
+        <option value="ProductlineJSP">Productline JSP</option>
     </select>
 <input type="submit" value="Show Form">
 </form>
