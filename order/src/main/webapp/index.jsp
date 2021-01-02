@@ -5,8 +5,9 @@
     Select Form:
     <select name="entity">
         <option value="Employee">Employee</option>
+        <option value="Customer" selected="Customer">Customer</option>
         <option value="Payment">Payment</option>
-        <option value="Productline" selected="Productline">Productline</option>
+        <option value="Productline">Productline</option>
         <option value="Product">Product</option>
         <option value="Office" >Office</option>
         <option value="User">User</option>
