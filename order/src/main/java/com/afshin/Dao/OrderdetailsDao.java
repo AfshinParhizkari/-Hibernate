@@ -9,8 +9,8 @@ package com.afshin.Dao;
  * Description: JPA - Criteria
  */
 import com.afshin.Entity.Order;
-import com.afshin.Entity.Orderdetails;
-import com.afshin.Entity.OrderdetailsPK;
+import com.afshin.Entity.Orderdetail;
+import com.afshin.Entity.OrderdetailPK;
 import com.afshin.Entity.Product;
 import com.afshin.General.Myentitymanager;
 
@@ -26,19 +26,19 @@ public class OrderdetailsDao {
     EntityManager entityManager = Myentitymanager.getEntityManager();
     CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 
-    public List<Orderdetails> findall() {
-        CriteriaQuery<Orderdetails> criteriaQuery = criteriaBuilder.createQuery(Orderdetails.class);
-        Root<Orderdetails> od = criteriaQuery.from(Orderdetails.class);
+    public List<Orderdetail> findall() {
+        CriteriaQuery<Orderdetail> criteriaQuery = criteriaBuilder.createQuery(Orderdetail.class);
+        Root<Orderdetail> od = criteriaQuery.from(Orderdetail.class);
         criteriaQuery.select(od);
         Query q = entityManager.createQuery(criteriaQuery);
         return q.getResultList();
     }
-    public Orderdetails findbyid(OrderdetailsPK odPK) {
-        return entityManager.find(Orderdetails.class, odPK);
+    public Orderdetail findbyid(OrderdetailPK odPK) {
+        return entityManager.find(Orderdetail.class, odPK);
     }
     public List<Object[]> someColumn() {
         CriteriaQuery<?> criteriaQuery = criteriaBuilder.createQuery();
-        Root<Orderdetails> od = criteriaQuery.from(Orderdetails.class);
+        Root<Orderdetail> od = criteriaQuery.from(Orderdetail.class);
         criteriaQuery.multiselect(od.get("orderNumber"), od.get("productCode"), od.get("quantityOrdered"), od.get("priceEach"));
         criteriaQuery.orderBy(criteriaBuilder.asc(od.get("orderNumber")), criteriaBuilder.asc(od.get("productCode")));
         Query q = entityManager.createQuery(criteriaQuery);
@@ -46,7 +46,7 @@ public class OrderdetailsDao {
     }
     public List<Object[]> whereClause(int lessthan,int btwn1,int btwn2,int val1,int val2,int val3) {
         CriteriaQuery<?> criteriaQuery = criteriaBuilder.createQuery();
-        Root<Orderdetails> od = criteriaQuery.from(Orderdetails.class);
+        Root<Orderdetail> od = criteriaQuery.from(Orderdetail.class);
         criteriaQuery.multiselect(od.get("orderNumber"), od.get("productCode"), od.get("quantityOrdered"), od.get("priceEach"));
         //WhereClause with Predicates : مبتنی بر
         Predicate lt = criteriaBuilder.lessThan((od.<Integer>get("quantityOrdered")), lessthan);
@@ -60,7 +60,7 @@ public class OrderdetailsDao {
     }
     public List<Object[]> aggregation() {
         CriteriaQuery<?> criteriaQuery = criteriaBuilder.createQuery();
-        Root<Orderdetails> od = criteriaQuery.from(Orderdetails.class);
+        Root<Orderdetail> od = criteriaQuery.from(Orderdetail.class);
         criteriaQuery.multiselect(od.get("orderNumber"), criteriaBuilder.sum(od.<Integer>get("quantityOrdered")),
                 criteriaBuilder.sum(od.<BigDecimal>get("priceEach"))).groupBy(od.get("orderNumber"));
         Query q = entityManager.createQuery(criteriaQuery);
@@ -68,9 +68,9 @@ public class OrderdetailsDao {
     }
     public List<Object[]> joinedQuery(){
         CriteriaQuery<?> criteriaQuery = criteriaBuilder.createQuery();
-        Root<Orderdetails> od = criteriaQuery.from(Orderdetails.class);
-        Join<Orderdetails, Order> o=od.join("order");
-        Join<Orderdetails, Product> p=od.join("product");
+        Root<Orderdetail> od = criteriaQuery.from(Orderdetail.class);
+        Join<Orderdetail, Order> o=od.join("order");
+        Join<Orderdetail, Product> p=od.join("product");
         criteriaQuery.multiselect(o.get("orderNumber"), o.get("status"),
                                   p.get("productName"), p.get("buyPrice"),
                                   od.get("quantityOrdered"), od.get("priceEach"));
@@ -79,32 +79,32 @@ public class OrderdetailsDao {
     }
 
     //ExecuteUpdate
-    public void insert(Orderdetails orderdetails){
+    public void insert(Orderdetail orderdetail){
         try{
             entityManager.getTransaction().begin();
-            entityManager.persist(orderdetails);
+            entityManager.persist(orderdetail);
             entityManager.getTransaction().commit();
         }catch(Exception e){
             System.out.println("Exception: " + e.getMessage() + " happened!");
             e.printStackTrace();
         }
     }
-    public void update(Orderdetails orderdetails){
+    public void update(Orderdetail orderdetail){
         try {
             entityManager.getTransaction().begin();
-            orderdetails.setQuantityOrdered(orderdetails.getQuantityOrdered());
-            orderdetails.setPriceEach(orderdetails.getPriceEach());
-            orderdetails.setOrderLineNumber(orderdetails.getOrderLineNumber());
+            orderdetail.setQuantityOrdered(orderdetail.getQuantityOrdered());
+            orderdetail.setPriceEach(orderdetail.getPriceEach());
+            orderdetail.setOrderLineNumber(orderdetail.getOrderLineNumber());
             entityManager.getTransaction().commit();
         }catch(Exception e){
             System.out.println("Exception: " + e.getMessage() + " happened!");
             e.printStackTrace();
         }
     }
-    public void delete(Orderdetails orderdetails){
+    public void delete(Orderdetail orderdetail){
         try{
             entityManager.getTransaction().begin();
-            entityManager.remove(orderdetails);
+            entityManager.remove(orderdetail);
             entityManager.getTransaction().commit();
         }catch(Exception e){
             System.out.println("Exception: " + e.getMessage() + " happened!");

@@ -43,7 +43,7 @@ public class Order {
     private Integer customerNumber;
 
     @OneToMany(mappedBy = "order")
-    private List<Orderdetails> orderdetails;
+    private List<Orderdetail> orderdetails;
 
     @ManyToOne
     @JoinColumn(name = "customerNumber",referencedColumnName = "customerNumber",insertable = false,updatable = false)
@@ -106,11 +106,11 @@ public class Order {
         this.customerNumber = customerNumber;
     }
 
-    public List<Orderdetails> getOrderdetails() {
+    public List<Orderdetail> getOrderdetails() {
         return orderdetails;
     }
 
-    public void setOrderdetails(List<Orderdetails> orderdetails) {
+    public void setOrderdetails(List<Orderdetail> orderdetails) {
         this.orderdetails = orderdetails;
     }
 

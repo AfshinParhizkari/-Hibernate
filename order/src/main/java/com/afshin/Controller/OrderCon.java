@@ -10,6 +10,8 @@ package com.afshin.Controller;
  */
 import com.afshin.Dao.OrderDao;
 import com.afshin.Entity.Order;
+import com.afshin.General.GeneralFunc;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,6 +29,7 @@ public class OrderCon extends HttpServlet {
     List<Order> orderList = new ArrayList<>();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if(!GeneralFunc.login(req)) req.getRequestDispatcher("index.jsp").forward(req, resp);
         orderList.clear();
         String ordernumber = req.getParameter("ordnum");
         String action = req.getParameter("crud");
@@ -73,6 +76,7 @@ public class OrderCon extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if(!GeneralFunc.login(req)) req.getRequestDispatcher("index.jsp").forward(req, resp);
         orderList.clear();
         String action = req.getParameter("crud");
         if (action.equals("delete")){

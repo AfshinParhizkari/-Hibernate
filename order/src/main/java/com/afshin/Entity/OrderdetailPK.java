@@ -11,12 +11,12 @@ package com.afshin.Entity;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class OrderdetailsPK implements Serializable {
+public class OrderdetailPK implements Serializable {
 
-    public OrderdetailsPK() {
+    public OrderdetailPK() {
     }
 
-    public OrderdetailsPK(Integer orderNumber, String productCode) {
+    public OrderdetailPK(Integer orderNumber, String productCode) {
         this.orderNumber = orderNumber;
         this.productCode = productCode;
     }
@@ -44,7 +44,7 @@ public class OrderdetailsPK implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        OrderdetailsPK that = (OrderdetailsPK) o;
+        OrderdetailPK that = (OrderdetailPK) o;
         return Objects.equals(orderNumber, that.orderNumber) &&
                 Objects.equals(productCode, that.productCode);
     }

@@ -10,6 +10,7 @@ package com.afshin.Controller;
  */
 import com.afshin.Dao.EmployeeDao;
 import com.afshin.Entity.Employee;
+import com.afshin.General.GeneralFunc;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,6 +28,7 @@ public class EmployeeCon extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if(!GeneralFunc.login(req)) req.getRequestDispatcher("index.jsp").forward(req, resp);
         employeeList.clear();
         String action=req.getParameter("crud");
         if(action.equals("read")){
@@ -68,6 +70,7 @@ public class EmployeeCon extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if(!GeneralFunc.login(req)) req.getRequestDispatcher("index.jsp").forward(req, resp);
         employeeList.clear();
         String action=req.getParameter("crud");
         if(action.equals("delete")) {

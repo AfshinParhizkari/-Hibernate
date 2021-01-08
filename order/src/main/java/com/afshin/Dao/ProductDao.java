@@ -8,7 +8,7 @@ package com.afshin.Dao;
  * Email:       Afshin.Parhizkari@gmail.com
  * Description: JPA - Criteria
  */
-import com.afshin.Entity.Orderdetails;
+import com.afshin.Entity.Orderdetail;
 import com.afshin.Entity.Product;
 import com.afshin.Entity.Productline;
 import com.afshin.General.Myentitymanager;
@@ -70,7 +70,7 @@ public class ProductDao {
         Root<Product> p=criteriaQuery.from(Product.class);
         //SubQuery: (select od.productCode from orderdetails od)
         Subquery<String> subquery= criteriaQuery.subquery(String.class);
-        Root<Orderdetails> od=subquery.from(Orderdetails.class);
+        Root<Orderdetail> od=subquery.from(Orderdetail.class);
         subquery.select(od.<String>get("productCode")).distinct(true);
         //Select p .... WhereClause on Subquery: where p.productCode not in
         criteriaQuery.select(p).where(criteriaBuilder.not(p.get("productCode").in(subquery)));

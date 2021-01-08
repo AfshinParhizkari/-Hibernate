@@ -2,6 +2,7 @@ package com.afshin.Controller;
 
 import com.afshin.Dao.OfficeDao;
 import com.afshin.Entity.Office;
+import com.afshin.General.GeneralFunc;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,6 +28,7 @@ public class OfficeCon extends HttpServlet {
     OfficeDao dao=new OfficeDao();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if(!GeneralFunc.login(req)) req.getRequestDispatcher("index.jsp").forward(req, resp);
         officeList.clear();
         String action=req.getParameter("crud");
         if (action.equals("read")) {
@@ -67,6 +69,7 @@ public class OfficeCon extends HttpServlet {
     }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if(!GeneralFunc.login(req)) req.getRequestDispatcher("index.jsp").forward(req, resp);
         officeList.clear();
         String action = req.getParameter("crud");
         if (action.equals("delete")){

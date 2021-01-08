@@ -1,14 +1,10 @@
 package com.afshin;
 
 import com.afshin.Dao.UserDao;
-import com.afshin.Entity.Order;
-import com.afshin.Entity.Orderdetails;
 import com.afshin.Entity.User;
 import org.junit.Test;
 
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 /**
  * @Project order

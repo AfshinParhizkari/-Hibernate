@@ -14,9 +14,9 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "orderdetails")
-@IdClass(OrderdetailsPK.class)
-public class Orderdetails {
-    public Orderdetails() {}
+@IdClass(OrderdetailPK.class)
+public class Orderdetail {
+    public Orderdetail() {}
 
     @Id
     @Column(name = "orderNumber")

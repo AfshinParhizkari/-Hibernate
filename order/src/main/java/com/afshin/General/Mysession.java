@@ -27,7 +27,7 @@ public class Mysession {
                     .addAnnotatedClass(Payment.class)
                     .addAnnotatedClass(PaymentPK.class)
                     .addAnnotatedClass(Order.class)
-                    .addAnnotatedClass(Orderdetails.class)
+                    .addAnnotatedClass(Orderdetail.class)
                     .buildSessionFactory();
         } catch (Throwable e) {
             throw new ExceptionInInitializerError(e);

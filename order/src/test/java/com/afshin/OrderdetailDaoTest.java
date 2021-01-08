@@ -1,8 +1,8 @@
 package com.afshin;
 
-import com.afshin.Entity.Orderdetails;
+import com.afshin.Entity.Orderdetail;
 import com.afshin.Dao.OrderdetailsDao;
-import com.afshin.Entity.OrderdetailsPK;
+import com.afshin.Entity.OrderdetailPK;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -17,18 +17,18 @@ import java.util.List;
  * Email:       Afshin.Parhizkari@gmail.com
  * Description:
  */
-public class OrderdetailsDaoTest {
+public class OrderdetailDaoTest {
     OrderdetailsDao dao=new OrderdetailsDao();
     @Test
     public void findAllTest() {
-        List<Orderdetails> list =dao.findall();
-        for (Orderdetails tempOrd : list){
+        List<Orderdetail> list =dao.findall();
+        for (Orderdetail tempOrd : list){
             System.out.println(tempOrd);
         }
     }
     @Test
     public void findbyid() {
-        OrderdetailsPK orderdetailsPK=new OrderdetailsPK();
+        OrderdetailPK orderdetailsPK=new OrderdetailPK();
         orderdetailsPK.setOrderNumber(10100);
         orderdetailsPK.setProductCode("S18_1749");
         System.out.println(dao.findbyid(orderdetailsPK));
@@ -62,7 +62,7 @@ public class OrderdetailsDaoTest {
 
     @Test
     public void insertTest(){
-        Orderdetails od=new Orderdetails();
+        Orderdetail od=new Orderdetail();
         od.setOrderNumber(10125);
         od.setProductCode("S24_2887");
         od.setQuantityOrdered(2);
@@ -70,17 +70,17 @@ public class OrderdetailsDaoTest {
         od.setOrderLineNumber(3);
         dao.insert(od);
 
-        OrderdetailsPK odpk=new OrderdetailsPK();
+        OrderdetailPK odpk=new OrderdetailPK();
         odpk.setOrderNumber(od.getOrderNumber());
         odpk.setProductCode(od.getProductCode());
         System.out.println(dao.findbyid(odpk));
     }
     @Test
     public void updateTest(){
-        OrderdetailsPK odpk=new OrderdetailsPK();
+        OrderdetailPK odpk=new OrderdetailPK();
         odpk.setOrderNumber(10125);
         odpk.setProductCode("S24_2887");
-        Orderdetails od=dao.findbyid(odpk);
+        Orderdetail od=dao.findbyid(odpk);
 
         od.setQuantityOrdered(5);
         od.setPriceEach(new BigDecimal("120.05"));
@@ -90,10 +90,10 @@ public class OrderdetailsDaoTest {
     }
     @Test
     public void deleteTest(){
-        OrderdetailsPK odpk=new OrderdetailsPK();
+        OrderdetailPK odpk=new OrderdetailPK();
         odpk.setOrderNumber(10125);
         odpk.setProductCode("S24_2887");
-        Orderdetails od=dao.findbyid(odpk);
+        Orderdetail od=dao.findbyid(odpk);
         dao.delete(od);
     }
 }

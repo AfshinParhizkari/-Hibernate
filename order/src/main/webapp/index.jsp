@@ -1,12 +1,32 @@
+<%@page isELIgnored="false" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <body>
-<h2>Welcome to order projects</h2>
+<c:if test="${sessionScope.message eq null}">
+    <label>You have not login. please login to order projects</label>
+</c:if>
+<c:if test="${sessionScope.message ne null}">
+    <label>${sessionScope.message}</label>
+</c:if>
+
+<form action="Dispatcher" method="post">
+    <br>User name:<input name="usrnam" type="text"><br>
+    Password: <input name="paswrd" type="password"><br>
+    <input name="crud" type="hidden" value="login"><br>
+    <input type="submit" value="Login">
+</form>
+<form action="Dispatcher" method="post">
+    <input name="crud" type="hidden" value="logout">
+    <input type="submit" value="Logout">
+</form>
+
 <form action="Dispatcher" method="get">
-    Select Form:
+    <br>Select Form:
     <select name="entity">
         <option value="Employee">Employee</option>
         <option value="Customer">Customer</option>
         <option value="Order" selected="Order">Order</option>
+        <option value="Orderdetail">Orderdetail</option>
         <option value="Payment">Payment</option>
         <option value="Productline">Productline</option>
         <option value="Product">Product</option>

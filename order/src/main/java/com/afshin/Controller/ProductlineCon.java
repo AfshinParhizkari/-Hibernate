@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
+
+import com.afshin.General.GeneralFunc;
 import org.apache.commons.io.IOUtils;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,7 @@ public class ProductlineCon extends HttpServlet {
     List<Productline> productlines=new ArrayList<>();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if(!GeneralFunc.login(req)) req.getRequestDispatcher("index.jsp").forward(req, resp);
         productlines.clear();
         String action = req.getParameter("crud");
         if(action.equals("read")){
@@ -64,6 +67,7 @@ public class ProductlineCon extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if(!GeneralFunc.login(req)) req.getRequestDispatcher("index.jsp").forward(req, resp);
         productlines.clear();
         String action = req.getParameter("crud");
         if(action.equals("delete")){

@@ -32,12 +32,13 @@ public class UserDao {
     public User findbyid(Integer userid) {
         return entityManager.find(User.class, userid);
     }
-    public User login(String username) {
+    public User login(String userName) {
         CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
         Root<User> u = criteriaQuery.from(User.class);
-        criteriaQuery.select(u).where(criteriaBuilder.equal(u.get("username"),username));
+        criteriaQuery.select(u);
+        criteriaQuery.where(criteriaBuilder.equal(u.get("username"),userName));
         Query q = entityManager.createQuery(criteriaQuery);
-        return (User) q.getResultList().get(1);
+        return (User) q.getResultList().get(0);
     }
 
     //ExecuteUpdate

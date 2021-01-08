@@ -2,6 +2,7 @@ package com.afshin.Controller;
 
 import com.afshin.Dao.PaymentDao;
 import com.afshin.Entity.Payment;
+import com.afshin.General.GeneralFunc;
 import com.afshin.General.GregorianDate;
 
 import javax.servlet.ServletException;
@@ -29,6 +30,7 @@ public class PaymentCon extends HttpServlet {
     List<Payment> paymentList=new ArrayList<>();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if(!GeneralFunc.login(req)) req.getRequestDispatcher("index.jsp").forward(req, resp);
         paymentList.clear();
         String action=req.getParameter("crud");
         if(action.equals("read")) {
@@ -63,6 +65,7 @@ public class PaymentCon extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if(!GeneralFunc.login(req)) req.getRequestDispatcher("index.jsp").forward(req, resp);
         paymentList.clear();
         String action=req.getParameter("crud");
         String custnumber = req.getParameter("custnum");

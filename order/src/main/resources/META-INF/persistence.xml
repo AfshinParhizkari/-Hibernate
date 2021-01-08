@@ -4,7 +4,7 @@
 		<class>com.afshin.Entity.Employee</class>
 		<class>com.afshin.Entity.Customer</class>
 		<class>com.afshin.Entity.Office</class>
-		<class>com.afshin.Entity.Orderdetails</class>
+		<class>com.afshin.Entity.Orderdetail</class>
 		<class>com.afshin.Entity.Order</class>
 		<class>com.afshin.Entity.Payment</class>
 		<class>com.afshin.Entity.Productline</class>

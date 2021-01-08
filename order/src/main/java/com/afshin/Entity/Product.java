@@ -53,7 +53,7 @@ public class Product {
     private Productline productline;
 
     @OneToMany(mappedBy = "product")
-    private List<Orderdetails> orderdetailsList;
+    private List<Orderdetail> orderdetailsList;
 
     public String getProductCode() {
         return productCode;
@@ -135,11 +135,11 @@ public class Product {
         this.productline = productline;
     }
 
-    public List<Orderdetails> getOrderdetailsList() {
+    public List<Orderdetail> getOrderdetailsList() {
         return orderdetailsList;
     }
 
-    public void setOrderdetailsList(List<Orderdetails> orderdetailsList) {
+    public void setOrderdetailsList(List<Orderdetail> orderdetailsList) {
         this.orderdetailsList = orderdetailsList;
     }
 
