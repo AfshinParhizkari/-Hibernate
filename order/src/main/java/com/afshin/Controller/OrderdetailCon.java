@@ -31,7 +31,6 @@ public class OrderdetailCon extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if(!GeneralFunc.login(req)) req.getRequestDispatcher("index.jsp").forward(req, resp);
         orderdetailList.clear();
         String ordernumber = req.getParameter("ordnum");
         String productcode = req.getParameter("procode");
@@ -73,7 +72,6 @@ public class OrderdetailCon extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if(!GeneralFunc.login(req)) req.getRequestDispatcher("index.jsp").forward(req, resp);
         orderdetailList.clear();
         String ordernumber = req.getParameter("ordnum");
         String productcode = req.getParameter("procode");

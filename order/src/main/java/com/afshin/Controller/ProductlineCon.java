@@ -32,7 +32,6 @@ public class ProductlineCon extends HttpServlet {
     List<Productline> productlines=new ArrayList<>();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if(!GeneralFunc.login(req)) req.getRequestDispatcher("index.jsp").forward(req, resp);
         productlines.clear();
         String action = req.getParameter("crud");
         if(action.equals("read")){
@@ -67,7 +66,6 @@ public class ProductlineCon extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if(!GeneralFunc.login(req)) req.getRequestDispatcher("index.jsp").forward(req, resp);
         productlines.clear();
         String action = req.getParameter("crud");
         if(action.equals("delete")){

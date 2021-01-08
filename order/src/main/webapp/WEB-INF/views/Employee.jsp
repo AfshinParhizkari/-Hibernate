@@ -15,7 +15,7 @@
 <head>
     <title>Employee form</title>
 </head>
-<body>custNum
+<body>
 <form action="/Dispatcher" method="get">
     <input type="button" value="Home" onclick="location.href='index.jsp';">
     <input type="hidden" name="entity" value="EmployeeMerge">

@@ -29,7 +29,6 @@ public class ProductCon extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if(!GeneralFunc.login(req)) req.getRequestDispatcher("index.jsp").forward(req, resp);
         products.clear();
         String action =req.getParameter("crud");
         if(action.equals("read")) {
@@ -70,7 +69,6 @@ public class ProductCon extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if(!GeneralFunc.login(req)) req.getRequestDispatcher("index.jsp").forward(req, resp);
         products.clear();
         String action =req.getParameter("crud");
         if(action.equals("delete")){
