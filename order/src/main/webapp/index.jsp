@@ -19,13 +19,17 @@
     <input name="crud" type="hidden" value="logout">
     <input type="submit" value="Logout">
 </form>
+<form action="Dispatcher" method="post">
+    <input name="crud" type="hidden" value="test">
+    <input type="submit" value="Test">
+</form>
 
 <form action="Dispatcher" method="get">
     <br>Select Form:
     <select name="entity">
         <option value="Employee">Employee</option>
-        <option value="Customer">Customer</option>
-        <option value="Order" selected="Order">Order</option>
+        <option value="Customer" selected="Customer">Customer</option>
+        <option value="Order" >Order</option>
         <option value="Orderdetail">Orderdetail</option>
         <option value="Payment">Payment</option>
         <option value="Productline">Productline</option>

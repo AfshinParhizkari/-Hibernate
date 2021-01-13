@@ -25,6 +25,11 @@
     <input type="hidden" name="crud" value="read">
     <input type="submit" value="ShowCustomer">
 </form>
+<form action="CustomerAct" method="get">
+    <input type="hidden" name="crud" value="report">
+    <input type="hidden" name="reportype" value="allcustomer">
+    <input type="submit" value="Report - Allcustomer">
+</form>
 <table border="1px" style="color: darkgreen">
     <tr>
         <td>customerNumber</td>

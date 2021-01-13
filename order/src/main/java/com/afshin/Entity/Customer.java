@@ -83,7 +83,6 @@ public class Customer {
     public Integer getCustomerNumber() {
         return customerNumber;
     }
-
     public void setCustomerNumber(Integer customerNumber) {
         this.customerNumber = customerNumber;
     }
