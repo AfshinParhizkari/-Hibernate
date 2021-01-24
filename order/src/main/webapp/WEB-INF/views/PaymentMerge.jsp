@@ -1,5 +1,8 @@
 <%@ page import="com.afshin.Entity.Payment" %>
-<%@ page import="com.afshin.General.GregorianDate" %><%--
+<%@ page import="com.afshin.General.GregorianDate" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%--
   @Project     order
   @Author      Afshin Parhizkari
   @Date        2020 - 12 - 16
@@ -8,7 +11,6 @@
   Email:       Afshin.Parhizkari@gmail.com
   Description:  
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
 <head>
@@ -54,7 +56,7 @@
             background-color: #FFFF88
         }
     </style>
-
+    <%--_____________________________________________________________________________________________--%>
     <title>Add or Update Payment</title>
 </head>
 <body>

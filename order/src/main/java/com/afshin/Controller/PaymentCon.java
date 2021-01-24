@@ -1,5 +1,6 @@
 package com.afshin.Controller;
 
+import com.afshin.Dao.JRsqlFunc;
 import com.afshin.Dao.PaymentDao;
 import com.afshin.Entity.Payment;
 import com.afshin.General.GeneralFunc;
@@ -12,8 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Project order
@@ -80,6 +85,18 @@ public class PaymentCon extends HttpServlet {
             Payment payment= dao.findbyid(Integer.parseInt(custnumber),checknumber);
             req.setAttribute("payment",payment);
             req.getRequestDispatcher("WEB-INF/views/PaymentMerge.jsp").forward(req,resp);
+        }
+        if (action.equals("report")) {
+            String path=req.getSession().getServletContext().getRealPath("/WEB-INF/reports/Payment.jrxml");
+            Map<String,Object> parameters =new HashMap<String,Object>();
+            try {
+                parameters.put("Fdate",new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("fdate")));
+                parameters.put("Tdate",new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("tdate")));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            JRsqlFunc.viewReport(path,parameters);
+            req.getRequestDispatcher("WEB-INF/views/PaymentRep.jsp").forward(req, resp);
         }
     }
 }

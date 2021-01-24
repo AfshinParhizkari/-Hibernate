@@ -22,9 +22,14 @@
     <input type="submit" value="Add">
 </form>
 <form action="/EmployeeAct" method="post">
-    Employee Number: <input type="number" name="empNum">
+    Employee NumberAdd: <input type="number" name="empNum">
     <input type="hidden" name="crud" value="read">
     <input type="submit" value="ShowEmployee">
+</form>
+<form action="EmployeeAct" method="get">
+    <input type="hidden" name="crud" value="report">
+    Employee Number: <input type="number" name="empNum">
+    <input type="submit" value="ReportEmployee">
 </form>
 <table border="1">
     <tr>

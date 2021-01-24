@@ -11,7 +11,7 @@ package com.afshin.Controller;
 import com.afshin.Dao.EmployeeDao;
 import com.afshin.Entity.Employee;
 import com.afshin.General.GeneralFunc;
-
+import com.afshin.Dao.JRsqlFunc;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "EmployeeAct",urlPatterns = {"/EmployeeAct"})
 public class EmployeeCon extends HttpServlet {
@@ -95,6 +97,13 @@ public class EmployeeCon extends HttpServlet {
             employeeList.add(employee);
             req.setAttribute("employees", employeeList);
             req.getRequestDispatcher("WEB-INF/views/Employee.jsp").forward(req,resp);
+        }
+        if (action.equals("report")) {
+            String path=req.getSession().getServletContext().getRealPath("/WEB-INF/reports/Employee.jrxml");
+            Map<String,Object> parameters =new HashMap<String,Object>();
+            parameters.put("emp_num",Integer.parseInt(req.getParameter("empNum")));
+            JRsqlFunc.viewReport(path,parameters);
+            req.getRequestDispatcher("WEB-INF/views/Employee.jsp").forward(req, resp);
         }
     }
 }

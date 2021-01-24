@@ -21,7 +21,10 @@
     <input type="hidden" name="entity" value="PaymentMerge">
     <input type="submit" value="Add">
 </form>
-<form action="/PaymentAct" method="post">
+<form action="/Dispatcher" method="get">
+    <input type="hidden" name="entity" value="PaymentRep">
+    <input type="submit" value="ReportPage">
+</form><form action="/PaymentAct" method="post">
     Customer Number: <input type="number" name="custnum">
     Check Number: <input type="text" name="checknum">
     <input type="hidden" name="crud" value="read">
