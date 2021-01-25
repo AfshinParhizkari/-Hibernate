@@ -1,15 +1,11 @@
 package com.afshin.Dao;
 
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import com.afshin.General.Mysession;
+import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.view.JasperViewer;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.util.List;
+import java.sql.SQLException;
 import java.util.Map;
 
 /**
@@ -24,24 +20,16 @@ import java.util.Map;
 public class JRsqlFunc {
     /*Remove all below tags in Reports
         <fieldDescription><![CDATA[]]></fieldDescription>*/
-    public static Connection getConnection(){
-        Connection con=null;
-        try
-        {
-            Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/order", "admin", "123456");
-        }
-        catch (Exception e){System.out.println(e);}
-        return con;
-    }
+
     public static void viewReport(String path,Map parameters){
         try {
             //compile .jrxml(Human Understanding) file to .jasper(Machine understanding)
-            net.sf.jasperreports.engine.JasperReport jreport = JasperCompileManager.compileReport(path);
-            // Set a connection
-             JasperPrint jprint = JasperFillManager.fillReport(jreport, parameters, getConnection());
+            JasperReport jreport = JasperCompileManager.compileReport(path);
+            Connection connection= Mysession.getconnection();
+                JasperPrint jprint = JasperFillManager.fillReport(jreport, parameters, connection);
+            connection.close();
             // Viewing the report
             JasperViewer.viewReport(jprint, false);
-        }catch (JRException e){e.printStackTrace();}
+        }catch (JRException | SQLException e){e.printStackTrace();}
     }
 }
