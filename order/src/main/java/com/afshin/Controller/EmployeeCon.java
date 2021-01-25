@@ -102,7 +102,7 @@ public class EmployeeCon extends HttpServlet {
             String path=req.getSession().getServletContext().getRealPath("/WEB-INF/reports/Employee.jrxml");
             Map<String,Object> parameters =new HashMap<String,Object>();
             parameters.put("emp_num",Integer.parseInt(req.getParameter("empNum")));
-            JRsqlFunc.viewReport(path,parameters);
+            JRsqlFunc.viewReport(path,parameters,"web");
             req.getRequestDispatcher("WEB-INF/views/Employee.jsp").forward(req, resp);
         }
     }

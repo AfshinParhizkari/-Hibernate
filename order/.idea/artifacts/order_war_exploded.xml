@@ -54,7 +54,10 @@
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.10.0" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.10.0" />
           <element id="library" level="project" name="Maven: net.sf.jasperreports:jasperreports-fonts:6.16.0" />
-          <element id="library" level="project" name="Maven: com.itextpdf:itextpdf:5.5.6" />
+          <element id="library" level="project" name="Maven: com.lowagie:itext:2.1.7.js8" />
+          <element id="library" level="project" name="Maven: org.bouncycastle:bcmail-jdk15on:1.64" />
+          <element id="library" level="project" name="Maven: org.bouncycastle:bcprov-jdk15on:1.64" />
+          <element id="library" level="project" name="Maven: org.bouncycastle:bcpkix-jdk15on:1.64" />
         </element>
       </element>
       <element id="directory" name="META-INF">

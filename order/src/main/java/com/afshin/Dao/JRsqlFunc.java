@@ -3,6 +3,11 @@ package com.afshin.Dao;
 import com.afshin.General.Mysession;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.view.JasperViewer;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -21,7 +26,7 @@ public class JRsqlFunc {
     /*Remove all below tags in Reports
         <fieldDescription><![CDATA[]]></fieldDescription>*/
 
-    public static void viewReport(String path,Map parameters){
+    public static void viewReport(String path,Map parameters,String fileType){
         try {
             //compile .jrxml(Human Understanding) file to .jasper(Machine understanding)
             JasperReport jreport = JasperCompileManager.compileReport(path);
@@ -29,7 +34,16 @@ public class JRsqlFunc {
                 JasperPrint jprint = JasperFillManager.fillReport(jreport, parameters, connection);
             connection.close();
             // Viewing the report
-            JasperViewer.viewReport(jprint, false);
-        }catch (JRException | SQLException e){e.printStackTrace();}
+            if(fileType.equals("web"))
+                JasperViewer.viewReport(jprint, false);
+            else{
+
+                File file=new File(System.getProperty("user.home")+"/OrderReport."+fileType);
+                OutputStream outputStream=new FileOutputStream(file);
+                if(fileType.equals("pdf"))  JasperExportManager.exportReportToPdfStream(jprint,outputStream);
+                if(fileType.equals("xml"))  JasperExportManager.exportReportToXmlStream(jprint,outputStream);
+
+            }
+        }catch (JRException | SQLException | FileNotFoundException e){e.printStackTrace();}
     }
 }

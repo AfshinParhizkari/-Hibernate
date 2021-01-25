@@ -88,6 +88,8 @@ public class PaymentCon extends HttpServlet {
         }
         if (action.equals("report")) {
             String path=req.getSession().getServletContext().getRealPath("/WEB-INF/reports/Payment.jrxml");
+
+
             Map<String,Object> parameters =new HashMap<String,Object>();
             try {
                 parameters.put("Fdate",new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("fdate")));
@@ -95,7 +97,7 @@ public class PaymentCon extends HttpServlet {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            JRsqlFunc.viewReport(path,parameters);
+            JRsqlFunc.viewReport(path,parameters,req.getParameter("exporttype"));
             req.getRequestDispatcher("WEB-INF/views/PaymentRep.jsp").forward(req, resp);
         }
     }

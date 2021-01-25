@@ -75,7 +75,7 @@
             ifDateType	   : 'gregorian',
             weekNumbers    : false
         });
-    </script>
+    </script><br>
     ToDate: <span id="display_area_2" style="cursor: pointer;" class="display_area">Choose Date</span>
     <input id="date_input_2" type="hidden" name="tdate"/>
     <script type="text/javascript">
@@ -87,10 +87,13 @@
             ifDateType	   : 'gregorian',
             weekNumbers    : false
         });
-    </script><br>
-   Amount : <input name="turnOver" type="text"></br>
-   <input name="crud" type="hidden" value="report"></br>
-    <input type="submit" value="PaymentReport">
+    </script>
+   <p>Please select your gender:</p>
+        <input type="radio" name="exporttype" value="web" checked="checked">View
+        <input type="radio" name="exporttype" value="pdf">PDF
+        <input type="radio" name="exporttype" value="xml">XML
+    <input name="crud" type="hidden" value="report">
+   <input type="submit" value="PaymentReport">
 </form>
 </body>
 </html>
