@@ -42,7 +42,7 @@
         <c:forEach var="order" items="${requestScope.orders}">
             <c:if test="${not empty order}">
             <tr>
-                <td><c:out value="${order.orderNumber}"></c:out></td>
+                <td><a href="/OrderdetailAct?ordernum=${order.orderNumber}&crud=factor"><c:out value="${order.orderNumber}"></c:out></a></td>
                 <td>${afy:shamsiStr(order.orderDate)}</td>
                 <td>${afy:shamsiStr(order.requiredDate)}</td>
                 <td>${afy:shamsiStr(order.shippedDate)}</td>

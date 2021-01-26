@@ -88,8 +88,6 @@ public class PaymentCon extends HttpServlet {
         }
         if (action.equals("report")) {
             String path=req.getSession().getServletContext().getRealPath("/WEB-INF/reports/Payment.jrxml");
-
-
             Map<String,Object> parameters =new HashMap<String,Object>();
             try {
                 parameters.put("Fdate",new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("fdate")));

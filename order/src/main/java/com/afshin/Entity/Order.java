@@ -49,11 +49,12 @@ public class Order {
     @JoinColumn(name = "customerNumber",referencedColumnName = "customerNumber",insertable = false,updatable = false)
     private Customer customer;
 
+    public Customer getCustomer() {return customer;}
+    public void setCustomer(Customer customer) {this.customer = customer;}
 
     public Integer getOrderNumber() {
         return orderNumber;
     }
-
     public void setOrderNumber(Integer orderNumber) {
         this.orderNumber = orderNumber;
     }
@@ -61,7 +62,6 @@ public class Order {
     public Date getOrderDate() {
         return orderDate;
     }
-
     public void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
     }
@@ -69,7 +69,6 @@ public class Order {
     public Date getRequiredDate() {
         return requiredDate;
     }
-
     public void setRequiredDate(Date requiredDate) {
         this.requiredDate = requiredDate;
     }
@@ -77,7 +76,6 @@ public class Order {
     public Date getShippedDate() {
         return shippedDate;
     }
-
     public void setShippedDate(Date shippedDate) {
         this.shippedDate = shippedDate;
     }
@@ -85,7 +83,6 @@ public class Order {
     public String getStatus() {
         return status;
     }
-
     public void setStatus(String status) {
         this.status = status;
     }
@@ -93,7 +90,6 @@ public class Order {
     public String getComments() {
         return comments;
     }
-
     public void setComments(String comments) {
         this.comments = comments;
     }
@@ -101,7 +97,6 @@ public class Order {
     public Integer getCustomerNumber() {
         return customerNumber;
     }
-
     public void setCustomerNumber(Integer customerNumber) {
         this.customerNumber = customerNumber;
     }
@@ -109,7 +104,6 @@ public class Order {
     public List<Orderdetail> getOrderdetails() {
         return orderdetails;
     }
-
     public void setOrderdetails(List<Orderdetail> orderdetails) {
         this.orderdetails = orderdetails;
     }

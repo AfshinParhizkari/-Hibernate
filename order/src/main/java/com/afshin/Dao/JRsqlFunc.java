@@ -3,13 +3,11 @@ package com.afshin.Dao;
 import com.afshin.General.Mysession;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.view.JasperViewer;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Map;
 
