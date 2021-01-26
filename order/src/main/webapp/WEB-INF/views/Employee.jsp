@@ -33,7 +33,7 @@
 </form>
 <table border="1">
     <tr>
-        <td>employeeNumber</td>
+        <td>emplReportoyeeNumber</td>
         <td>lastName</td>
         <td>firstName</td>
         <td>extension</td>

@@ -11,13 +11,10 @@ package com.afshin.Controller;
  */
 
 import com.afshin.Dao.*;
-import com.afshin.Entity.Customer;
 import com.afshin.Entity.Order;
 import com.afshin.Entity.Orderdetail;
 import com.afshin.Entity.OrderdetailPK;
-import com.afshin.General.GeneralFunc;
 import com.afshin.General.GregorianDate;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,8 +22,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

@@ -1,5 +1,6 @@
 package com.afshin.Controller;
 
+import com.afshin.Dao.JRsqlFunc;
 import com.afshin.Dao.ProductlineDao;
 import com.afshin.Entity.Productline;
 import javax.servlet.ServletException;
@@ -14,7 +15,9 @@ import java.io.IOException;
 import com.afshin.General.GeneralFunc;
 import org.apache.commons.io.IOUtils;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Project order
@@ -79,6 +82,10 @@ public class ProductlineCon extends HttpServlet {
             req.getRequestDispatcher("WEB-INF/views/ProductlineMerge.jsp").forward(req,resp);
             //req.getRequestDispatcher("WEB-INF/views/ProductlineMergeJSP.jsp").forward(req,resp);
         }
-
+        if (action.equals("report")) {
+            String path=req.getSession().getServletContext().getRealPath("/WEB-INF/reports/Productline.jrxml");
+            JRsqlFunc.viewReport(path,null,"web");
+            req.getRequestDispatcher("WEB-INF/views/Productline.jsp").forward(req, resp);
+        }
     }
 }

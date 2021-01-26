@@ -25,6 +25,10 @@ Description: JSTL
     <input type="hidden" name="crud" value="read">
     <input type="submit" value="ShowProductline">
 </form>
+<form action="ProductlineAct" method="get">
+    <input type="hidden" name="crud" value="report">
+    <input type="submit" value="ProductType Report">
+</form>
 <table border="1px">
     <tr>
         <td>productLine</td>
