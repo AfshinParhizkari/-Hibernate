@@ -102,6 +102,9 @@ public class OrderdetailCon extends HttpServlet {
             Experesion: $V{totalprice}
             Initial value experesion: 0
             Reset type: Group
+
+            Report Properties:
+            Float Column footer: True
              */
             String path=req.getSession().getServletContext().getRealPath("/WEB-INF/reports/Factor.jrxml");
             OrderDao orderDao = new OrderDao();
