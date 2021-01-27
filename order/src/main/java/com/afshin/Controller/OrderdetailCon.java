@@ -97,6 +97,12 @@ public class OrderdetailCon extends HttpServlet {
             req.getRequestDispatcher("WEB-INF/views/OrderdetailMerge.jsp").forward(req, resp);
         }
         if (action.equals("factor")) {
+            /*Grandtotal variable properties:
+            Calculation: SUM
+            Experesion: $V{totalprice}
+            Initial value experesion: 0
+            Reset type: Group
+             */
             String path=req.getSession().getServletContext().getRealPath("/WEB-INF/reports/Factor.jrxml");
             OrderDao orderDao = new OrderDao();
             Order order =orderDao.findById(Integer.parseInt(req.getParameter("ordernum")));
