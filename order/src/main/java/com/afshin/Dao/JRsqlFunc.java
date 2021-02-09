@@ -32,8 +32,7 @@ public class JRsqlFunc {
                 JasperPrint jprint = JasperFillManager.fillReport(jreport, parameters, connection);
             connection.close();
             // Viewing the report
-            if(fileType.equals("web"))
-                JasperViewer.viewReport(jprint, false);
+            if(fileType.equals("web"))  JasperViewer.viewReport(jprint, false);
             else{
 
                 File file=new File(System.getProperty("user.home")+"/OrderReport."+fileType);
