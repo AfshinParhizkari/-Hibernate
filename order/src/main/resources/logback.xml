@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="5 seconds">
+<!--___________________________ APPENDER__________________________________-->
+    <appender name="consoleStudio" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36}-%msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="fileDisposeable" class="ch.qos.logback.core.FileAppender">
+        <file>/var/log/afshin/order-disposable.log</file>
+        <append>false</append>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36}-%msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="fileRolling" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/var/log/afshin/order.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36}-%msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>/var/log/afshin/orderArc.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <!-- each archived file, size max 10MB -->
+            <maxFileSize>1MB</maxFileSize>
+            <!-- total size of all archive files, if total size > 100MB, it will delete old archived file -->
+            <totalSizeCap>100MB</totalSizeCap>
+            <!-- 8 days to keep -->
+            <maxHistory>8</maxHistory>
+        </rollingPolicy>
+    </appender>
+    <!--___________________________Set APPENDER__________________________________-->
+    <logger level="INFO" name="logger" additivity="true" />
+    <root level="INFO">  <!--ALL(TRACE(DEBUG(INFO(WARN(ERROR(FATAL)))))),OFF  -->
+        <appender-ref ref="consoleStudio" />
+        <appender-ref ref="fileDisposeable" />
+        <appender-ref ref="fileRolling" />
+    </root>
+</configuration>
+<!-- Monitor online on file: tail -f /var/log/afshin/order.log-->

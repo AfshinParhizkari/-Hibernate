@@ -14,6 +14,7 @@ import com.afshin.Dao.*;
 import com.afshin.Entity.Order;
 import com.afshin.Entity.Orderdetail;
 import com.afshin.Entity.OrderdetailPK;
+import com.afshin.General.GeneralFunc;
 import com.afshin.General.GregorianDate;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,6 +35,7 @@ public class OrderdetailCon extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if(!GeneralFunc.login(req)) req.getRequestDispatcher("index.jsp").forward(req, resp);
         orderdetailList.clear();
         String ordernumber = req.getParameter("ordnum");
         String productcode = req.getParameter("procode");
@@ -75,6 +77,7 @@ public class OrderdetailCon extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if(!GeneralFunc.login(req)) req.getRequestDispatcher("index.jsp").forward(req, resp);
         orderdetailList.clear();
         String ordernumber = req.getParameter("ordnum");
         String productcode = req.getParameter("procode");

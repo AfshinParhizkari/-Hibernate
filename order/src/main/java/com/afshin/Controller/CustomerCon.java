@@ -2,6 +2,7 @@ package com.afshin.Controller;
 
 import com.afshin.Dao.CustomerDao;
 import com.afshin.Entity.Customer;
+import com.afshin.General.GeneralFunc;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
@@ -31,6 +32,7 @@ public class CustomerCon extends HttpServlet {
     List<Customer> customerList = new ArrayList<>();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if(!GeneralFunc.login(req)) req.getRequestDispatcher("index.jsp").forward(req, resp);
         customerList.clear();
         String action = req.getParameter("crud");
         if(action.equals("read")) {
@@ -79,6 +81,7 @@ public class CustomerCon extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if(!GeneralFunc.login(req)) req.getRequestDispatcher("index.jsp").forward(req, resp);
         customerList.clear();
         String action = req.getParameter("crud");
         if(action.equals("delete")) {

@@ -1,6 +1,9 @@
 package com.afshin.General;
 
 import com.afshin.Entity.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
@@ -14,9 +17,20 @@ import java.io.IOException;
  * Description:
  */
 public class GeneralFunc {
+
+    public static final Logger logger  = LoggerFactory.getLogger("");
+
+
     public static boolean login(HttpServletRequest req){
+        logger.info("GeneralFunc.login : Enter to method");
         User user=(User)req.getSession(true).getAttribute("sessionUser");
-        if(user !=null ) return true;
-        else return false;
+        if(user !=null ) {
+            logger.info("GeneralFunc.login : User {} is loginged",user.getUsername());
+            return true;
+        }
+        else {
+            logger.error("login : No user is loginged");
+            return false;
+        }
     }
 }

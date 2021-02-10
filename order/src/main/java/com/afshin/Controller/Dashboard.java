@@ -2,14 +2,13 @@ package com.afshin.Controller;
 
 import com.afshin.Dao.UserDao;
 import com.afshin.Entity.User;
-
+import com.afshin.General.GeneralFunc;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -23,6 +22,7 @@ import java.io.IOException;
  */
 @WebServlet(name = "Dispatcher" , urlPatterns = {"/Dispatcher"})
 public class Dashboard extends HttpServlet {
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserDao dao=new UserDao();
@@ -46,7 +46,8 @@ public class Dashboard extends HttpServlet {
             req.getRequestDispatcher("index.jsp").forward(req, resp);
         }
         if (action.equals("test")) {
-            System.out.println("WEB-INF/classes/jasper/Customer.jrxml");
+            GeneralFunc.logger.info("{}.{}|test: Hello, that is worked!",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
+            //logger.info("Post/test : Hello, that is worked!");
             req.getRequestDispatcher("index.jsp").forward(req, resp);
         }
     }
