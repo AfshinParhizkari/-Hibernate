@@ -9,6 +9,7 @@ package com.afshin.Dao;
  * Description: JPA - JPQL
  */
 import com.afshin.Entity.Customer;
+import com.afshin.General.GeneralFunc;
 import com.afshin.General.Myentitymanager;
 
 import javax.persistence.EntityManager;
@@ -19,10 +20,26 @@ public class CustomerDao {
     public CustomerDao() {}
     //ExecuteQuery
     public List<Customer> findall(){
-        return entityManager.createQuery("select c from Customer c").getResultList();
+        try {
+            List<Customer> customers=entityManager.createQuery("select c from Customer c").getResultList();
+            GeneralFunc.logger.info("{}.{}|Try: All are Fetched",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
+            return customers;
+        }catch (Exception e){
+            GeneralFunc.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
     }
     public Customer findbyid(Integer input){
-        return entityManager.find(Customer.class,input);
+        try {
+            Customer customer=entityManager.find(Customer.class,input);
+            GeneralFunc.logger.info("{}.{}|Try: ID {} is Fetched",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),customer.getCustomerNumber());
+            return customer;
+        }catch (Exception e){
+            GeneralFunc.logger.error("{}.{}|Exception: {}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
     }
     public List<Object[]> joinedQuey(){
         return  entityManager.createNamedQuery("JoinCustomerMitOrder").getResultList();
@@ -40,6 +57,7 @@ public class CustomerDao {
             entityManager.getTransaction().begin();
             entityManager.persist(customer);
             entityManager.getTransaction().commit();
+            GeneralFunc.logger.info("{}.{}|Try: Inserted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
         }catch(Exception e){
             System.out.println("Exception: " + e.getMessage() + " happened!");
             e.printStackTrace();
@@ -64,7 +82,7 @@ public class CustomerDao {
             customer.setCreditLimit(customer.getCreditLimit());
             entityManager.getTransaction().commit();
         }catch(Exception e){
-            System.out.println("Exception: " + e.getMessage() + " happened!");
+            GeneralFunc.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
         }
     }
@@ -74,7 +92,7 @@ public class CustomerDao {
             entityManager.remove(customer);
             entityManager.getTransaction().commit();
         }catch(Exception e){
-            System.out.println("Exception: " + e.getMessage() + " happened!");
+            GeneralFunc.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
         }
     }

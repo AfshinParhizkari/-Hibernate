@@ -28,60 +28,71 @@ import java.util.List;
  */
 @WebServlet(name = "UserAct",urlPatterns = "/UserAct")
 public class UserCon extends HttpServlet {
-    UserDao dao=new UserDao();
-    List<User> userList=new ArrayList<>();
+    UserDao dao = new UserDao();
+    List<User> userList = new ArrayList<>();
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if(!GeneralFunc.login(req)) req.getRequestDispatcher("index.jsp").forward(req, resp);
-        userList.clear();
-        String action=req.getParameter("crud");
-        if(action.equals("read")) {
-            String userid = req.getParameter("userid");
-            if (userid.isEmpty()) userList = dao.findall();
-            else userList.add(dao.findbyid(Integer.parseInt(userid)));
-            req.setAttribute("users", userList);
-            req.getRequestDispatcher("WEB-INF/views/User.jsp").forward(req, resp);
-        }
-        if(action.equals("add")) {
-            User user=new User();
-            user.setIdusers(Integer.parseInt(req.getParameter("userid")));
-            user.setUsername(req.getParameter("uname"));
-            user.setPassword(req.getParameter("pwd"));
-            user.setEmployeeid(Integer.parseInt(req.getParameter("empid")));
-            dao.insert(user);
-            userList.add(user);
-            req.setAttribute("users", userList);
-            req.getRequestDispatcher("WEB-INF/views/User.jsp").forward(req, resp);
-        }
-        if(action.equals("update")) {
-            String userid = req.getParameter("userid");
-            User user= dao.findbyid(Integer.parseInt(userid));
-            user.setUsername(req.getParameter("uname"));
-            user.setPassword(req.getParameter("pwd"));
-            user.setEmployeeid(Integer.parseInt(req.getParameter("empid")));
-            dao.update(user);
-            userList.add(user);
-            req.setAttribute("users", userList);
-            req.getRequestDispatcher("WEB-INF/views/User.jsp").forward(req, resp);
+        try {
+            if (!GeneralFunc.login(req)) req.getRequestDispatcher("index.jsp").forward(req, resp);
+            userList.clear();
+            String action = req.getParameter("crud");
+            if (action.equals("read")) {
+                String userid = req.getParameter("userid");
+                if (userid.isEmpty()) userList = dao.findall();
+                else userList.add(dao.findbyid(Integer.parseInt(userid)));
+                req.setAttribute("users", userList);
+                req.getRequestDispatcher("WEB-INF/views/User.jsp").forward(req, resp);
+            }
+            if (action.equals("add")) {
+                User user = new User();
+                user.setIdusers(Integer.parseInt(req.getParameter("userid")));
+                user.setUsername(req.getParameter("uname"));
+                user.setPassword(req.getParameter("pwd"));
+                user.setEmployeeid(Integer.parseInt(req.getParameter("empid")));
+                dao.insert(user);
+                userList.add(user);
+                req.setAttribute("users", userList);
+                req.getRequestDispatcher("WEB-INF/views/User.jsp").forward(req, resp);
+            }
+            if (action.equals("update")) {
+                String userid = req.getParameter("userid");
+                User user = dao.findbyid(Integer.parseInt(userid));
+                user.setUsername(req.getParameter("uname"));
+                user.setPassword(req.getParameter("pwd"));
+                user.setEmployeeid(Integer.parseInt(req.getParameter("empid")));
+                dao.update(user);
+                userList.add(user);
+                req.setAttribute("users", userList);
+                req.getRequestDispatcher("WEB-INF/views/User.jsp").forward(req, resp);
+            }
+        } catch (Exception e) {
+            GeneralFunc.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            e.printStackTrace();
         }
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if(!GeneralFunc.login(req)) req.getRequestDispatcher("index.jsp").forward(req, resp);
-        userList.clear();
-        String action=req.getParameter("crud");
-        String userid = req.getParameter("userid");
-        if(action.equals("delete")) {
-            User user= dao.findbyid(Integer.parseInt(userid));
-            dao.delete(user);
-            req.setAttribute("message","record was deleted");
-            req.getRequestDispatcher("WEB-INF/views/User.jsp").forward(req,resp);
-        }
-        if(action.equals("edit")) {
-            User user= dao.findbyid(Integer.parseInt(userid));
-            req.setAttribute("user",user);
-            req.getRequestDispatcher("WEB-INF/views/UserMerge.jsp").forward(req,resp);
+        try {
+            if (!GeneralFunc.login(req)) req.getRequestDispatcher("index.jsp").forward(req, resp);
+            userList.clear();
+            String action = req.getParameter("crud");
+            String userid = req.getParameter("userid");
+            if (action.equals("delete")) {
+                User user = dao.findbyid(Integer.parseInt(userid));
+                dao.delete(user);
+                req.setAttribute("message", "record was deleted");
+                req.getRequestDispatcher("WEB-INF/views/User.jsp").forward(req, resp);
+            }
+            if (action.equals("edit")) {
+                User user = dao.findbyid(Integer.parseInt(userid));
+                req.setAttribute("user", user);
+                req.getRequestDispatcher("WEB-INF/views/UserMerge.jsp").forward(req, resp);
+            }
+        } catch (Exception e) {
+            GeneralFunc.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            e.printStackTrace();
         }
     }
 }

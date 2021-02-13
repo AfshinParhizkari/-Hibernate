@@ -22,14 +22,14 @@ public class GeneralFunc {
 
 
     public static boolean login(HttpServletRequest req){
-        logger.info("GeneralFunc.login : Enter to method");
+        logger.trace("GeneralFunc.login : Enter to method");
         User user=(User)req.getSession(true).getAttribute("sessionUser");
         if(user !=null ) {
-            logger.info("GeneralFunc.login : User {} is loginged",user.getUsername());
+            logger.info("GeneralFunc.login : User {} is Detected",user.getUsername());
             return true;
         }
         else {
-            logger.error("login : No user is loginged");
+            logger.warn("login : User is not Detected");
             return false;
         }
     }

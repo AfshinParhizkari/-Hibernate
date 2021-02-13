@@ -9,6 +9,7 @@ package com.afshin.Dao;
  * Description: Hibernate - SQL
  */
 import com.afshin.Entity.Payment;
+import com.afshin.General.GeneralFunc;
 import com.afshin.General.Mysession;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -22,7 +23,13 @@ public class PaymentDao {
         try(Session localneshast=Mysession.getsession();) { //try with Resources
             SQLQuery query=neshast.createSQLQuery("select * from payments");
             query.addEntity(Payment.class);
-            return query.list();
+            List<Payment> payments=query.list();
+            GeneralFunc.logger.info("{}.{}|Try: All are Fetched",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
+            return payments;
+        }catch (Exception e){
+            GeneralFunc.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
+            e.printStackTrace();
+            return null;
         }
     }
     public Payment findbyid(Integer cif,String checkNum){
@@ -32,7 +39,13 @@ public class PaymentDao {
             query.setParameter("cif",cif);
             query.setParameter("checkNum",checkNum);
             query.addEntity(Payment.class);
-            return (Payment) query.uniqueResult();
+            Payment payment=(Payment) query.uniqueResult();
+            GeneralFunc.logger.info("{}.{}|Try: ID {} , {} is Fetched",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),payment.getCheckNumber(),payment.getCustomerNumber());
+            return payment;
+        }catch (Exception e){
+            GeneralFunc.logger.error("{}.{}|Exception: {}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
+            e.printStackTrace();
+            return null;
         }
     }
     public List<?> parameterized(Integer cif,String checkNum){
@@ -58,7 +71,12 @@ public class PaymentDao {
             query.setParameter("price", payment.getAmount());
             int rowaffect=query.executeUpdate();
             localneshast.getTransaction().commit();
+            GeneralFunc.logger.info("{}.{}|Try: Inserted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
             return rowaffect;
+        }catch(Exception e){
+            GeneralFunc.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
+            e.printStackTrace();
+            return 0;
         }
     }
     public int update(Payment payment) {
@@ -73,7 +91,12 @@ public class PaymentDao {
             query.setParameter("price", payment.getAmount());
             int rowaffect = query.executeUpdate();
             localneshast.getTransaction().commit();
+            GeneralFunc.logger.info("{}.{}|Try: Updated",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
             return rowaffect;
+        }catch(Exception e){
+            GeneralFunc.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
+            e.printStackTrace();
+            return 0;
         }
     }
     public int delete(Payment payment) {
@@ -85,8 +108,12 @@ public class PaymentDao {
             query.setParameter("checknum", payment.getCheckNumber());
             int rowaffect = query.executeUpdate();
             localneshast.getTransaction().commit();
+            GeneralFunc.logger.info("{}.{}|Try: Deleted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
             return rowaffect;
+        }catch(Exception e){
+            GeneralFunc.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
+            e.printStackTrace();
+            return 0;
         }
     }
-
-    }
+}

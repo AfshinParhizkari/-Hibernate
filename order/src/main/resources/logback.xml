@@ -7,7 +7,7 @@
         </encoder>
     </appender>
 
-    <appender name="fileDisposeable" class="ch.qos.logback.core.FileAppender">
+    <appender name="fileDisposable" class="ch.qos.logback.core.FileAppender">
         <file>/var/log/afshin/order-disposable.log</file>
         <append>false</append>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
@@ -34,7 +34,7 @@
     <logger level="INFO" name="logger" additivity="true" />
     <root level="INFO">  <!--ALL(TRACE(DEBUG(INFO(WARN(ERROR(FATAL)))))),OFF  -->
         <appender-ref ref="consoleStudio" />
-        <appender-ref ref="fileDisposeable" />
+        <appender-ref ref="fileDisposable" />
         <appender-ref ref="fileRolling" />
     </root>
 </configuration>

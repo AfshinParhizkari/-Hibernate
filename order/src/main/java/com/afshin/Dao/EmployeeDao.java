@@ -9,9 +9,12 @@ package com.afshin.Dao;
  * Description: Hibernate - HQL
  */
 import com.afshin.Entity.Employee;
+import com.afshin.General.GeneralFunc;
 import com.afshin.General.Mysession;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+import java.util.ArrayList;
 import java.util.List;
 
 //HQL method
@@ -21,13 +24,27 @@ public class EmployeeDao {
     public EmployeeDao() {}
     public List<Employee> findall(){
         try(Session localneshast=Mysession.getsession();) { //try with Resources
-            return neshast.createQuery("from Employee").list();
+            List<Employee> employees= neshast.createQuery("from Employee").list();
+            GeneralFunc.logger.info("{}.{}|Try: All are Fetched",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
+            return employees;
+        }catch (Exception e){
+            GeneralFunc.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
+            e.printStackTrace();
+            return null;
         }
     }
     public Employee findbyid(Integer empnum){
-        return neshast.find(Employee.class, empnum);
-        //return neshast.get(Employee.class, empnum);
-        //return neshast.load(Employee.class, empnum);
+        try {
+            Employee employee= neshast.find(Employee.class, empnum);
+            //Employee employee= neshast.get(Employee.class, empnum);
+            //Employee employee= neshast.load(Employee.class, empnum);
+            GeneralFunc.logger.info("{}.{}|Try: ID {} is Fetched",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),employee.getEmployeeNumber());
+            return employee;
+        }catch (Exception e){
+            GeneralFunc.logger.error("{}.{}|Exception: {}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
     }
     public List<Employee> joinedQuey(){
         return neshast.createNamedQuery("JoinEmployeeMitOffice").list();
@@ -45,8 +62,9 @@ public class EmployeeDao {
             Transaction tx=neshast.beginTransaction();
              neshast.persist(employee);
             tx.commit();
+            GeneralFunc.logger.info("{}.{}|Try: Inserted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
         }catch(Exception e){
-            System.out.println("Exception: " + e.getMessage() + " happened!");
+            GeneralFunc.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
         }
     }
@@ -55,8 +73,9 @@ public class EmployeeDao {
             Transaction tx=neshast.beginTransaction();
             neshast.merge(employee);
             tx.commit();
+            GeneralFunc.logger.info("{}.{}|Try: Updated",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
         }catch(Exception e){
-            System.out.println("Exception: " + e.getMessage() + " happened!");
+            GeneralFunc.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
         }
     }
@@ -65,8 +84,9 @@ public class EmployeeDao {
             Transaction tx=neshast.beginTransaction();
             neshast.delete(employee);
             tx.commit();
+            GeneralFunc.logger.info("{}.{}|Try: Deleted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
         }catch(Exception e){
-            System.out.println("Exception: " + e.getMessage() + " happened!");
+            GeneralFunc.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
         }
     }

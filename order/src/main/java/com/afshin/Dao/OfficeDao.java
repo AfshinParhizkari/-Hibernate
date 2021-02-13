@@ -10,26 +10,45 @@ package com.afshin.Dao;
  * Description: Hibernate - Criteria(discontinue)
  */
 import com.afshin.Entity.Office;
+import com.afshin.General.GeneralFunc;
 import com.afshin.General.Mysession;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.*;
 import org.hibernate.criterion.Order;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OfficeDao {
     Session neshast= Mysession.getsession();
     //ExecuteQuery
     public List<Office> findall(){
-        Criteria criteria=neshast.createCriteria(Office.class,"o");
-        criteria.addOrder(Order.desc("officeCode"));
-        return criteria.list();
+        List<Office> offices=new ArrayList<>();
+        try {
+            Criteria criteria=neshast.createCriteria(Office.class,"o");
+            criteria.addOrder(Order.desc("officeCode"));
+            GeneralFunc.logger.info("{}.{}|Try: All are Fetched",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
+            return criteria.list();
+        }catch (Exception e){
+            GeneralFunc.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
+
     }
     public Office findbyid(String inputValue){
-        Criteria criteria=neshast.createCriteria(Office.class,"o");
-        criteria.add(Restrictions.eq("officeCode",inputValue));
-        return (Office) criteria.uniqueResult();
+        try {
+            Criteria criteria=neshast.createCriteria(Office.class,"o");
+            criteria.add(Restrictions.eq("officeCode",inputValue));
+            Office office=(Office) criteria.uniqueResult();
+            GeneralFunc.logger.info("{}.{}|Try: Id {} is Fetched",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),office.getOfficeCode());
+            return office;
+        }catch (Exception e){
+            GeneralFunc.logger.error("{}.{}|Exception: {}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
     }
     public List<Object[]> someColumn(String countryName,String mobile){
         Criteria criteria=neshast.createCriteria(Office.class,"o");
@@ -62,8 +81,9 @@ public class OfficeDao {
             Transaction tx=neshast.beginTransaction();
             neshast.persist(office);
             tx.commit();
+            GeneralFunc.logger.info("{}.{}|Try: Inserted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
         }catch(Exception e){
-            System.out.println("Exception: " + e.getMessage() + " happened!");
+            GeneralFunc.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
         }
     }
@@ -72,8 +92,9 @@ public class OfficeDao {
             Transaction tx=neshast.beginTransaction();
             neshast.merge(office);
             tx.commit();
+            GeneralFunc.logger.info("{}.{}|Try: Updated",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
         }catch(Exception e){
-            System.out.println("Exception: " + e.getMessage() + " happened!");
+            GeneralFunc.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
         }
     }
@@ -82,8 +103,9 @@ public class OfficeDao {
             Transaction tx=neshast.beginTransaction();
             neshast.delete(office);
             tx.commit();
+            GeneralFunc.logger.info("{}.{}|Try: Deleted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
         }catch(Exception e){
-            System.out.println("Exception: " + e.getMessage() + " happened!");
+            GeneralFunc.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
         }
     }

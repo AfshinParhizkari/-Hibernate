@@ -25,37 +25,47 @@ public class Dashboard extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserDao dao=new UserDao();
-        String action = req.getParameter("crud");
-        if (action.equals("login")) {
-            String userName = req.getParameter("usrnam");
-            String passWord = req.getParameter("paswrd");
-            User user = dao.login(userName);
-            HttpSession session = req.getSession(true);
-            if (passWord.equals(user.getPassword())) {
-                session.setAttribute("sessionUser", user);
-                session.setAttribute("message", "Login successful!");
-                req.getRequestDispatcher("index.jsp").forward(req, resp);
-            } else {
-                session.setAttribute("message", "User or Password is incorrect");
+        try {
+            UserDao dao = new UserDao();
+            String action = req.getParameter("crud");
+            if (action.equals("login")) {
+                String userName = req.getParameter("usrnam");
+                String passWord = req.getParameter("paswrd");
+                User user = dao.login(userName);
+                HttpSession session = req.getSession(true);
+                if (passWord.equals(user.getPassword())) {
+                    session.setAttribute("sessionUser", user);
+                    session.setAttribute("message", "Login successful!");
+                    req.getRequestDispatcher("index.jsp").forward(req, resp);
+                } else {
+                    session.setAttribute("message", "User or Password is incorrect");
+                    req.getRequestDispatcher("index.jsp").forward(req, resp);
+                }
+            }
+            if (action.equals("logout")) {
+                req.getSession(true).invalidate();
                 req.getRequestDispatcher("index.jsp").forward(req, resp);
             }
-        }
-        if (action.equals("logout")) {
-            req.getSession(true).invalidate();
-            req.getRequestDispatcher("index.jsp").forward(req, resp);
-        }
-        if (action.equals("test")) {
-            GeneralFunc.logger.info("{}.{}|test: Hello, that is worked!",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
-            //logger.info("Post/test : Hello, that is worked!");
-            req.getRequestDispatcher("index.jsp").forward(req, resp);
+            if (action.equals("test")) {
+                GeneralFunc.logger.info("{}.{}|test: Hello, that is worked!", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
+                //logger.info("Post/test : Hello, that is worked!");
+                req.getRequestDispatcher("index.jsp").forward(req, resp);
+            }
+        } catch (Exception e) {
+            GeneralFunc.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            e.printStackTrace();
         }
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String entity=req.getParameter("entity");
-        req.getRequestDispatcher("WEB-INF/views/"+entity+".jsp").forward(req,resp);
-        //req.getRequestDispatcher("WEB-INF/views/EmployeeMerge.jsp").forward(req,resp);
+        try {
+            String entity = req.getParameter("entity");
+            req.getRequestDispatcher("WEB-INF/views/" + entity + ".jsp").forward(req, resp);
+            //req.getRequestDispatcher("WEB-INF/views/EmployeeMerge.jsp").forward(req,resp);
+        } catch (Exception e) {
+            GeneralFunc.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            e.printStackTrace();
+        }
     }
 }
