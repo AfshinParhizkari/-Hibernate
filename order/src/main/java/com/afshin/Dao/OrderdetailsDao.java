@@ -12,6 +12,7 @@ import com.afshin.Entity.Order;
 import com.afshin.Entity.Orderdetail;
 import com.afshin.Entity.OrderdetailPK;
 import com.afshin.Entity.Product;
+import com.afshin.General.Log4j;
 import com.afshin.General.Myentitymanager;
 
 import javax.persistence.EntityManager;
@@ -27,14 +28,30 @@ public class OrderdetailsDao {
     CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 
     public List<Orderdetail> findall() {
-        CriteriaQuery<Orderdetail> criteriaQuery = criteriaBuilder.createQuery(Orderdetail.class);
-        Root<Orderdetail> od = criteriaQuery.from(Orderdetail.class);
-        criteriaQuery.select(od);
-        Query q = entityManager.createQuery(criteriaQuery);
-        return q.getResultList();
+        try {
+            CriteriaQuery<Orderdetail> criteriaQuery = criteriaBuilder.createQuery(Orderdetail.class);
+            Root<Orderdetail> od = criteriaQuery.from(Orderdetail.class);
+            criteriaQuery.select(od);
+            Query q = entityManager.createQuery(criteriaQuery);
+            List<Orderdetail> orderdetails = q.getResultList();
+            Log4j.logger.info("{}.{}|Try: All are Fetched", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
+            return orderdetails;
+        } catch (Exception e) {
+            Log4j.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
     }
     public Orderdetail findbyid(OrderdetailPK odPK) {
-        return entityManager.find(Orderdetail.class, odPK);
+        try{
+            Orderdetail orderdetail=entityManager.find(Orderdetail.class, odPK);
+            Log4j.logger.info("{}.{}|Try: ID {},{}is Fetched",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),orderdetail.getOrderNumber(),orderdetail.getProductCode());
+            return orderdetail;
+        }catch (Exception e){
+            Log4j.logger.error("{}.{}|Exception: {}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
     }
     public List<Object[]> someColumn() {
         CriteriaQuery<?> criteriaQuery = criteriaBuilder.createQuery();
@@ -84,8 +101,9 @@ public class OrderdetailsDao {
             entityManager.getTransaction().begin();
             entityManager.persist(orderdetail);
             entityManager.getTransaction().commit();
+            Log4j.logger.info("{}.{}|Try: Inserted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
         }catch(Exception e){
-            System.out.println("Exception: " + e.getMessage() + " happened!");
+            Log4j.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
         }
     }
@@ -96,8 +114,9 @@ public class OrderdetailsDao {
             orderdetail.setPriceEach(orderdetail.getPriceEach());
             orderdetail.setOrderLineNumber(orderdetail.getOrderLineNumber());
             entityManager.getTransaction().commit();
+            Log4j.logger.info("{}.{}|Try: Updated",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
         }catch(Exception e){
-            System.out.println("Exception: " + e.getMessage() + " happened!");
+            Log4j.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
         }
     }
@@ -106,8 +125,9 @@ public class OrderdetailsDao {
             entityManager.getTransaction().begin();
             entityManager.remove(orderdetail);
             entityManager.getTransaction().commit();
+            Log4j.logger.info("{}.{}|Try: Deleted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
         }catch(Exception e){
-            System.out.println("Exception: " + e.getMessage() + " happened!");
+            Log4j.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
         }
     }

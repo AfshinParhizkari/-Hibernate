@@ -10,7 +10,7 @@ package com.afshin.Dao;
  * Description: Hibernate - Criteria(discontinue)
  */
 import com.afshin.Entity.Office;
-import com.afshin.General.GeneralFunc;
+import com.afshin.General.Logback;
 import com.afshin.General.Mysession;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -28,10 +28,10 @@ public class OfficeDao {
         try {
             Criteria criteria=neshast.createCriteria(Office.class,"o");
             criteria.addOrder(Order.desc("officeCode"));
-            GeneralFunc.logger.info("{}.{}|Try: All are Fetched",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
+            Logback.logger.info("{}.{}|Try: All are Fetched",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
             return criteria.list();
         }catch (Exception e){
-            GeneralFunc.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
+            Logback.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
             return null;
         }
@@ -42,10 +42,10 @@ public class OfficeDao {
             Criteria criteria=neshast.createCriteria(Office.class,"o");
             criteria.add(Restrictions.eq("officeCode",inputValue));
             Office office=(Office) criteria.uniqueResult();
-            GeneralFunc.logger.info("{}.{}|Try: Id {} is Fetched",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),office.getOfficeCode());
+            Logback.logger.info("{}.{}|Try: Id {} is Fetched",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),office.getOfficeCode());
             return office;
         }catch (Exception e){
-            GeneralFunc.logger.error("{}.{}|Exception: {}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
+            Logback.logger.error("{}.{}|Exception: {}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
             return null;
         }
@@ -81,9 +81,9 @@ public class OfficeDao {
             Transaction tx=neshast.beginTransaction();
             neshast.persist(office);
             tx.commit();
-            GeneralFunc.logger.info("{}.{}|Try: Inserted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
+            Logback.logger.info("{}.{}|Try: Inserted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
         }catch(Exception e){
-            GeneralFunc.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
+            Logback.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
         }
     }
@@ -92,9 +92,9 @@ public class OfficeDao {
             Transaction tx=neshast.beginTransaction();
             neshast.merge(office);
             tx.commit();
-            GeneralFunc.logger.info("{}.{}|Try: Updated",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
+            Logback.logger.info("{}.{}|Try: Updated",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
         }catch(Exception e){
-            GeneralFunc.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
+            Logback.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
         }
     }
@@ -103,9 +103,9 @@ public class OfficeDao {
             Transaction tx=neshast.beginTransaction();
             neshast.delete(office);
             tx.commit();
-            GeneralFunc.logger.info("{}.{}|Try: Deleted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
+            Logback.logger.info("{}.{}|Try: Deleted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
         }catch(Exception e){
-            GeneralFunc.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
+            Logback.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
         }
     }

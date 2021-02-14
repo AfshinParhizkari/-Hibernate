@@ -3,7 +3,7 @@ package com.afshin.Controller;
 import com.afshin.Dao.JRsqlFunc;
 import com.afshin.Dao.PaymentDao;
 import com.afshin.Entity.Payment;
-import com.afshin.General.GeneralFunc;
+import com.afshin.General.Logback;
 import com.afshin.General.GregorianDate;
 
 import javax.servlet.ServletException;
@@ -37,7 +37,7 @@ public class PaymentCon extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            if (!GeneralFunc.login(req)) req.getRequestDispatcher("index.jsp").forward(req, resp);
+            if (!Security.isLogin(req)) {req.getRequestDispatcher("index.jsp").forward(req, resp); return;}
             paymentList.clear();
             String action = req.getParameter("crud");
             if (action.equals("read")) {
@@ -69,7 +69,7 @@ public class PaymentCon extends HttpServlet {
             req.setAttribute("payments", paymentList);
             req.getRequestDispatcher("WEB-INF/views/Payment.jsp").forward(req, resp);
         } catch (Exception e) {
-            GeneralFunc.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
         }
     }
@@ -77,7 +77,7 @@ public class PaymentCon extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            if (!GeneralFunc.login(req)) req.getRequestDispatcher("index.jsp").forward(req, resp);
+            if (!Security.isLogin(req)) {req.getRequestDispatcher("index.jsp").forward(req, resp); return;}
             paymentList.clear();
             String action = req.getParameter("crud");
             String custnumber = req.getParameter("custnum");
@@ -106,7 +106,7 @@ public class PaymentCon extends HttpServlet {
                 req.getRequestDispatcher("WEB-INF/views/PaymentRep.jsp").forward(req, resp);
             }
         } catch (Exception e) {
-            GeneralFunc.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
         }
     }

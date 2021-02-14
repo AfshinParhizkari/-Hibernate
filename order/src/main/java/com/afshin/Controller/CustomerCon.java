@@ -2,7 +2,7 @@ package com.afshin.Controller;
 
 import com.afshin.Dao.CustomerDao;
 import com.afshin.Entity.Customer;
-import com.afshin.General.GeneralFunc;
+import com.afshin.General.Logback;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
@@ -34,7 +34,7 @@ public class CustomerCon extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            if (!GeneralFunc.login(req)) req.getRequestDispatcher("index.jsp").forward(req, resp);
+            if (!Security.isLogin(req)) {req.getRequestDispatcher("index.jsp").forward(req, resp); return;}
             customerList.clear();
             String action = req.getParameter("crud");
             if (action.equals("read")) {
@@ -80,7 +80,7 @@ public class CustomerCon extends HttpServlet {
             req.setAttribute("customers", customerList);
             req.getRequestDispatcher("WEB-INF/views/Customer.jsp").forward(req, resp);
         } catch (Exception e) {
-            GeneralFunc.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
         }
     }
@@ -88,13 +88,12 @@ public class CustomerCon extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            if (!GeneralFunc.login(req)) req.getRequestDispatcher("index.jsp").forward(req, resp);
+            if (!Security.isLogin(req)) {req.getRequestDispatcher("index.jsp").forward(req, resp); return;}
             customerList.clear();
             String action = req.getParameter("crud");
             if (action.equals("delete")) {
                 dao.delete(dao.findbyid(Integer.parseInt(req.getParameter("custnum"))));
                 req.getRequestDispatcher("WEB-INF/views/Customer.jsp").forward(req, resp);
-
             }
             if (action.equals("edit")) {
                 Customer customer = dao.findbyid(Integer.parseInt(req.getParameter("custnum")));
@@ -118,7 +117,7 @@ public class CustomerCon extends HttpServlet {
                 req.getRequestDispatcher("WEB-INF/views/Customer.jsp").forward(req, resp);
             }
         } catch (Exception e) {
-            GeneralFunc.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
         }
     }

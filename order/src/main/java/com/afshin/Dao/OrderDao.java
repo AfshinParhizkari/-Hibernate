@@ -10,6 +10,7 @@ package com.afshin.Dao;
  */
 import com.afshin.Entity.Customer;
 import com.afshin.Entity.Order;
+import com.afshin.General.Log4j;
 import com.afshin.General.Myentitymanager;
 
 import javax.persistence.EntityManager;
@@ -23,16 +24,32 @@ public class OrderDao {
     EntityManager entityManager = Myentitymanager.getEntityManager();
     CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
     //ExecuteQuery
-    public List<com.afshin.Entity.Order> findAll(){
-        CriteriaQuery<com.afshin.Entity.Order> criteriaQuery = criteriaBuilder.createQuery(com.afshin.Entity.Order.class);
-        Root<com.afshin.Entity.Order> o = criteriaQuery.from(com.afshin.Entity.Order.class);
-        criteriaQuery.select(o);
-        criteriaQuery.orderBy(criteriaBuilder.asc(o.get("orderNumber")));
-        Query q = entityManager.createQuery(criteriaQuery);
-        return q.getResultList();
+    public List<Order> findAll(){
+        try {
+            CriteriaQuery<com.afshin.Entity.Order> criteriaQuery = criteriaBuilder.createQuery(com.afshin.Entity.Order.class);
+            Root<com.afshin.Entity.Order> o = criteriaQuery.from(com.afshin.Entity.Order.class);
+            criteriaQuery.select(o);
+            criteriaQuery.orderBy(criteriaBuilder.asc(o.get("orderNumber")));
+            Query q = entityManager.createQuery(criteriaQuery);
+            List<Order> orders=q.getResultList();
+            Log4j.logger.info("{}.{}|Try: All are Fetched",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
+            return orders;
+        }catch (Exception e){
+            Log4j.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
     }
-    public com.afshin.Entity.Order findById(Integer ordNum){
-        return entityManager.find(com.afshin.Entity.Order.class, ordNum);
+    public Order findById(Integer ordNum){
+        try {
+            Order order=entityManager.find(com.afshin.Entity.Order.class, ordNum);
+            Log4j.logger.info("{}.{}|Try: ID {} is Fetched",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),order.getOrderNumber());
+            return order;
+        }catch (Exception e){
+            Log4j.logger.error("{}.{}|Exception: {}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
     }
     public List<?> someColumn(){
         CriteriaQuery<?> criteriaQuery = criteriaBuilder.createQuery();
@@ -76,8 +93,9 @@ public class OrderDao {
             entityManager.getTransaction().begin();
             entityManager.persist(order);
             entityManager.getTransaction().commit();
+            Log4j.logger.info("{}.{}|Try: Inserted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
         }catch(Exception e){
-            System.out.println("Exception: " + e.getMessage() + " happened!");
+            Log4j.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
         }
     }
@@ -91,8 +109,9 @@ public class OrderDao {
             order.setComments(order.getComments());
             order.setCustomerNumber(order.getCustomerNumber());
             entityManager.getTransaction().commit();
+            Log4j.logger.info("{}.{}|Try: Updated",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
         }catch(Exception e){
-            System.out.println("Exception: " + e.getMessage() + " happened!");
+            Log4j.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
         }
     }
@@ -101,8 +120,9 @@ public class OrderDao {
             entityManager.getTransaction().begin();
             entityManager.remove(order);
             entityManager.getTransaction().commit();
+            Log4j.logger.info("{}.{}|Try: Deleted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
         }catch(Exception e){
-            System.out.println("Exception: " + e.getMessage() + " happened!");
+            Log4j.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
         }
     }

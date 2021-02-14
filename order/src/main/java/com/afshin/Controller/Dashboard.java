@@ -2,7 +2,9 @@ package com.afshin.Controller;
 
 import com.afshin.Dao.UserDao;
 import com.afshin.Entity.User;
-import com.afshin.General.GeneralFunc;
+import com.afshin.General.Logback;
+import com.afshin.General.Log4j;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -47,12 +49,12 @@ public class Dashboard extends HttpServlet {
                 req.getRequestDispatcher("index.jsp").forward(req, resp);
             }
             if (action.equals("test")) {
-                GeneralFunc.logger.info("{}.{}|test: Hello, that is worked!", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
-                //logger.info("Post/test : Hello, that is worked!");
+                Logback.logger.info("{}.{}|test: Hello, Logback is working!", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
+                Log4j.logger.info("{}.{}|test: Hello, Log4j is working!", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
                 req.getRequestDispatcher("index.jsp").forward(req, resp);
             }
         } catch (Exception e) {
-            GeneralFunc.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
         }
     }
@@ -64,7 +66,7 @@ public class Dashboard extends HttpServlet {
             req.getRequestDispatcher("WEB-INF/views/" + entity + ".jsp").forward(req, resp);
             //req.getRequestDispatcher("WEB-INF/views/EmployeeMerge.jsp").forward(req,resp);
         } catch (Exception e) {
-            GeneralFunc.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
         }
     }

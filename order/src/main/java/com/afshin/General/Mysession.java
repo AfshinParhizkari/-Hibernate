@@ -33,27 +33,51 @@ public class Mysession {
                     .addAnnotatedClass(Order.class)
                     .addAnnotatedClass(Orderdetail.class)
                     .buildSessionFactory();
-        } catch (Throwable e) {
+            Log4j.logger.info("Mysession.{}|Try: Created", Thread.currentThread().getStackTrace()[1].getMethodName());
+        } catch (Exception e) {
+            Log4j.logger.error("Mysession.{}|Exception:{}", Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             throw new ExceptionInInitializerError(e);
         }
     }
 
     public static Session getsession() {
-        return session.openSession();
-        //return session.getCurrentSession();
+        try {
+            Session sessiontmp = session.openSession();
+            Log4j.logger.info("Mysession.{}|Try: Opened", Thread.currentThread().getStackTrace()[1].getMethodName());
+            return sessiontmp;
+            //return session.getCurrentSession();
+        } catch (Exception e) {
+            Log4j.logger.error("Mysession.{}|Exception:{}", Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
     }
+
     public static void closesession() {
-        session.getCurrentSession().close();
+        try {
+            session.getCurrentSession().close();
+            Log4j.logger.info("Mysession.{}|Try: Closed", Thread.currentThread().getStackTrace()[1].getMethodName());
+        } catch (Exception e) {
+            Log4j.logger.error("Mysession.{}|Exception:{}", Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     public static Connection getconnection() {
-        final Connection[] con = new Connection[1];
-        getsession().doWork(new Work() {
-            @Override
-            public void execute(Connection connection) throws SQLException {
-                con[0] =connection;
-            }
-        });
-        return con[0];
+        try {
+            final Connection[] con = new Connection[1];
+            getsession().doWork(new Work() {
+                @Override
+                public void execute(Connection connection) throws SQLException {
+                    con[0] = connection;
+                }
+            });
+            Log4j.logger.info("Mysession.{}|Try: Assigned", Thread.currentThread().getStackTrace()[1].getMethodName());
+            return con[0];
+        } catch (Exception e) {
+            Log4j.logger.error("Mysession.{}|Exception:{}", Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
     }
 }

@@ -28,10 +28,10 @@ public class GregorianDate {
             gregorianCalendar.clear();
             gregorianCalendar.setTimeZone(TimeZone.getTimeZone("Asia/Tehran"));
             gregorianCalendar.set(miladiDate.getYear() + 1900, miladiDate.getMonth(), miladiDate.getDate());
-            GeneralFunc.logger.info("GregorianDate.{}|Try: Date converted", Thread.currentThread().getStackTrace()[1].getMethodName());
+            Logback.logger.info("GregorianDate.{}|Try: Date converted", Thread.currentThread().getStackTrace()[1].getMethodName());
             return gregorianCalendar.getTime();
         } catch (Exception e) {
-            GeneralFunc.logger.error("GregorianDate.{}|Exception: {}", Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            Logback.logger.error("GregorianDate.{}|Exception: {}", Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
             return null;
         }
@@ -49,10 +49,10 @@ public class GregorianDate {
             gregorianCalendar.clear();
             gregorianCalendar.setTimeZone(TimeZone.getTimeZone("Asia/Tehran"));
             gregorianCalendar.set(year, month, day);
-            GeneralFunc.logger.info("GregorianDate.{}|Try: Date converted", Thread.currentThread().getStackTrace()[1].getMethodName());
+            Logback.logger.info("GregorianDate.{}|Try: Date converted", Thread.currentThread().getStackTrace()[1].getMethodName());
             return gregorianCalendar.getTime();
         } catch (Exception e) {
-            GeneralFunc.logger.error("GregorianDate.{}|Exception: {}", Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            Logback.logger.error("GregorianDate.{}|Exception: {}", Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
             return null;
         }
@@ -62,10 +62,10 @@ public class GregorianDate {
             int year = Integer.parseInt(shamsidate.substring(0, 4));
             int month = Integer.parseInt(shamsidate.substring(5, 7)) - 1;
             int day = Integer.parseInt(shamsidate.substring(8, 10));
-            GeneralFunc.logger.info("GregorianDate.{}|Try: Date converted", Thread.currentThread().getStackTrace()[1].getMethodName());
+            Logback.logger.info("GregorianDate.{}|Try: Date converted", Thread.currentThread().getStackTrace()[1].getMethodName());
             return shamsi2miladi(year, month, day);
         } catch (Exception e) {
-            GeneralFunc.logger.error("GregorianDate.{}|Exception: {}", Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            Logback.logger.error("GregorianDate.{}|Exception: {}", Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
             return null;
         }

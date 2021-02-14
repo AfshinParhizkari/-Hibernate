@@ -2,7 +2,7 @@ package com.afshin.Controller;
 
 import com.afshin.Dao.OfficeDao;
 import com.afshin.Entity.Office;
-import com.afshin.General.GeneralFunc;
+import com.afshin.General.Logback;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,7 +29,7 @@ public class OfficeCon extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            if (!GeneralFunc.login(req)) req.getRequestDispatcher("index.jsp").forward(req, resp);
+            if (!Security.isLogin(req)) {req.getRequestDispatcher("index.jsp").forward(req, resp); return;}
             officeList.clear();
             String action = req.getParameter("crud");
             if (action.equals("read")) {
@@ -68,14 +68,14 @@ public class OfficeCon extends HttpServlet {
             req.setAttribute("Offices", officeList);
             req.getRequestDispatcher("WEB-INF/views/Office.jsp").forward(req, resp);
         } catch (Exception e) {
-            GeneralFunc.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
         }
     }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            if (!GeneralFunc.login(req)) req.getRequestDispatcher("index.jsp").forward(req, resp);
+            if (!Security.isLogin(req)) {req.getRequestDispatcher("index.jsp").forward(req, resp); return;}
             officeList.clear();
             String action = req.getParameter("crud");
             if (action.equals("delete")) {
@@ -89,7 +89,7 @@ public class OfficeCon extends HttpServlet {
                 req.getRequestDispatcher("WEB-INF/views/OfficeMerge.jsp").forward(req, resp);
             }
         }catch (Exception e) {
-            GeneralFunc.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
         }
     }

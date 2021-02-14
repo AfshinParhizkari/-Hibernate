@@ -10,7 +10,7 @@ package com.afshin.Controller;
  */
 import com.afshin.Dao.ProductDao;
 import com.afshin.Entity.Product;
-import com.afshin.General.GeneralFunc;
+import com.afshin.General.Logback;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,63 +24,79 @@ import java.util.List;
 
 @WebServlet(name = "ProductAct",urlPatterns = {"/ProductAct"})
 public class ProductCon extends HttpServlet {
-    List<Product> products=new ArrayList<>();
-    ProductDao dao=new ProductDao();
+    List<Product> products = new ArrayList<>();
+    ProductDao dao = new ProductDao();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if(!GeneralFunc.login(req)) req.getRequestDispatcher("index.jsp").forward(req, resp);
-        products.clear();
-        String action =req.getParameter("crud");
-        if(action.equals("read")) {
-            String productCode =req.getParameter("proNum");
-            if(productCode.isEmpty()) products =dao.findall();
-            else products.add(dao.findbyid(productCode));
+        try {
+            if (!Security.isLogin(req)) {
+                req.getRequestDispatcher("index.jsp").forward(req, resp);
+                return;
+            }
+            products.clear();
+            String action = req.getParameter("crud");
+            if (action.equals("read")) {
+                String productCode = req.getParameter("proNum");
+                if (productCode.isEmpty()) products = dao.findall();
+                else products.add(dao.findbyid(productCode));
+            }
+            if (action.equals("add")) {
+                Product product = new Product();
+                product.setProductCode(req.getParameter("proNum"));
+                product.setProductName(req.getParameter("proNam"));
+                product.setProductLine(req.getParameter("proLin"));
+                product.setProductScale(req.getParameter("proScal"));
+                product.setProductVendor(req.getParameter("proVendor"));
+                product.setProductDescription(req.getParameter("proDesc"));
+                product.setQuantityInStock(Integer.parseInt(req.getParameter("qntityStok")));
+                product.setBuyPrice(new BigDecimal(req.getParameter("buyPric")));
+                product.setMSRP(new BigDecimal(req.getParameter("msrp")));
+                dao.insert(product);
+                products.add(product);
+            }
+            if (action.equals("update")) {
+                Product product = dao.findbyid(req.getParameter("proNum"));
+                product.setProductName(req.getParameter("proNam"));
+                product.setProductLine(req.getParameter("proLin"));
+                product.setProductScale(req.getParameter("proScal"));
+                product.setProductVendor(req.getParameter("proVendor"));
+                product.setProductDescription(req.getParameter("proDesc"));
+                product.setQuantityInStock(Integer.parseInt(req.getParameter("qntityStok")));
+                product.setBuyPrice(new BigDecimal(req.getParameter("buyPric")));
+                product.setMSRP(new BigDecimal(req.getParameter("msrp")));
+                dao.update(product);
+                products.add(product);
+            }
+            req.setAttribute("products", products);
+            req.getRequestDispatcher("WEB-INF/views/Product.jsp").forward(req, resp);
+        } catch (Exception e) {
+            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            e.printStackTrace();
         }
-        if(action.equals("add")) {
-            Product product =new Product();
-            product.setProductCode(req.getParameter("proNum"));
-            product.setProductName(req.getParameter("proNam"));
-            product.setProductLine(req.getParameter("proLin"));
-            product.setProductScale(req.getParameter("proScal"));
-            product.setProductVendor(req.getParameter("proVendor"));
-            product.setProductDescription(req.getParameter("proDesc"));
-            product.setQuantityInStock(Integer.parseInt(req.getParameter("qntityStok")));
-            product.setBuyPrice(new BigDecimal(req.getParameter("buyPric")));
-            product.setMSRP(new BigDecimal(req.getParameter("msrp")));
-            dao.insert(product);
-            products.add(product);
-        }
-        if(action.equals("update")) {
-            Product product =dao.findbyid(req.getParameter("proNum"));
-            product.setProductName(req.getParameter("proNam"));
-            product.setProductLine(req.getParameter("proLin"));
-            product.setProductScale(req.getParameter("proScal"));
-            product.setProductVendor(req.getParameter("proVendor"));
-            product.setProductDescription(req.getParameter("proDesc"));
-            product.setQuantityInStock(Integer.parseInt(req.getParameter("qntityStok")));
-            product.setBuyPrice(new BigDecimal(req.getParameter("buyPric")));
-            product.setMSRP(new BigDecimal(req.getParameter("msrp")));
-            dao.update(product);
-            products.add(product);
-        }
-        req.setAttribute("products",products);
-        req.getRequestDispatcher("WEB-INF/views/Product.jsp").forward(req,resp);
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if(!GeneralFunc.login(req)) req.getRequestDispatcher("index.jsp").forward(req, resp);
-        products.clear();
-        String action =req.getParameter("crud");
-        if(action.equals("delete")){
-            dao.delete(dao.findbyid(req.getParameter("proNum")));
-            req.getRequestDispatcher("WEB-INF/views/Product.jsp").forward(req,resp);
-        }
-        if(action.equals("edit")){
-            Product product=dao.findbyid(req.getParameter("proNum"));
-            req.setAttribute("product",product);
-            req.getRequestDispatcher("WEB-INF/views/ProductMerge.jsp").forward(req,resp);
+        try {
+            if (!Security.isLogin(req)) {
+                req.getRequestDispatcher("index.jsp").forward(req, resp);
+                return;
+            }
+            products.clear();
+            String action = req.getParameter("crud");
+            if (action.equals("delete")) {
+                dao.delete(dao.findbyid(req.getParameter("proNum")));
+                req.getRequestDispatcher("WEB-INF/views/Product.jsp").forward(req, resp);
+            }
+            if (action.equals("edit")) {
+                Product product = dao.findbyid(req.getParameter("proNum"));
+                req.setAttribute("product", product);
+                req.getRequestDispatcher("WEB-INF/views/ProductMerge.jsp").forward(req, resp);
+            }
+        } catch (Exception e) {
+            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            e.printStackTrace();
         }
     }
 }

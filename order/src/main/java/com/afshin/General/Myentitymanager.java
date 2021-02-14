@@ -19,14 +19,25 @@ public class Myentitymanager {
     public static EntityManager getEntityManager() {
         try {
             entityManagerFactory = Persistence.createEntityManagerFactory("orderdbconfig");
-            return entityManagerFactory.createEntityManager();
-        }catch (Exception e) {
-            System.out.print(e.toString());
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
+            Log4j.logger.info("Myentitymanager.{}|Try: Assigned", Thread.currentThread().getStackTrace()[1].getMethodName());
+            return entityManager;
+        } catch (Exception e) {
+            Log4j.logger.error("Myentitymanager.{}|Exception:{}", Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
-    public static CriteriaBuilder getCriteriaBuilder(){
-        return getEntityManager().getCriteriaBuilder();
+    public static CriteriaBuilder getCriteriaBuilder() {
+        try {
+            CriteriaBuilder criteriaBuilder=getEntityManager().getCriteriaBuilder();
+            Log4j.logger.info("Myentitymanager.{}|Try: Assigned", Thread.currentThread().getStackTrace()[1].getMethodName());
+            return criteriaBuilder;
+        } catch (Exception e) {
+            Log4j.logger.error("Myentitymanager.{}|Exception:{}", Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
     }
 }
