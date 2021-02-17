@@ -29,6 +29,9 @@ Description: JSTL
     <input type="hidden" name="crud" value="report">
     <input type="submit" value="ProductType Report">
 </form>
+<c:if test="${requestScope.message ne null}">
+    <c:out value="${requestScope.message}"></c:out>
+</c:if><table border="1px">
 <table border="1px">
     <tr>
         <td>productLine</td>

@@ -30,6 +30,11 @@
     <input type="hidden" name="crud" value="read">
     <input type="submit" value="ShowPayment">
 </form>
+<%
+    String msg = (String) request.getAttribute("message");
+    if(msg!=null)
+        out.print(msg);
+%>
 <table border="1px">
     <tr>
         <td>customerNumber</td>

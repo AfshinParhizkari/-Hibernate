@@ -40,6 +40,10 @@ public class ProductCon extends HttpServlet {
                 String productCode = req.getParameter("proNum");
                 if (productCode.isEmpty()) products = dao.findall();
                 else products.add(dao.findbyid(productCode));
+                if(products.isEmpty() || products.get(0)==null)
+                    req.setAttribute("message", "There is no record");
+                else
+                    req.setAttribute("message", "record(s) is fetched");
             }
             if (action.equals("add")) {
                 Product product = new Product();
@@ -52,8 +56,10 @@ public class ProductCon extends HttpServlet {
                 product.setQuantityInStock(Integer.parseInt(req.getParameter("qntityStok")));
                 product.setBuyPrice(new BigDecimal(req.getParameter("buyPric")));
                 product.setMSRP(new BigDecimal(req.getParameter("msrp")));
-                dao.insert(product);
-                products.add(product);
+                String status=dao.insert(product);
+                if(status.equals(product.getProductCode())) req.setAttribute("message", "record is Added");
+                else req.setAttribute("message", "record is not Added");
+                products.add(dao.findbyid(status));
             }
             if (action.equals("update")) {
                 Product product = dao.findbyid(req.getParameter("proNum"));
@@ -65,14 +71,17 @@ public class ProductCon extends HttpServlet {
                 product.setQuantityInStock(Integer.parseInt(req.getParameter("qntityStok")));
                 product.setBuyPrice(new BigDecimal(req.getParameter("buyPric")));
                 product.setMSRP(new BigDecimal(req.getParameter("msrp")));
-                dao.update(product);
-                products.add(product);
+                String status=dao.update(product);
+                if(status.equals(product.getProductCode())) req.setAttribute("message", "record is Updated");
+                else req.setAttribute("message", "record is not Updated");
+                products.add(dao.findbyid(status));
             }
             req.setAttribute("products", products);
             req.getRequestDispatcher("WEB-INF/views/Product.jsp").forward(req, resp);
         } catch (Exception e) {
             Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
+            req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
         }
     }
 
@@ -86,8 +95,14 @@ public class ProductCon extends HttpServlet {
             products.clear();
             String action = req.getParameter("crud");
             if (action.equals("delete")) {
-                dao.delete(dao.findbyid(req.getParameter("proNum")));
-                req.getRequestDispatcher("WEB-INF/views/Product.jsp").forward(req, resp);
+                Integer status = dao.delete(dao.findbyid(req.getParameter("proNum")));
+                if(status==1) {
+                    req.setAttribute("message", "record is deleted");
+                    req.getRequestDispatcher("WEB-INF/views/Product.jsp").forward(req, resp);
+                }else{
+                    req.setAttribute("message", "record is not deleted");
+                    req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
+                }
             }
             if (action.equals("edit")) {
                 Product product = dao.findbyid(req.getParameter("proNum"));
@@ -97,6 +112,7 @@ public class ProductCon extends HttpServlet {
         } catch (Exception e) {
             Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
+            req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
         }
     }
 }

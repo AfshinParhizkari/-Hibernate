@@ -26,7 +26,9 @@
     <input type="hidden" name="crud" value="read">
     <input type="submit" value="ShowOrder">
 </form>
-<table border="1px">
+<c:if test="${requestScope.message ne null}">
+    <c:out value="${requestScope.message}"></c:out>
+</c:if><table border="1px">
     <tr>
         <td>OrderNumber</td>
         <td>OrderDate</td>

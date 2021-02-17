@@ -69,13 +69,13 @@
         Payment payment = (Payment) request.getAttribute("payment");
         if(payment ==null){
     %>
-                Customer Number: <input name="custNum" type="number"></br>
-                Check Number: <input name="checkNum" type="text"></br>
-                Amount : <input name="turnOver" type="text"></br>
+                Customer Number: <input name="custNum" type="number" required="required"></br>
+                Check Number: <input name="checkNum" type="text" required="required"></br>
+                Amount : <input name="turnOver" type="text" required="required"></br>
 
                 <div class="example">
                     Payment date :
-                    <input id="date_input_1" type="text" name="payDate" /><img id="date_btn_1" src="/statics/JalaliJSCalendar-master/examples/cal.png" style="vertical-align: top;" />
+                    <input id="date_input_1" type="text" name="payDate"  required="required"/><img id="date_btn_1" src="/statics/JalaliJSCalendar-master/examples/cal.png" style="vertical-align: top;" />
                     <script type="text/javascript">
                         Calendar.setup({
                             inputField     :    "date_input_1",   // id of the input field
@@ -91,11 +91,11 @@
         <%}else{%>
                 <input name="custNum" type="hidden" value="<%=payment.getCustomerNumber()%>">
                 <input name="checkNum" type="hidden" value="<%=payment.getCheckNumber()%>">
-                Amount : <input name="turnOver" type="text" value="<%=payment.getAmount()%>"></br>
+                Amount : <input name="turnOver" type="text" value="<%=payment.getAmount()%>" required="required"></br>
                 <%request.setAttribute("persianDate", GregorianDate.shamsiStr(GregorianDate.miladi2shamsi(payment.getPaymentDate())));%>
                 <div class="example">
                     Payment date :
-                    <input id="date_input_2" type="text" name="payDate" value="<%=request.getAttribute("persianDate")%>"/><img id="date_btn_2" src="/statics/JalaliJSCalendar-master/examples/cal.png" style="vertical-align: top;" />
+                    <input id="date_input_2" type="text" name="payDate" value="<%=request.getAttribute("persianDate")%>" required="required"/><img id="date_btn_2" src="/statics/JalaliJSCalendar-master/examples/cal.png" style="vertical-align: top;" />
                     <script type="text/javascript">
                         Calendar.setup({
                             inputField     :    "date_input_2",   // id of the input field

@@ -23,25 +23,25 @@
         Employee employee = (Employee) request.getAttribute("employee");
         if(employee ==null){
     %>
-    EmployeeNumber: <input type="number" name="empnum"><br>
-    LastName: <input type="text" name="lname"><br>
-    FirstName: <input type="text" name="fname"><br>
-    Extension: <input type="text" name="exten"><br>
-    Email: <input type="text" name="email"><br>
-    OfficeCode: <input type="text" name="offcode"><br>
-    Reportto: <input type="number" name="repto"><br>
-    JobTitle: <input type="text" name="jobtit"><br><br>
+    EmployeeNumber: <input type="number" name="empnum" required="required"><br>
+    LastName: <input type="text" name="lname" required="required"><br>
+    FirstName: <input type="text" name="fname" required="required"><br>
+    Extension: <input type="text" name="exten" required="required"><br>
+    Email: <input type="text" name="email" required="required"><br>
+    OfficeCode: <input type="text" name="offcode" required="required"><br>
+    Reportto: <input type="number" name="repto" required="required"><br>
+    JobTitle: <input type="text" name="jobtit" required="required"><br><br>
     <input type="hidden" value="add" name="crud">
     <input type="submit" value="Add">
     <%}else{%>
     <input type="hidden" value="<%=employee.getEmployeeNumber()%>" name="empnum">
-    LastName: <input value="<%=employee.getLastName()%>" name="lname"><br>
-    FirstName: <input value="<%=employee.getFirstName()%>" name="fname"><br>
-    Extension: <input value="<%=employee.getExtension()%>" name="exten"><br>
-    Email: <input value="<%=employee.getEmail()%>" name="email"><br>
-    OfficeCode: <input value="<%=employee.getOfficeCode()%>" name="offcode"><br>
-    Reportto: <input value="<%=employee.getReportsTo()%>" name="repto"><br>
-    JobTitle: <input value="<%=employee.getJobTitle()%>" name="jobtit"><br><br>
+    LastName: <input value="<%=employee.getLastName()%>" name="lname" required="required"><br>
+    FirstName: <input value="<%=employee.getFirstName()%>" name="fname" required="required"><br>
+    Extension: <input value="<%=employee.getExtension()%>" name="exten" required="required"><br>
+    Email: <input value="<%=employee.getEmail()%>" name="email" required="required"><br>
+    OfficeCode: <input value="<%=employee.getOfficeCode()%>" name="offcode" required="required"><br>
+    Reportto: <input value="<%=employee.getReportsTo()%>" name="repto" required="required"><br>
+    JobTitle: <input value="<%=employee.getJobTitle()%>" name="jobtit" required="required"><br><br>
     <input type="hidden" name="crud" value="update">
     <input type="submit" value="Update">
     <%}%>

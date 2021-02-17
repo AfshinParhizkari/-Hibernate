@@ -37,6 +37,10 @@ public class UserCon extends HttpServlet {
                 String userid = req.getParameter("userid");
                 if (userid.isEmpty()) userList = dao.findall();
                 else userList.add(dao.findbyid(Integer.parseInt(userid)));
+                if(userList.isEmpty() || userList.get(0)==null)
+                    req.setAttribute("message", "There is no record");
+                else
+                    req.setAttribute("message", "record(s) is fetched");
                 req.setAttribute("users", userList);
             }
             if (action.equals("add")) {
@@ -45,8 +49,10 @@ public class UserCon extends HttpServlet {
                 user.setUsername(req.getParameter("uname"));
                 user.setPassword(req.getParameter("pwd"));
                 user.setEmployeeid(Integer.parseInt(req.getParameter("empid")));
-                dao.insert(user);
-                userList.add(user);
+                Integer status = dao.insert(user);
+                if(status==user.getIdusers()) req.setAttribute("message", "record is Added");
+                else req.setAttribute("message", "record is not Added");
+                userList.add(dao.findbyid(status));
                 req.setAttribute("users", userList);
             }
             if (action.equals("update")) {
@@ -55,15 +61,17 @@ public class UserCon extends HttpServlet {
                 user.setUsername(req.getParameter("uname"));
                 user.setPassword(req.getParameter("pwd"));
                 user.setEmployeeid(Integer.parseInt(req.getParameter("empid")));
-                dao.update(user);
-                userList.add(user);
+                Integer status = dao.update(user);
+                if(status==user.getIdusers()) req.setAttribute("message", "record is Updated");
+                else req.setAttribute("message", "record is not Updated");
+                userList.add(dao.findbyid(status));
                 req.setAttribute("users", userList);
             }
             req.getRequestDispatcher("WEB-INF/views/User.jsp").forward(req, resp);
-            return;
         } catch (Exception e) {
             Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
+            req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
         }
     }
 
@@ -76,9 +84,14 @@ public class UserCon extends HttpServlet {
             String userid = req.getParameter("userid");
             if (action.equals("delete")) {
                 User user = dao.findbyid(Integer.parseInt(userid));
-                dao.delete(user);
-                req.setAttribute("message", "record was deleted");
-                req.getRequestDispatcher("WEB-INF/views/User.jsp").forward(req, resp);
+                Integer status = dao.delete(user);
+                if(status==1) {
+                    req.setAttribute("message", "record is deleted");
+                    req.getRequestDispatcher("WEB-INF/views/User.jsp").forward(req, resp);
+                }else{
+                    req.setAttribute("message", "record is not deleted");
+                    req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
+                }
             }
             if (action.equals("edit")) {
                 User user = dao.findbyid(Integer.parseInt(userid));
@@ -88,6 +101,7 @@ public class UserCon extends HttpServlet {
         } catch (Exception e) {
             Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
+            req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
         }
     }
 }

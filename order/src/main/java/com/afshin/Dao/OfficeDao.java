@@ -42,7 +42,7 @@ public class OfficeDao {
             Criteria criteria=neshast.createCriteria(Office.class,"o");
             criteria.add(Restrictions.eq("officeCode",inputValue));
             Office office=(Office) criteria.uniqueResult();
-            Logback.logger.info("{}.{}|Try: Id {} is Fetched",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),office.getOfficeCode());
+            Logback.logger.info("{}.{}|Try: record is Fetched",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
             return office;
         }catch (Exception e){
             Logback.logger.error("{}.{}|Exception: {}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
@@ -76,37 +76,43 @@ public class OfficeDao {
     }
 
     //ExecuteUpdate
-    public void insert(Office office){
+    public String insert(Office office){
         try{
             Transaction tx=neshast.beginTransaction();
             neshast.persist(office);
             tx.commit();
             Logback.logger.info("{}.{}|Try: Inserted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
+            return office.getOfficeCode();
         }catch(Exception e){
             Logback.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
+            return "-1";
         }
     }
-    public void update(Office office){
+    public String update(Office office){
         try{
             Transaction tx=neshast.beginTransaction();
             neshast.merge(office);
             tx.commit();
             Logback.logger.info("{}.{}|Try: Updated",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
+            return office.getOfficeCode();
         }catch(Exception e){
             Logback.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
+            return "-1";
         }
     }
-    public void delete(Office office){
+    public Integer delete(Office office){
         try{
             Transaction tx=neshast.beginTransaction();
             neshast.delete(office);
             tx.commit();
             Logback.logger.info("{}.{}|Try: Deleted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
+            return 1;
         }catch(Exception e){
             Logback.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
+            return -1;
         }
     }
 }

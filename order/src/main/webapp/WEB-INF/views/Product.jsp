@@ -25,7 +25,9 @@
     <input type="hidden" name="crud" value="read">
     <input type="submit" value="ShowProduct">
 </form>
-
+<c:if test="${requestScope.message ne null}">
+    <c:out value="${requestScope.message}"></c:out>
+</c:if><table border="1px">
 <table border="1px">
     <tr>
         <td>productCode</td>
@@ -42,19 +44,21 @@
     </tr>
     <c:if test="${requestScope.products !=null}">
         <c:forEach var="product" items="${requestScope.products}">
-   <tr>
-       <td><c:out value="${product.productCode}"/></td>
-       <td><c:out value="${product['productName']}"/></td>
-       <td><c:out value="${product.productLine}"/></td>
-       <td><c:out value="${product.productScale}"/></td>
-       <td><c:out value="${product.productVendor}"/></td>
-       <td><c:out value="${product.productDescription}"/></td>
-       <td><c:out value="${product.quantityInStock}"/></td>
-       <td><c:out value="${product.buyPrice}"/></td>
-       <td><c:out value="${product.MSRP}"/></td>
-       <td><a href="/ProductAct?proNum=${product.productCode}&crud=edit">edit</a></td>
-       <td><a href="/ProductAct?proNum=${product.productCode}&crud=delete">delete</a></td>
-   </tr>
+            <c:if test="${not empty product}">
+            <tr>
+           <td><c:out value="${product.productCode}"/></td>
+           <td><c:out value="${product['productName']}"/></td>
+           <td><c:out value="${product.productLine}"/></td>
+           <td><c:out value="${product.productScale}"/></td>
+           <td><c:out value="${product.productVendor}"/></td>
+           <td><c:out value="${product.productDescription}"/></td>
+           <td><c:out value="${product.quantityInStock}"/></td>
+           <td><c:out value="${product.buyPrice}"/></td>
+           <td><c:out value="${product.MSRP}"/></td>
+           <td><a href="/ProductAct?proNum=${product.productCode}&crud=edit">edit</a></td>
+           <td><a href="/ProductAct?proNum=${product.productCode}&crud=delete">delete</a></td>
+           </tr>
+            </c:if>
         </c:forEach>
     </c:if>
 </table>

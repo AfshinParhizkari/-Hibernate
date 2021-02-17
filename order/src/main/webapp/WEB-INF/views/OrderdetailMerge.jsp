@@ -22,20 +22,20 @@
 </br>
 <form action="OrderdetailAct" method="post">
     <c:if test="${requestScope.orderdetail == null}">
-       OrderNumber: <input type="number" name="ordnum"><br>
-       ProductCode: <input type="text" name="procode"><br>
-       QuantityOrdered: <input type="number" name="qord"><br>
-       PriceEach: <input type="number" name="pe"><br>
-       OrderLineNumber: <input type="number" name="oln"><br><br>
+       OrderNumber: <input type="number" name="ordnum" required="required"><br>
+       ProductCode: <input type="text" name="procode" required="required"><br>
+       QuantityOrdered: <input type="number" name="qord" required="required"><br>
+       PriceEach: <input type="number" name="pe" required="required"><br>
+       OrderLineNumber: <input type="number" name="oln" required="required"><br><br>
        <input type="hidden" name="crud" value="add">
        <input type="submit" value="Add">
     </c:if>
     <c:if test="${requestScope.orderdetail != null}">
         <input type="hidden" value="${requestScope.orderdetail.orderNumber}" name="ordnum">
         <input type="hidden" value="${requestScope.orderdetail.productCode}" name="procode">
-        QuantityOrdered: <input type="number" value="${requestScope.orderdetail.quantityOrdered}" name="quanord">
-        PriceEach: <input type="number" value="${requestScope.orderdetail.priceEach}" name="peach">
-        OrderLineNumber: <input type="number" value="${requestScope.orderdetail.orderLineNumber}" name="ordlnum">
+        QuantityOrdered: <input type="number" value="${requestScope.orderdetail.quantityOrdered}" name="quanord" required="required">
+        PriceEach: <input type="number" value="${requestScope.orderdetail.priceEach}" name="peach" required="required">
+        OrderLineNumber: <input type="number" value="${requestScope.orderdetail.orderLineNumber}" name="ordlnum" required="required">
         <input type="hidden" value="update" name="crud">
         <input type="submit" value="Update">
     </c:if>

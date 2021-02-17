@@ -26,6 +26,11 @@ Description: JSP
     <input type="hidden" name="crud" value="read">
     <input type="submit" value="ShowProductline">
 </form>
+<%
+    String msg = (String) request.getAttribute("message");
+    if(msg!=null)
+        out.print(msg);
+%>
 <table border="1px">
     <tr>
         <td>productLine</td>

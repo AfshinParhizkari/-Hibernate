@@ -26,7 +26,10 @@
     <input type="hidden" name="crud" value="read">
     <input type="submit" value="ShowOrderdetail">
 </form>
-<table border="1px" style="color: #00aa00">
+<c:if test="${requestScope.message ne null}">
+    <c:out value="${requestScope.message}"></c:out>
+</c:if>
+<table border="1px"><table border="1px" style="color: #00aa00">
     <tr>
         <td>OrderNumber</td>
         <td>ProductCode</td>
@@ -45,8 +48,8 @@
             <td><c:out value="${orderdetail.quantityOrdered}"></c:out></td>
             <td><c:out value="${orderdetail.priceEach}"></c:out></td>
             <td><c:out value="${orderdetail.orderLineNumber}"></c:out></td>
-            <td><a href="/OrderdetailAct?onum=${orderdetail.orderNumber}&pcode=${orderdetail.productCode}&crud=edit">edit</a></td>
-            <td><a href="/OrderdetailAct?onum=${orderdetail.orderNumber}&pcode=${orderdetail.productCode}&crud=delete">delete</a></td>
+            <td><a href="/OrderdetailAct?ordnum=${orderdetail.orderNumber}&procode=${orderdetail.productCode}&crud=edit">edit</a></td>
+            <td><a href="/OrderdetailAct?ordnum=${orderdetail.orderNumber}&procode=${orderdetail.productCode}&crud=delete">delete</a></td>
         </tr>
         </c:if>
     </c:forEach>

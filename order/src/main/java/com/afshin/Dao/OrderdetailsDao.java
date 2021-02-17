@@ -45,7 +45,7 @@ public class OrderdetailsDao {
     public Orderdetail findbyid(OrderdetailPK odPK) {
         try{
             Orderdetail orderdetail=entityManager.find(Orderdetail.class, odPK);
-            Log4j.logger.info("{}.{}|Try: ID {},{}is Fetched",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),orderdetail.getOrderNumber(),orderdetail.getProductCode());
+            Log4j.logger.info("{}.{}|Try: record is Fetched",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
             return orderdetail;
         }catch (Exception e){
             Log4j.logger.error("{}.{}|Exception: {}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
@@ -96,18 +96,20 @@ public class OrderdetailsDao {
     }
 
     //ExecuteUpdate
-    public void insert(Orderdetail orderdetail){
+    public OrderdetailPK insert(Orderdetail orderdetail){
         try{
             entityManager.getTransaction().begin();
             entityManager.persist(orderdetail);
             entityManager.getTransaction().commit();
             Log4j.logger.info("{}.{}|Try: Inserted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
+            return new OrderdetailPK(orderdetail.getOrderNumber(),orderdetail.getProductCode());
         }catch(Exception e){
             Log4j.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
+            return null;
         }
     }
-    public void update(Orderdetail orderdetail){
+    public OrderdetailPK update(Orderdetail orderdetail){
         try {
             entityManager.getTransaction().begin();
             orderdetail.setQuantityOrdered(orderdetail.getQuantityOrdered());
@@ -115,20 +117,24 @@ public class OrderdetailsDao {
             orderdetail.setOrderLineNumber(orderdetail.getOrderLineNumber());
             entityManager.getTransaction().commit();
             Log4j.logger.info("{}.{}|Try: Updated",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
+            return new OrderdetailPK(orderdetail.getOrderNumber(),orderdetail.getProductCode());
         }catch(Exception e){
             Log4j.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
+            return null;
         }
     }
-    public void delete(Orderdetail orderdetail){
+    public Integer delete(Orderdetail orderdetail){
         try{
             entityManager.getTransaction().begin();
             entityManager.remove(orderdetail);
             entityManager.getTransaction().commit();
             Log4j.logger.info("{}.{}|Try: Deleted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
+            return 1;
         }catch(Exception e){
             Log4j.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
+            return -1;
         }
     }
 }

@@ -54,6 +54,10 @@ public class OrderdetailCon extends HttpServlet {
                     orderdetailPK.setProductCode(productcode);
                     orderdetailList.add(dao.findbyid(orderdetailPK));
                 }
+                if(orderdetailList.isEmpty() || orderdetailList.get(0)==null)
+                    req.setAttribute("message", "There is no record");
+                else
+                    req.setAttribute("message", "record(s) is fetched");
             }
             if (action.equals("add")) {
                 Orderdetail orderdetail = new Orderdetail();
@@ -62,8 +66,10 @@ public class OrderdetailCon extends HttpServlet {
                 orderdetail.setQuantityOrdered(Integer.parseInt(req.getParameter("qord")));
                 orderdetail.setPriceEach(new BigDecimal(req.getParameter("pe")));
                 orderdetail.setOrderLineNumber(Integer.parseInt(req.getParameter("oln")));
-                dao.insert(orderdetail);
-                orderdetailList.add(orderdetail);
+                OrderdetailPK orderdetailPK = dao.insert(orderdetail);
+                if(orderdetailPK!=null) req.setAttribute("message", "record is Added");
+                else req.setAttribute("message", "record is not Added");
+                orderdetailList.add(dao.findbyid(orderdetailPK));
             }
             if (action.equals("update")) {
                 OrderdetailPK orderdetailPK = new OrderdetailPK();
@@ -73,14 +79,17 @@ public class OrderdetailCon extends HttpServlet {
                 orderdetail.setQuantityOrdered(Integer.parseInt(req.getParameter("quanord")));
                 orderdetail.setPriceEach(new BigDecimal(req.getParameter("peach")));
                 orderdetail.setOrderLineNumber(Integer.parseInt(req.getParameter("ordlnum")));
-                dao.update(orderdetail);
-                dao.insert(orderdetail);
+                orderdetailPK = dao.update(orderdetail);
+                if(orderdetailPK!=null) req.setAttribute("message", "record is Updated");
+                else req.setAttribute("message", "record is not Updated");
+                orderdetailList.add(dao.findbyid(orderdetailPK));
             }
             req.setAttribute("orderdetails", orderdetailList);
             req.getRequestDispatcher("WEB-INF/views/Orderdetail.jsp").forward(req, resp);
         } catch (Exception e) {
             Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
+            req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
         }
     }
 
@@ -101,7 +110,14 @@ public class OrderdetailCon extends HttpServlet {
                 orderdetailPK.setOrderNumber(Integer.parseInt(ordernumber));
                 orderdetailPK.setProductCode(productcode);
                 Orderdetail orderdetail = dao.findbyid(orderdetailPK);
-                dao.delete(orderdetail);
+                Integer status = dao.delete(orderdetail);
+                if(status==1) {
+                    req.setAttribute("message", "record is deleted");
+                    req.getRequestDispatcher("WEB-INF/views/Orderdetail.jsp").forward(req, resp);
+                }else{
+                    req.setAttribute("message", "record is not deleted");
+                    req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
+                }
                 req.getRequestDispatcher("/Orderdetail.jsp").forward(req, resp);
             }
             if (action.equals("edit")) {
@@ -141,6 +157,7 @@ public class OrderdetailCon extends HttpServlet {
         } catch (Exception e) {
             Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
+            req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
         }
     }
 }

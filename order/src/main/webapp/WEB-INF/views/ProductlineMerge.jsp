@@ -23,7 +23,7 @@
 </br>
 <form action="/ProductlineAct" method="post" enctype="multipart/form-data">
     <c:if test="${requestScope.productline eq null}">
-        Product code: <input type="text" name="proline"><br>
+        Product code: <input type="text" name="proline" required="required"><br>
         Description: <input type="text" name="txtDesc"><br>
         Url: <input type="text" name="htmDesc"><br>
         Select Image: <input type="file" name="img" size="50"><br>

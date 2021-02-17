@@ -45,6 +45,10 @@ public class PaymentCon extends HttpServlet {
                 String checkname = req.getParameter("checknum");
                 if (custnumber.isEmpty() || checkname.isEmpty()) paymentList = dao.findall();
                 else paymentList.add(dao.findbyid(Integer.parseInt(custnumber), checkname));
+                if(paymentList.isEmpty() || paymentList.get(0)==null)
+                    req.setAttribute("message", "There is no record");
+                else
+                    req.setAttribute("message", "record(s) is fetched");
             }
             if (action.equals("add")) {
                 Payment payment = new Payment();
@@ -53,8 +57,10 @@ public class PaymentCon extends HttpServlet {
                 payment.setAmount(new BigDecimal(req.getParameter("turnOver")));
                 String shamsidate = req.getParameter("payDate");
                 payment.setPaymentDate(GregorianDate.picker2miladi(shamsidate));
-                dao.insert(payment);
-                paymentList.add(payment);
+                Integer status=dao.insert(payment);
+                if(status>0) req.setAttribute("message", "record is Added");
+                else req.setAttribute("message", "record is not Added");
+                paymentList.add(dao.findbyid(payment.getCustomerNumber(),payment.getCheckNumber()));
             }
             if (action.equals("update")) {
                 String custnumber = req.getParameter("custNum");
@@ -63,14 +69,17 @@ public class PaymentCon extends HttpServlet {
                 payment.setAmount(new BigDecimal(req.getParameter("turnOver")));
                 String shamsidate = req.getParameter("payDate");
                 payment.setPaymentDate(GregorianDate.picker2miladi(shamsidate));
-                dao.update(payment);
-                paymentList.add(payment);
+                Integer status=dao.update(payment);
+                if(status>0) req.setAttribute("message", "record is Updated");
+                else req.setAttribute("message", "record is not Updated");
+                paymentList.add(dao.findbyid(payment.getCustomerNumber(),payment.getCheckNumber()));
             }
             req.setAttribute("payments", paymentList);
             req.getRequestDispatcher("WEB-INF/views/Payment.jsp").forward(req, resp);
         } catch (Exception e) {
             Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
+            req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
         }
     }
 
@@ -84,9 +93,14 @@ public class PaymentCon extends HttpServlet {
             String checknumber = req.getParameter("checknum");
             if (action.equals("delete")) {
                 Payment payment = dao.findbyid(Integer.parseInt(custnumber), checknumber);
-                dao.delete(payment);
-                req.setAttribute("message", "record was deleted");
-                req.getRequestDispatcher("WEB-INF/views/Payment.jsp").forward(req, resp);
+                Integer status = dao.delete(payment);
+                if(status==1) {
+                    req.setAttribute("message", "record is deleted");
+                    req.getRequestDispatcher("WEB-INF/views/Payment.jsp").forward(req, resp);
+                }else{
+                    req.setAttribute("message", "record is not deleted");
+                    req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
+                }
             }
             if (action.equals("edit")) {
                 Payment payment = dao.findbyid(Integer.parseInt(custnumber), checknumber);
@@ -108,6 +122,7 @@ public class PaymentCon extends HttpServlet {
         } catch (Exception e) {
             Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
+            req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
         }
     }
 }

@@ -31,17 +31,17 @@ public class OrderCon extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            if (!Security.isLogin(req)) {
-                req.getRequestDispatcher("index.jsp").forward(req, resp);
-                return;
-            }
+            if (!Security.isLogin(req)) {req.getRequestDispatcher("index.jsp").forward(req, resp); return;}
             orderList.clear();
-            String ordernumber = req.getParameter("ordnum");
             String action = req.getParameter("crud");
-
+            String ordernumber = req.getParameter("ordnum");
             if (action.equals("read")) {
                 if (ordernumber == null || ordernumber.isEmpty()) orderList = dao.findAll();
                 else orderList.add(dao.findById(Integer.parseInt(ordernumber)));
+                if(orderList.isEmpty() || orderList.get(0)==null)
+                    req.setAttribute("message", "There is no record");
+                else
+                    req.setAttribute("message", "record(s) is fetched");
             }
             if (action.equals("add")) {
                 Order order = new Order();
@@ -56,8 +56,10 @@ public class OrderCon extends HttpServlet {
                 order.setStatus(req.getParameter("status"));
                 order.setComments(req.getParameter("com"));
                 order.setCustomerNumber(Integer.parseInt(req.getParameter("custnum")));
-                dao.insert(order);
-                orderList.add(order);
+                Integer status = dao.insert(order);
+                if(status==order.getOrderNumber()) req.setAttribute("message", "record is Added");
+                else req.setAttribute("message", "record is not Added");
+                orderList.add(dao.findById(status));
             }
             if (action.equals("update")) {
                 Order order = dao.findById(Integer.parseInt(req.getParameter("ordernum")));
@@ -72,14 +74,17 @@ public class OrderCon extends HttpServlet {
                 order.setStatus(req.getParameter("status"));
                 order.setComments(req.getParameter("com"));
                 order.setCustomerNumber(Integer.parseInt(req.getParameter("cusnum")));
-                dao.update(order);
-                orderList.add(order);
+                Integer status = dao.update(order);
+                if(status==order.getOrderNumber()) req.setAttribute("message", "record is Updated");
+                else req.setAttribute("message", "record is not Updated");
+                orderList.add(dao.findById(status));
             }
             req.setAttribute("orders", orderList);
             req.getRequestDispatcher("WEB-INF/views/Order.jsp").forward(req, resp);
         } catch (Exception e) {
             Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
+            req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
         }
     }
 
@@ -93,8 +98,14 @@ public class OrderCon extends HttpServlet {
             orderList.clear();
             String action = req.getParameter("crud");
             if (action.equals("delete")) {
-                dao.delete(dao.findById(Integer.parseInt(req.getParameter("onum"))));
-                req.getRequestDispatcher("WEB-INF/views/Order.jsp").forward(req, resp);
+                Integer status = dao.delete(dao.findById(Integer.parseInt(req.getParameter("onum"))));
+                if(status==1) {
+                    req.setAttribute("message", "record is deleted");
+                    req.getRequestDispatcher("WEB-INF/views/Order.jsp").forward(req, resp);
+                }else{
+                    req.setAttribute("message", "record is not deleted");
+                    req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
+                }
             }
             if (action.equals("edit")) {
                 Order order = dao.findById(Integer.parseInt(req.getParameter("onum")));
@@ -104,6 +115,7 @@ public class OrderCon extends HttpServlet {
         } catch (Exception e) {
             Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
+            req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
         }
     }
 }

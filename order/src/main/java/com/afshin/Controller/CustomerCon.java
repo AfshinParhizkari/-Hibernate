@@ -41,6 +41,10 @@ public class CustomerCon extends HttpServlet {
                 String customerNum = req.getParameter("custnum");
                 if (customerNum == null || customerNum.isEmpty()) customerList = dao.findall();
                 else customerList.add(dao.findbyid(Integer.parseInt(customerNum)));
+                if(customerList.isEmpty() || customerList.get(0)==null)
+                    req.setAttribute("message", "There is no record");
+                else
+                    req.setAttribute("message", "record(s) is fetched");
             }
             if (action.equals("add")) {
                 Customer customer = new Customer();
@@ -57,8 +61,10 @@ public class CustomerCon extends HttpServlet {
                 customer.setCountry(req.getParameter("count"));
                 customer.setSalesRepEmployeeNumber(Integer.parseInt(req.getParameter("srempnum")));
                 customer.setCreditLimit(new BigDecimal(req.getParameter("credlim")));
-                dao.insert(customer);
-                customerList.add(customer);
+                Integer status = dao.insert(customer);
+                if(status==customer.getCustomerNumber()) req.setAttribute("message", "record is Added");
+                else req.setAttribute("message", "record is not Added");
+                customerList.add(dao.findbyid(status));
             }
             if (action.equals("update")) {
                 Customer customer = dao.findbyid(Integer.parseInt(req.getParameter("custnum")));
@@ -74,14 +80,17 @@ public class CustomerCon extends HttpServlet {
                 customer.setCountry(req.getParameter("count"));
                 customer.setSalesRepEmployeeNumber(Integer.parseInt(req.getParameter("srempnum")));
                 customer.setCreditLimit(new BigDecimal(req.getParameter("credlim")));
-                dao.update(customer);
-                customerList.add(customer);
+                Integer status = dao.update(customer);
+                if(status==customer.getCustomerNumber()) req.setAttribute("message", "record is Updated");
+                else req.setAttribute("message", "record is not Updated");
+                customerList.add(dao.findbyid(status));
             }
             req.setAttribute("customers", customerList);
             req.getRequestDispatcher("WEB-INF/views/Customer.jsp").forward(req, resp);
         } catch (Exception e) {
             Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
+            req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
         }
     }
 
@@ -92,8 +101,14 @@ public class CustomerCon extends HttpServlet {
             customerList.clear();
             String action = req.getParameter("crud");
             if (action.equals("delete")) {
-                dao.delete(dao.findbyid(Integer.parseInt(req.getParameter("custnum"))));
-                req.getRequestDispatcher("WEB-INF/views/Customer.jsp").forward(req, resp);
+                Integer status = dao.delete(dao.findbyid(Integer.parseInt(req.getParameter("custnum"))));
+                if(status==1) {
+                    req.setAttribute("message", "record is deleted");
+                    req.getRequestDispatcher("WEB-INF/views/Customer.jsp").forward(req, resp);
+                }else{
+                    req.setAttribute("message", "record is not deleted");
+                    req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
+                }
             }
             if (action.equals("edit")) {
                 Customer customer = dao.findbyid(Integer.parseInt(req.getParameter("custnum")));
@@ -119,6 +134,7 @@ public class CustomerCon extends HttpServlet {
         } catch (Exception e) {
             Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
+            req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
         }
     }
 }

@@ -44,7 +44,7 @@ public class ProductlineDao {
 	public Productline findbyid(String userInput) {
 		try {
 			Productline productline = entityManager.find(Productline.class, userInput);
-			Log4j.logger.info("{}.{}|Try: ID {} is Fetched", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), productline.getProductLine());
+			Log4j.logger.info("{}.{}|Try: record is Fetched", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
 			return productline;
 		} catch (Exception e) {
 			Log4j.logger.error("{}.{}|Exception: {}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
@@ -95,41 +95,47 @@ public class ProductlineDao {
 	}
 
 	//ExecuteUpdate : JPA
-	public void insert(Productline productline) {
+	public String insert(Productline productline) {
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.persist(productline);
 			entityManager.getTransaction().commit();
 			Log4j.logger.info("{}.{}|Try: Inserted", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
+			return productline.getProductLine();
 		} catch (Exception e) {
 			Log4j.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
 			e.printStackTrace();
+			return "-1";
 		}
 	}
 
-	public void update(Productline pl) {
+	public String update(Productline productline) {
 		try {
 			entityManager.getTransaction().begin();
-			pl.setTextDescription(pl.getTextDescription());
-			pl.setHtmlDescription(pl.getHtmlDescription());
-			pl.setImage(pl.getImage());
+			productline.setTextDescription(productline.getTextDescription());
+			productline.setHtmlDescription(productline.getHtmlDescription());
+			productline.setImage(productline.getImage());
 			entityManager.getTransaction().commit();
 			Log4j.logger.info("{}.{}|Try: Updated", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
+			return productline.getProductLine();
 		} catch (Exception e) {
 			Log4j.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
 			e.printStackTrace();
+			return "-1";
 		}
 	}
 
-	public void delete(Productline productline) {
+	public Integer delete(Productline productline) {
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.remove(productline);
 			entityManager.getTransaction().commit();
 			Log4j.logger.info("{}.{}|Try: Deleted", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
+			return 1;
 		} catch (Exception e) {
 			Log4j.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
 			e.printStackTrace();
+			return -1;
 		}
 	}
 }

@@ -39,7 +39,10 @@ public class EmployeeCon extends HttpServlet {
               String employeeid = req.getParameter("empNum");
               if (employeeid.isEmpty()) employeeList = dao.findall();
               else employeeList.add(dao.findbyid(Integer.parseInt(employeeid)));
-              req.setAttribute("employees", employeeList);
+              if(employeeList.isEmpty() || employeeList.get(0)==null)
+                  req.setAttribute("message", "There is no record");
+              else
+                  req.setAttribute("message", "record(s) is fetched");
               Logback.logger.trace("{}.{}|read: Exit from IF!",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
           }
           if (action.equals("add")) {
@@ -53,10 +56,11 @@ public class EmployeeCon extends HttpServlet {
               employee.setOfficeCode(req.getParameter("offcode"));
               employee.setReportsTo(Integer.parseInt(req.getParameter("repto")));
               employee.setJobTitle(req.getParameter("jobtit"));
-              dao.insert(employee);
-              employeeList.add(employee);
-              req.setAttribute("employees", employeeList);
-              Logback.logger.trace("{}.{}|read: Exit from IF!",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
+              Integer status = dao.insert(employee);
+              if(status==employee.getEmployeeNumber()) req.setAttribute("message", "record is Added");
+              else req.setAttribute("message", "record is not Added");
+              employeeList.add(dao.findbyid(status));
+              Logback.logger.trace("{}.{}|read: Exit from IF!", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
           }
           if (action.equals("update")) {
               Logback.logger.trace("{}.{}|update: Enter to IF!",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
@@ -69,15 +73,18 @@ public class EmployeeCon extends HttpServlet {
               employee.setOfficeCode(req.getParameter("offcode"));
               employee.setReportsTo(Integer.parseInt(req.getParameter("repto")));
               employee.setJobTitle(req.getParameter("jobtit"));
-              dao.update(employee);
-              employeeList.add(employee);
-              req.setAttribute("employees", employeeList);
+              Integer status = dao.update(employee);
+              if(status==employee.getEmployeeNumber()) req.setAttribute("message", "record is Updated");
+              else req.setAttribute("message", "record is not Updated");
+              employeeList.add(dao.findbyid(status));
               Logback.logger.trace("{}.{}|update: Exit to IF!",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
           }
+          req.setAttribute("employees", employeeList);
           req.getRequestDispatcher("WEB-INF/views/Employee.jsp").forward(req, resp);
       }catch (Exception e){
           Logback.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
           e.printStackTrace();
+          req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
       }
     }
 
@@ -90,10 +97,16 @@ public class EmployeeCon extends HttpServlet {
             if (action.equals("delete")) {
                 Logback.logger.trace("{}.{}|delete: Enter to IF!",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
                 Employee employee = dao.findbyid(Integer.parseInt(req.getParameter("employeenum")));
-                dao.delete(employee);
-                req.setAttribute("message", "record is deleted");
-                Logback.logger.trace("{}.{}|delete: Exit from IF!",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
-                req.getRequestDispatcher("WEB-INF/views/Employee.jsp").forward(req, resp);
+                Integer status = dao.delete(employee);
+                if(status==1) {
+                    req.setAttribute("message", "record is deleted");
+                    Logback.logger.trace("{}.{}|delete: Successfully Exit from IF!", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
+                    req.getRequestDispatcher("WEB-INF/views/Employee.jsp").forward(req, resp);
+                }else{
+                    req.setAttribute("message", "record is not deleted");
+                    Logback.logger.trace("{}.{}|delete: Not Successfully Exit from IF!", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
+                    req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
+                }
             }
             if (action.equals("edit")) {
                 Logback.logger.trace("{}.{}|edit: Enter to IF!",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
@@ -130,6 +143,7 @@ public class EmployeeCon extends HttpServlet {
         }catch (Exception e){
             Logback.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
+            req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
         }
     }
 }

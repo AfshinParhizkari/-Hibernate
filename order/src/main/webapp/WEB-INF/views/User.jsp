@@ -24,6 +24,11 @@
     <input type="hidden" name="crud" value="read">
     <input type="submit" value="ShowUser">
 </form>
+<%
+    String msg = (String) request.getAttribute("message");
+    if(msg!=null)
+        out.print(msg);
+%>
 <table border="1px">
     <tr>
         <td>userid</td>
@@ -31,7 +36,7 @@
         <td>password</td>
         <td>employeeid</td>
         <td>edit</td>
-        <td>delete</td>
+        <td>delete</td>S10_1678
     </tr>
     <%
         List<User> userList = (List<User>) request.getAttribute("users");

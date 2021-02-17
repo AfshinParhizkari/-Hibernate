@@ -31,6 +31,11 @@
     Employee Number: <input type="number" name="empNum">
     <input type="submit" value="ReportEmployee">
 </form>
+<%
+    String msg = (String) request.getAttribute("message");
+    if(msg!=null)
+    out.print(msg);
+%>
 <table border="1">
     <tr>
         <td>emplReportoyeeNumber</td>

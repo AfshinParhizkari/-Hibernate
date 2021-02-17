@@ -24,7 +24,7 @@
         Productline productline = (Productline) request.getAttribute("productline");
         if(productline ==null){
     %>
-        Product code: <input type="text" name="proline"><br>
+        Product code: <input type="text" name="proline" required="required"><br>
         Description: <input type="text" name="txtDesc"><br>
         Url: <input type="text" name="htmDesc"><br>
         Select Image: <input type="file" name="img" size="50"><br>

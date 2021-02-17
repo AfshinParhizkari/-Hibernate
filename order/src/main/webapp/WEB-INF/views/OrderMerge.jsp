@@ -63,8 +63,8 @@
 </br>
 <form action="OrderAct" method="post">
     <c:if test="${requestScope.order == null}">
-        OrderNumber: <input type="number" name="onum"><br>
-        OrderDate: <span id="display_area_2" style="cursor: pointer;" class="display_area">New Date</span>
+        OrderNumber: <input type="number" name="onum" required="required"><br>
+        OrderDate: <span id="display_area_2" style="cursor: pointer;" class="display_area" required="required">New Date</span>
         <input id="date_input_8" type="hidden" name="odate"/>
         <script type="text/javascript">
             Calendar.setup({
@@ -76,7 +76,7 @@
                 weekNumbers    : false
             });
         </script><br>
-        RequiredDate: <span id="display_area_1" style="cursor: pointer;" class="display_area">New Date</span>
+        RequiredDate: <span id="display_area_1" style="cursor: pointer;" class="display_area" required="required">New Date</span>
         <input id="date_input_7" type="hidden" name="rdate"/>
         <script type="text/javascript">
             Calendar.setup({
@@ -100,15 +100,15 @@
                 weekNumbers    : false
             });
         </script><br>
-        Status: <input type="text" name="status"><br>
+        Status: <input type="text" name="status" required="required"><br>
         Comments: <input type="text" name="com"><br>
-        CustomerNumber: <input type="number" name="custnum"><br><br>
+        CustomerNumber: <input type="number" name="custnum" required="required"><br><br>
         <input type="hidden" name="crud" value="add">
         <input type="submit" value="Add">
     </c:if>
     <c:if test="${requestScope.order != null}">
         <input type="hidden" value="${requestScope.order.orderNumber}" name="ordernum"><br>
-        OrderDate: <span id="display_area_2" style="cursor: pointer;" class="display_area">${afy:shamsiStr(requestScope.order.orderDate)}</span>
+        OrderDate: <span id="display_area_2" style="cursor: pointer;" class="display_area" required="required">${afy:shamsiStr(requestScope.order.orderDate)}</span>
         <input id="date_input_8" type="hidden" name="odate" />
         <script type="text/javascript">
             Calendar.setup({
@@ -120,7 +120,7 @@
                 weekNumbers    : false
             });
         </script><br>
-        RequiredDate: <span id="display_area_1" style="cursor: pointer;" class="display_area">${afy:shamsiStr(requestScope.order.requiredDate)}</span>
+        RequiredDate: <span id="display_area_1" style="cursor: pointer;" class="display_area" required="required">${afy:shamsiStr(requestScope.order.requiredDate)}</span>
         <input id="date_input_7" type="hidden" name="rdate" />
         <script type="text/javascript">
             Calendar.setup({
@@ -144,9 +144,9 @@
                 weekNumbers    : false
             });
         </script><br>
-        Status: <input value="${requestScope.order.status}" type="text" name="status"><br>
+        Status: <input value="${requestScope.order.status}" type="text" name="status" required="required"><br>
         Comments: <input value="${requestScope.order.comments}" type="text" name="com"><br>
-        CustomerNumber: <input value="${requestScope.order.customerNumber}" type="number" name="cusnum"><br><br>
+        CustomerNumber: <input value="${requestScope.order.customerNumber}" type="number" name="cusnum" required="required"><br><br>
         <input type="hidden" value="update" name="crud">
         <input type="submit" value="Udate">
     </c:if>

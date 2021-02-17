@@ -45,6 +45,10 @@ public class ProductlineCon extends HttpServlet {
                 String prolineNum = req.getParameter("prolineNum");
                 if (prolineNum.isEmpty()) productlines = dao.findall();
                 else productlines.add(dao.findbyid(prolineNum));
+                if(productlines.isEmpty() || productlines.get(0)==null)
+                    req.setAttribute("message", "There is no record");
+                else
+                    req.setAttribute("message", "record(s) is fetched");
             }
             if (action.equals("add")) {
                 Productline productline = new Productline();
@@ -53,8 +57,10 @@ public class ProductlineCon extends HttpServlet {
                 productline.setHtmlDescription(req.getParameter("htmDesc"));
                 Part filePart = req.getPart("img");
                 if (filePart != null) productline.setImage(IOUtils.toByteArray(filePart.getInputStream()));
-                dao.insert(productline);
-                productlines.add(productline);
+                String status= dao.insert(productline);
+                if(status.equals(productline.getProductLine())) req.setAttribute("message", "record is Added");
+                else req.setAttribute("message", "record is not Added");
+                productlines.add(dao.findbyid(status));
             }
             if (action.equals("update")) {
                 Productline productline = dao.findbyid(req.getParameter("proline"));
@@ -62,8 +68,10 @@ public class ProductlineCon extends HttpServlet {
                 productline.setHtmlDescription(req.getParameter("htmDesc"));
                 Part filePart = req.getPart("img");
                 if (filePart != null) productline.setImage(IOUtils.toByteArray(filePart.getInputStream()));
-                dao.update(productline);
-                productlines.add(productline);
+                String status= dao.update(productline);
+                if(status.equals(productline.getProductLine())) req.setAttribute("message", "record is Updated");
+                else req.setAttribute("message", "record is not Updated");
+                productlines.add(dao.findbyid(status));
             }
             req.setAttribute("products", productlines);
             req.getRequestDispatcher("WEB-INF/views/Productline.jsp").forward(req, resp);
@@ -71,6 +79,7 @@ public class ProductlineCon extends HttpServlet {
         } catch (Exception e) {
             Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
+            req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
         }
     }
 
@@ -84,10 +93,14 @@ public class ProductlineCon extends HttpServlet {
             productlines.clear();
             String action = req.getParameter("crud");
             if (action.equals("delete")) {
-                dao.delete(dao.findbyid(req.getParameter("proline")));
-                req.getRequestDispatcher("WEB-INF/views/Productline.jsp").forward(req, resp);
-                //req.getRequestDispatcher("WEB-INF/views/ProductlineJSP.jsp").forward(req,resp);
-            }
+                Integer status = dao.delete(dao.findbyid(req.getParameter("proline")));
+                if(status==1) {
+                    req.setAttribute("message", "record is deleted");
+                    req.getRequestDispatcher("WEB-INF/views/Productline.jsp").forward(req, resp);
+                    //req.getRequestDispatcher("WEB-INF/views/ProductlineJSP.jsp").forward(req,resp);                }else{
+                    req.setAttribute("message", "record is not deleted");
+                    req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
+                }}
             if (action.equals("edit")) {
                 Productline productline = dao.findbyid(req.getParameter("proline"));
                 req.setAttribute("productline", productline);
@@ -102,6 +115,7 @@ public class ProductlineCon extends HttpServlet {
         } catch (Exception e) {
             Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
+            req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
         }
     }
 }

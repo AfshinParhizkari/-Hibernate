@@ -36,7 +36,7 @@ public class EmployeeDao {
             Employee employee= neshast.find(Employee.class, empnum);
             //Employee employee= neshast.get(Employee.class, empnum);
             //Employee employee= neshast.load(Employee.class, empnum);
-            Logback.logger.info("{}.{}|Try: ID {} is Fetched",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),employee.getEmployeeNumber());
+            Logback.logger.info("{}.{}|Try: record is Fetched",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
             return employee;
         }catch (Exception e){
             Logback.logger.error("{}.{}|Exception: {}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
@@ -55,37 +55,43 @@ public class EmployeeDao {
     }
 
     //ExecuteUpdate
-    public void insert(Employee employee){
+    public Integer insert(Employee employee){
         try{
             Transaction tx=neshast.beginTransaction();
              neshast.persist(employee);
             tx.commit();
             Logback.logger.info("{}.{}|Try: Inserted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
+            return employee.getEmployeeNumber();
         }catch(Exception e){
             Logback.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
+            return -1;
         }
     }
-    public void update(Employee employee){
+    public Integer update(Employee employee){
         try{
             Transaction tx=neshast.beginTransaction();
             neshast.merge(employee);
             tx.commit();
             Logback.logger.info("{}.{}|Try: Updated",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
+            return employee.getEmployeeNumber();
         }catch(Exception e){
             Logback.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
+            return -1;
         }
     }
-    public void delete(Employee employee){
+    public Integer delete(Employee employee){
         try{
             Transaction tx=neshast.beginTransaction();
             neshast.delete(employee);
             tx.commit();
             Logback.logger.info("{}.{}|Try: Deleted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
+            return 1;
         }catch(Exception e){
             Logback.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
+            return -1;
         }
     }
 }

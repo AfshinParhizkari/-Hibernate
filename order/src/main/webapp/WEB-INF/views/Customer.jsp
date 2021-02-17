@@ -29,6 +29,9 @@
     <input type="hidden" name="crud" value="report">
     <input type="submit" value="Report - Allcustomer">
 </form>
+<c:if test="${requestScope.message ne null}">
+    <c:out value="${requestScope.message}"></c:out>
+</c:if>
 <table border="1px" style="color: darkgreen">
     <tr>
         <td>customerNumber</td>

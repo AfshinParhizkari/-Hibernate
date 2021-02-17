@@ -22,11 +22,15 @@
     <input type="submit" value="Add">
 </form>
 <form action="/OfficeAct" method="post">
-    Product : <input type="text" name="proNum">
+    Product : <input type="text" name="offcode">
     <input type="hidden" name="crud" value="read">
     <input type="submit" value="ShowProduct">
 </form>
-<table border="1px">
+<%
+    String msg = (String) request.getAttribute("message");
+    if(msg!=null)
+        out.print(msg);
+%><table border="1px">
     <tr>
         <td>OfficeCode</td>
         <td>City</td>

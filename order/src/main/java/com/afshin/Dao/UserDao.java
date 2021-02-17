@@ -41,7 +41,7 @@ public class UserDao {
     public User findbyid(Integer userid) {
         try {
             User user=entityManager.find(User.class, userid);
-            Logback.logger.info("{}.{}|Try: ID {} is Fetched",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),user.getIdusers());
+            Logback.logger.info("{}.{}|Try: record is Fetched",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
             return user;
         }catch (Exception e){
             Logback.logger.error("{}.{}|Exception: {}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
@@ -56,7 +56,7 @@ public class UserDao {
             criteriaQuery.where(criteriaBuilder.equal(u.get("username"),userName));
             Query q = entityManager.createQuery(criteriaQuery);
             User user= (User) q.getResultList().get(0);
-            Logback.logger.info("{}.{}|Try: userName {} is Fetched",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),user.getUsername());
+            Logback.logger.info("{}.{}|Try: record is Fetched",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
             return user;
         }catch (Exception e){
             Logback.logger.error("{}.{}|Exception: {}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
@@ -66,18 +66,20 @@ public class UserDao {
     }
 
     //ExecuteUpdate
-    public void insert(User user){
+    public Integer insert(User user){
         try{
             entityManager.getTransaction().begin();
             entityManager.persist(user);
             entityManager.getTransaction().commit();
             Logback.logger.info("{}.{}|Try: Inserted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
+            return user.getIdusers();
         }catch(Exception e){
             Logback.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
+            return -1;
         }
     }
-    public void update(User user){
+    public Integer update(User user){
         try {
             entityManager.getTransaction().begin();
             user.setUsername(user.getUsername());
@@ -85,20 +87,24 @@ public class UserDao {
             user.setEmployeeid(user.getEmployeeid());
             entityManager.getTransaction().commit();
             Logback.logger.info("{}.{}|Try: Updated",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
+            return user.getIdusers();
         }catch(Exception e){
             Logback.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
+            return -1;
         }
     }
-    public void delete(User user){
+    public Integer delete(User user){
         try{
             entityManager.getTransaction().begin();
             entityManager.remove(user);
             entityManager.getTransaction().commit();
             Logback.logger.info("{}.{}|Try: Deleted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
+            return 1;
         }catch(Exception e){
             Logback.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
+            return -1;
         }
     }
 }

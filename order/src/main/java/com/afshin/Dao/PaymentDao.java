@@ -40,7 +40,7 @@ public class PaymentDao {
             query.setParameter("checkNum",checkNum);
             query.addEntity(Payment.class);
             Payment payment=(Payment) query.uniqueResult();
-            Logback.logger.info("{}.{}|Try: ID {} , {} is Fetched",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),payment.getCheckNumber(),payment.getCustomerNumber());
+            Logback.logger.info("{}.{}|Try: ID {} , record is Fetched",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
             return payment;
         }catch (Exception e){
             Logback.logger.error("{}.{}|Exception: {}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
@@ -59,7 +59,7 @@ public class PaymentDao {
     }
 
     //ExecuteUpdate
-    public int insert(Payment payment){
+    public Integer insert(Payment payment){
         try(Session localneshast=Mysession.getsession();) { //try with Resources
             localneshast.beginTransaction();
             SQLQuery query = localneshast.createSQLQuery(
@@ -69,17 +69,17 @@ public class PaymentDao {
             query.setParameter("checknum", payment.getCheckNumber());
             query.setParameter("paymenttime", payment.getPaymentDate());
             query.setParameter("price", payment.getAmount());
-            int rowaffect=query.executeUpdate();
+            Integer rowaffect=query.executeUpdate();
             localneshast.getTransaction().commit();
             Logback.logger.info("{}.{}|Try: Inserted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
             return rowaffect;
         }catch(Exception e){
             Logback.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
-            return 0;
+            return -1;
         }
     }
-    public int update(Payment payment) {
+    public Integer update(Payment payment) {
         try (Session localneshast = Mysession.getsession();) { //try with Resources
             localneshast.beginTransaction();
             SQLQuery query = localneshast.createSQLQuery(
@@ -89,31 +89,31 @@ public class PaymentDao {
             query.setParameter("checknum", payment.getCheckNumber());
             query.setParameter("paymenttime", payment.getPaymentDate());
             query.setParameter("price", payment.getAmount());
-            int rowaffect = query.executeUpdate();
+            Integer rowaffect = query.executeUpdate();
             localneshast.getTransaction().commit();
             Logback.logger.info("{}.{}|Try: Updated",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
             return rowaffect;
         }catch(Exception e){
             Logback.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
-            return 0;
+            return -1;
         }
     }
-    public int delete(Payment payment) {
+    public Integer delete(Payment payment) {
         try (Session localneshast = Mysession.getsession();) { //try with Resources
             localneshast.beginTransaction();
             SQLQuery query = localneshast.createSQLQuery(
                     "delete from payments  where (customerNumber=:cif and checkNumber=:checknum)");
             query.setParameter("cif", payment.getCustomerNumber());
             query.setParameter("checknum", payment.getCheckNumber());
-            int rowaffect = query.executeUpdate();
+            Integer rowaffect = query.executeUpdate();
             localneshast.getTransaction().commit();
             Logback.logger.info("{}.{}|Try: Deleted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
             return rowaffect;
         }catch(Exception e){
             Logback.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
-            return 0;
+            return -1;
         }
     }
 }

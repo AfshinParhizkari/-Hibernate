@@ -35,9 +35,13 @@ public class OfficeCon extends HttpServlet {
             if (action.equals("read")) {
                 String officecode = req.getParameter("offcode");
                 if (officecode == null || officecode.isEmpty()) officeList = dao.findall();
-                else officeList.add(dao.findbyid("officecode"));
+                else officeList.add(dao.findbyid(officecode));
+                if(officeList.isEmpty() || officeList.get(0)==null)
+                    req.setAttribute("message", "There is no record");
+                else
+                    req.setAttribute("message", "record(s) is fetched");
             }
-            if (action.equals("create")) {
+            if (action.equals("add")) {
                 Office office = new Office();
                 office.setOfficeCode(req.getParameter("offcode"));
                 office.setCity(req.getParameter("city"));
@@ -48,8 +52,10 @@ public class OfficeCon extends HttpServlet {
                 office.setCountry(req.getParameter("coun"));
                 office.setPostalCode(req.getParameter("pcode"));
                 office.setTerritory(req.getParameter("ter"));
-                dao.insert(office);
-                officeList.add(office);
+                String status=dao.insert(office);
+                if(status.equals(office.getOfficeCode())) req.setAttribute("message", "record is Added");
+                else req.setAttribute("message", "record is not Added");
+                officeList.add(dao.findbyid(status));
             }
             if (action.equals("update")) {
                 Office office = new Office();
@@ -62,14 +68,17 @@ public class OfficeCon extends HttpServlet {
                 office.setCountry(req.getParameter("coun"));
                 office.setPostalCode(req.getParameter("pcode"));
                 office.setTerritory(req.getParameter("ter"));
-                dao.update(office);
-                officeList.add(office);
+                String status = dao.update(office);
+                if(status.equals(office.getOfficeCode())) req.setAttribute("message", "record is Updated");
+                else req.setAttribute("message", "record is not Updated");
+                officeList.add(dao.findbyid(status));
             }
             req.setAttribute("Offices", officeList);
             req.getRequestDispatcher("WEB-INF/views/Office.jsp").forward(req, resp);
         } catch (Exception e) {
             Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
+            req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
         }
     }
     @Override
@@ -80,8 +89,14 @@ public class OfficeCon extends HttpServlet {
             String action = req.getParameter("crud");
             if (action.equals("delete")) {
                 Office office = dao.findbyid(req.getParameter("offcode"));
-                dao.delete(office);
-                req.getRequestDispatcher("WEB-INF/views/Office.jsp").forward(req, resp);
+                Integer status = dao.delete(office);
+                if(status==1) {
+                    req.setAttribute("message", "record is deleted");
+                    req.getRequestDispatcher("WEB-INF/views/Office.jsp").forward(req, resp);
+                }else{
+                    req.setAttribute("message", "record is not deleted");
+                    req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
+                }
             }
             if (action.equals("edit")) {
                 Office office = dao.findbyid(req.getParameter("offcode"));
@@ -91,6 +106,7 @@ public class OfficeCon extends HttpServlet {
         }catch (Exception e) {
             Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
+            req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
         }
     }
 }

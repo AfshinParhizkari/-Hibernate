@@ -33,7 +33,7 @@ public class CustomerDao {
     public Customer findbyid(Integer input){
         try {
             Customer customer=entityManager.find(Customer.class,input);
-            Logback.logger.info("{}.{}|Try: ID {} is Fetched",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),customer.getCustomerNumber());
+            Logback.logger.info("{}.{}|Try: record is Fetched",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
             return customer;
         }catch (Exception e){
             Logback.logger.error("{}.{}|Exception: {}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
@@ -51,20 +51,22 @@ public class CustomerDao {
         return  entityManager.createNamedQuery("Multiselect").setParameter("custname",customername).getResultList();
     }
     //ExecuteUpdate : JPA
-    public void insert(Customer customer){
+    public Integer insert(Customer customer){
 
         try{
             entityManager.getTransaction().begin();
             entityManager.persist(customer);
             entityManager.getTransaction().commit();
             Logback.logger.info("{}.{}|Try: Inserted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
+            return customer.getCustomerNumber();
         }catch(Exception e){
             System.out.println("Exception: " + e.getMessage() + " happened!");
             e.printStackTrace();
+            return -1;
         }
 
     }
-    public void update(Customer customer){
+    public Integer update(Customer customer){
         try{
             entityManager.getTransaction().begin();
             customer.setCustomerName(customer.getCustomerName());
@@ -81,19 +83,25 @@ public class CustomerDao {
             customer.setSalesRepEmployeeNumber(customer.getSalesRepEmployeeNumber());
             customer.setCreditLimit(customer.getCreditLimit());
             entityManager.getTransaction().commit();
+            Logback.logger.info("{}.{}|Try: Updated",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
+            return customer.getCustomerNumber();
         }catch(Exception e){
             Logback.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
+            return -1;
         }
     }
-    public void delete(Customer customer){
+    public Integer delete(Customer customer){
         try {
             entityManager.getTransaction().begin();
             entityManager.remove(customer);
             entityManager.getTransaction().commit();
+            Logback.logger.info("{}.{}|Try: Deleted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
+            return 1;
         }catch(Exception e){
             Logback.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
+            return -1;
         }
     }
 }
