@@ -19,3 +19,11 @@ Model Dao ORM(hibernate5.4.22.Final,JPA - Criteria , Custom JDBC) All Samples ar
 Database Driver MySql8.0.22
 
 Database MariaDB Order(With Scripgeneration and Data)
+
+SourceControl(Github)
+
+IDE(Intellij 2019)
+
+JDK 11
+
+OS(Ubuntu 20)
