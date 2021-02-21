@@ -6,6 +6,8 @@ Log(SLF4j=>Logback,Log4j2)
 
 Report(JasperReport6.16.0)
 
+Servlet Container : Tomcat 9.0.37
+
 View (JSP, JSTL, Customtag, EL)
 
 Controller Servler & Webfilter
@@ -21,6 +23,8 @@ Database Driver MySql8.0.22
 Database MariaDB Order(With Scripgeneration and Data)
 
 SourceControl(Github)
+
+Build Tool: Maven3.6.3
 
 IDE(Intellij 2019)
 
