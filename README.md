@@ -1,16 +1,18 @@
-Shamsi Date (Component, icu4j)
+Shamsi Date (Component, icu4j67.1)
 
 Work with photo(commons-io2.6)
 
-Log(SLF4j=>Logback,Log4j2)
+Log(SLF4j 1.7.30=>Logback1.2.3,Log4j2 2.14.0)
 
 Report(JasperReport6.16.0)
 
 Servlet Container : Tomcat 9.0.37
 
-View (JSP, JSTL, Customtag, EL)
+View (JSP2.3.3, JSTL1.2, Customtag, EL)
 
-Controller Servler & Webfilter
+Webservice JAX-RS Jersey3.0.1
+
+Controller Servlet4.0.1 & Webfilter
 
 Test(Junit4.11)
 
@@ -26,8 +28,8 @@ SourceControl(Github)
 
 Build Tool: Maven3.6.3
 
-IDE(Intellij 2019)
+IDE(Intellij 2019.3.5)
 
-JDK 11
+Oracle JDK 11.0.9
 
 OS(Ubuntu 20)
