@@ -1,4 +1,4 @@
-Shamsi Date (Component, icu4j67.1)
+Shamsi Date (Component, ibm.icu4j67.1)
 
 Work with photo(commons-io2.6)
 
@@ -18,7 +18,7 @@ Test(Junit4.11)
 
 Model Entity PoJo
 
-Model Dao ORM(hibernate5.4.22.Final,JPA - Criteria , Custom JDBC) All Samples are existed
+Model Dao ORM(hibernate5.4.22.Final,JPA - Criteria ,hibernate.SQLQuery) All Samples are existed
 
 Database Driver MySql8.0.22
 
