@@ -1,4 +1,4 @@
-package com.afshin;
+package com.afshin.Dao;
 
 /**
  * @Project order

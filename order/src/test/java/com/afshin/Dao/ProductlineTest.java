@@ -1,4 +1,4 @@
-package com.afshin;
+package com.afshin.Dao;
 
 import com.afshin.Entity.Productline;
 import com.afshin.Dao.ProductlineDao;

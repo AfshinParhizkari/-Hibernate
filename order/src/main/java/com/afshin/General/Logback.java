@@ -8,11 +8,8 @@ package com.afshin.General;
  * Email:       Afshin.Parhizkari@gmail.com
  * Description:
  */
-import com.afshin.Entity.User;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 public class Logback {
     public static final Logger logger  = LoggerFactory.getLogger("");

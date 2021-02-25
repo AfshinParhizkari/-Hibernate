@@ -1,4 +1,4 @@
-package com.afshin;
+package com.afshin.Dao;
 
 import com.afshin.Dao.CustomerDao;
 import com.afshin.Entity.Customer;

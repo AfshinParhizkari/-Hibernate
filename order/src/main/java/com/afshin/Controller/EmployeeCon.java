@@ -60,7 +60,7 @@ public class EmployeeCon extends HttpServlet {
               if(status==employee.getEmployeeNumber()) req.setAttribute("message", "record is Added");
               else req.setAttribute("message", "record is not Added");
               employeeList.add(dao.findbyid(status));
-              Logback.logger.trace("{}.{}|read: Exit from IF!", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
+              Logback.logger.trace("{}.{}|add: Exit from IF!", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
           }
           if (action.equals("update")) {
               Logback.logger.trace("{}.{}|update: Enter to IF!",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());

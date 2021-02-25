@@ -1,4 +1,4 @@
-package com.afshin;
+package com.afshin.Dao;
 
 import com.afshin.Entity.Order;
 import com.afshin.Dao.OrderDao;

@@ -60,7 +60,7 @@ public class CustomerDao {
             Logback.logger.info("{}.{}|Try: Inserted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
             return customer.getCustomerNumber();
         }catch(Exception e){
-            System.out.println("Exception: " + e.getMessage() + " happened!");
+            Logback.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
             return -1;
         }

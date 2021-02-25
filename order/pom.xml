@@ -26,7 +26,7 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
-    <!--ORM and Database-->
+    <!-- ________________________ ORM and DB ________________________ -->
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-core</artifactId>
@@ -42,14 +42,14 @@
       <artifactId>mysql-connector-java</artifactId>
       <version>8.0.22</version>
     </dependency>
-    <!--Persian Calendar https://mvnrepository.com/artifact/com.ibm.icu/icu4j -->
+    <!-- ________________________ Persian Calendar ________________________ -->
     <dependency>
       <groupId>com.ibm.icu</groupId>
       <artifactId>icu4j</artifactId>
       <version>67.1</version>
     </dependency>
+    <!-- ________________________ Servlet ________________________ -->
     <dependency>
-      <!-- JSP Web -->
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
       <version>4.0.1</version>
@@ -66,13 +66,19 @@
       <artifactId>jstl</artifactId>
       <version>1.2</version>
     </dependency>
+    <!-- ________________________ JAX-RS ________________________ -->
     <dependency>
-      <!-- change part to byte[] -->
+      <groupId>javax.ws.rs</groupId>
+      <artifactId>javax.ws.rs-api</artifactId>
+      <version>2.1.1</version>
+    </dependency>
+    <!-- __________________ Image:change part to byte[] __________________ -->
+    <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
       <version>2.6</version>
     </dependency>
-    <!-- jasperreports -->
+    <!-- ________________________ jasper report ________________________ -->
     <dependency>
       <groupId>net.sf.jasperreports</groupId>
       <artifactId>jasperreports</artifactId>
@@ -88,6 +94,7 @@
       <artifactId>itext</artifactId>
       <version>2.1.7</version>
     </dependency>
+    <!-- ________________________ Log ________________________ -->
     <!-- Log with Logback -->
     <dependency>
       <groupId>org.slf4j</groupId>
@@ -115,8 +122,8 @@
       <artifactId>log4j-core</artifactId>
       <version>2.14.0</version>
     </dependency>
-  </dependencies>
 
+  </dependencies>
   <build>
     <finalName>order</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->

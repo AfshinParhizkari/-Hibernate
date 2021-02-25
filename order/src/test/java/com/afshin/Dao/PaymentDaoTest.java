@@ -1,4 +1,4 @@
-package com.afshin;
+package com.afshin.Dao;
 
 import com.afshin.Dao.PaymentDao;
 import com.afshin.Entity.Payment;
