@@ -48,7 +48,7 @@
       <artifactId>icu4j</artifactId>
       <version>67.1</version>
     </dependency>
-    <!-- ________________________ Servlet ________________________ -->
+    <!-- ________________________ Web App ________________________ -->
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
