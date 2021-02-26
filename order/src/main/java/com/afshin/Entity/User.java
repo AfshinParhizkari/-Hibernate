@@ -1,7 +1,4 @@
 package com.afshin.Entity;
-
-import javax.persistence.*;
-
 /**
  * @Project order
  * @Author Afshin Parhizkari
@@ -11,8 +8,12 @@ import javax.persistence.*;
  * Email:       Afshin.Parhizkari@gmail.com
  * Description:
  */
+import com.fasterxml.jackson.annotation.JsonFilter;
+import javax.persistence.*;
+
 @Entity
 @Table(name = "users")
+@JsonFilter("Userfilter")
 public class User {
     public User() {}
 
@@ -25,49 +26,20 @@ public class User {
     private String password;
     @Column(name = "employeefk")
     private Integer employeeid;
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employeefk",referencedColumnName = "employeeNumber",insertable = false,updatable = false)
     private Employee employee;
 
-    public Integer getIdusers() {
-        return idusers;
-    }
-
-    public void setIdusers(Integer idusers) {
-        this.idusers = idusers;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Integer getEmployeeid() {
-        return employeeid;
-    }
-
-    public void setEmployeeid(Integer employeeid) {
-        this.employeeid = employeeid;
-    }
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
+    public Integer getIdusers() {return idusers;}
+    public void setIdusers(Integer idusers) {this.idusers = idusers;}
+    public String getUsername() {return username;}
+    public void setUsername(String username) {this.username = username;}
+    public String getPassword() {return password;}
+    public void setPassword(String password) {this.password = password;}
+    public Integer getEmployeeid() {return employeeid;}
+    public void setEmployeeid(Integer employeeid) {this.employeeid = employeeid;}
+    public Employee getEmployee() {return employee;}
 
     @Override
     public String toString() {
@@ -76,7 +48,7 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", employeeid=" + employeeid +
-                ", employee=" + employee +
+                //", employee=" + employee +
                 '}';
     }
 }

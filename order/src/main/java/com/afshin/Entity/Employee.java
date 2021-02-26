@@ -56,17 +56,17 @@ public class Employee {
     @Column(name = "jobTitle")
     private String jobTitle;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "officeCode",insertable = false,updatable = false)
     private Office office;
 
-    @OneToMany(mappedBy = "employee")
+    @OneToMany(mappedBy = "employee",fetch = FetchType.LAZY)
     private List<Customer> customers;
 
-    @OneToMany(mappedBy = "manager")
+    @OneToMany(mappedBy = "manager",fetch = FetchType.LAZY)
     private List<Employee> employeeList;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reportsTo",referencedColumnName = "employeeNumber",insertable = false,updatable = false)
     private Employee manager;
 
@@ -145,13 +145,8 @@ public class Employee {
         this.office = office;
     }
 
-    public List<Customer> getCustomers() {
-        return customers;
-    }
-
-    public void setCustomers(List<Customer> customers) {
-        this.customers = customers;
-    }
+    public List<Customer> getCustomers() {return customers;}
+     public void setCustomers(List<Customer> customers) {this.customers = customers;}
 
     public List<Employee> getEmployeeList() {
         return employeeList;
@@ -169,9 +164,8 @@ public class Employee {
         this.manager = manager;
     }
 
-/*    public List<User> getUsers() {return users;}
-
-    public void setUsers(List<User> users) {this.users = users;}*/
+    //public List<User> getUsers() {return users;}
+    //public void setUsers(List<User> users) {this.users = users;}
 
     @Override
     public String toString() {
