@@ -37,7 +37,6 @@
         <option value="Product">Product</option>
         <option value="Office" >Office</option>
         <option value="User">User</option>
-        <option value="ProductlineJSP">Productline JSP</option>
     </select>
 <input type="submit" value="Show Form">
 </form>

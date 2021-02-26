@@ -59,11 +59,11 @@
     <title>Payment Report</title>
 </head>
 <body>
-<form action="/Dispatcher" method="get">
+<form action="Dispatcher" method="get">
     <input type="hidden" name="entity" value="Payment">
     <input type="submit" value="Back">
 </form>
-<form action="/PaymentAct" method="get">
+<form action="PaymentAct" method="get">
     FromDate: <span id="display_area_1" style="cursor: pointer;" class="display_area">Choose Date</span>
     <input id="date_input_1" type="hidden" name="fdate"/>
     <script type="text/javascript">

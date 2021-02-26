@@ -13,12 +13,12 @@
     <title>Add or Update Office</title>
 </head>
 <body>
-<form action="/Dispatcher" method="get">
+<form action="Dispatcher" method="get">
     <input type="hidden" name="entity" value="Office">
     <input type="submit" value="Back">
 </form>
 </br>
-<form action="/OfficeAct" method="post">
+<form action="OfficeAct" method="post">
     <%
         Office office = (Office) request.getAttribute("office");
         if(office ==null){

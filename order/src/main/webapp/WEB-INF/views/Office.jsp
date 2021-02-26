@@ -16,12 +16,12 @@
     <title>Office form - JSP</title>
 </head>
 <body>
-<form action="/Dispatcher" method="get">
+<form action="Dispatcher" method="get">
     <input type="button" value="Home" onclick="location.href='index.jsp';">
     <input type="hidden" name="entity" value="OfficeMerge">
     <input type="submit" value="Add">
 </form>
-<form action="/OfficeAct" method="post">
+<form action="OfficeAct" method="post">
     Product : <input type="text" name="offcode">
     <input type="hidden" name="crud" value="read">
     <input type="submit" value="ShowProduct">
@@ -59,8 +59,8 @@
         <td><%=office.getCountry()%></td>
         <td><%=office.getPostalCode()%></td>
         <td><%=office.getTerritory()%></td>
-        <td><a href="/OfficeAct?offcode=<%=office.getOfficeCode()%>&crud=edit">Edit</a></td>
-        <td><a href="/OfficeAct?offcode=<%=office.getOfficeCode()%>&crud=delete">Delete</a></td>
+        <td><a href="OfficeAct?offcode=<%=office.getOfficeCode()%>&crud=edit">Edit</a></td>
+        <td><a href="OfficeAct?offcode=<%=office.getOfficeCode()%>&crud=delete">Delete</a></td>
     </tr>
     <%}}}%>
 </table>

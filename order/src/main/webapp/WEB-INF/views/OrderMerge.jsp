@@ -56,7 +56,7 @@
     <title>Customer Add or Update</title>
 </head>
 <body>
-<form action="/Dispatcher" method="get">
+<form action="Dispatcher" method="get">
     <input type="hidden" name="entity" value="Order">
     <input type="submit" value="Back">
 </form>

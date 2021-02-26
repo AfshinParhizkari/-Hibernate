@@ -14,12 +14,12 @@
     <title>User form</title>
 </head>
 <body>
-<form action="/Dispatcher" method="get">
+<form action="Dispatcher" method="get">
     <input type="button" value="Home" onclick="location.href='index.jsp';">
     <input type="hidden" name="entity" value="UserMerge">
     <input type="submit" value="Add">
 </form>
-<form action="/UserAct" method="post">
+<form action="UserAct" method="post">
     Userid : <input type="text" name="userid">
     <input type="hidden" name="crud" value="read">
     <input type="submit" value="ShowUser">
@@ -49,8 +49,8 @@
         <td><%=user.getUsername()%></td>
         <td><%=user.getPassword()%></td>
         <td><%=user.getEmployeeid()%></td>
-        <td><a href="/UserAct?userid=<%=user.getIdusers()%>&crud=edit">edit</a></td>
-        <td><a href="/UserAct?userid=<%=user.getIdusers()%>&crud=delete">delete</a></td>
+        <td><a href="UserAct?userid=<%=user.getIdusers()%>&crud=edit">edit</a></td>
+        <td><a href="UserAct?userid=<%=user.getIdusers()%>&crud=delete">delete</a></td>
     </tr>
     <%}}}%>
 </table>

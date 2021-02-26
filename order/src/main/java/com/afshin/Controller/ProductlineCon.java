@@ -75,7 +75,6 @@ public class ProductlineCon extends HttpServlet {
             }
             req.setAttribute("products", productlines);
             req.getRequestDispatcher("WEB-INF/views/Productline.jsp").forward(req, resp);
-            //req.getRequestDispatcher("WEB-INF/views/ProductlineJSP.jsp").forward(req,resp);
         } catch (Exception e) {
             Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
@@ -97,7 +96,6 @@ public class ProductlineCon extends HttpServlet {
                 if(status==1) {
                     req.setAttribute("message", "record is deleted");
                     req.getRequestDispatcher("WEB-INF/views/Productline.jsp").forward(req, resp);
-                    //req.getRequestDispatcher("WEB-INF/views/ProductlineJSP.jsp").forward(req,resp);                }else{
                     req.setAttribute("message", "record is not deleted");
                     req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
                 }}

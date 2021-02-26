@@ -15,7 +15,7 @@
     <title>Customer form</title>
 </head>
 <body>
-<form action="/Dispatcher" method="get">
+<form action="Dispatcher" method="get">
     <input type="button" value="Home" onclick="location.href='index.jsp';">
     <input type="hidden" name="entity" value="OrderdetailMerge">
     <input type="submit" value="Add">
@@ -48,8 +48,8 @@
             <td><c:out value="${orderdetail.quantityOrdered}"></c:out></td>
             <td><c:out value="${orderdetail.priceEach}"></c:out></td>
             <td><c:out value="${orderdetail.orderLineNumber}"></c:out></td>
-            <td><a href="/OrderdetailAct?ordnum=${orderdetail.orderNumber}&procode=${orderdetail.productCode}&crud=edit">edit</a></td>
-            <td><a href="/OrderdetailAct?ordnum=${orderdetail.orderNumber}&procode=${orderdetail.productCode}&crud=delete">delete</a></td>
+            <td><a href="OrderdetailAct?ordnum=${orderdetail.orderNumber}&procode=${orderdetail.productCode}&crud=edit">edit</a></td>
+            <td><a href="OrderdetailAct?ordnum=${orderdetail.orderNumber}&procode=${orderdetail.productCode}&crud=delete">delete</a></td>
         </tr>
         </c:if>
     </c:forEach>

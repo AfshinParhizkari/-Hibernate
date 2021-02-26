@@ -15,7 +15,7 @@
     <title>Customer form</title>
 </head>
 <body>
-<form action="/Dispatcher" method="get">
+<form action="Dispatcher" method="get">
     <input type="button" value="Home" onclick="location.href='index.jsp';">
     <input type="hidden" name="entity" value="CustomerMerge">
     <input type="submit" value="Add">
@@ -67,8 +67,8 @@
                 <td><c:out value="${customer.country}"></c:out></td>
                 <td><c:out value="${customer.salesRepEmployeeNumber}"></c:out></td>
                 <td><c:out value="${customer.creditLimit}"></c:out></td>
-                <td><a href="/CustomerAct?custnum=${customer.customerNumber}&crud=edit" >edit</a></td>
-                <td><a href="/CustomerAct?custnum=${customer.customerNumber}&crud=delete">delete</a></td>
+                <td><a href="CustomerAct?custnum=${customer.customerNumber}&crud=edit" >edit</a></td>
+                <td><a href="CustomerAct?custnum=${customer.customerNumber}&crud=delete">delete</a></td>
             </tr>
             </c:if>
         </c:forEach>

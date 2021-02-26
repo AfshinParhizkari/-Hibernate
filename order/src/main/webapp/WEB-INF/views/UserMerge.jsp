@@ -13,11 +13,11 @@
     <title>Add or Update User</title>
 </head>
 <body>
-<form action="/Dispatcher" method="get">
+<form action="Dispatcher" method="get">
     <input type="hidden" name="entity" value="User">
     <input type="submit" value="Back">
 </form>
-<form action="/UserAct" method="post">
+<form action="UserAct" method="post">
         <%
         User user = (User) request.getAttribute("user");
         if(user ==null){

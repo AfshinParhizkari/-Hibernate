@@ -60,11 +60,11 @@
     <title>Add or Update Payment</title>
 </head>
 <body>
-<form action="/Dispatcher" method="get">
+<form action="Dispatcher" method="get">
     <input type="hidden" name="entity" value="Payment">
     <input type="submit" value="Back">
 </form>
-<form action="/PaymentAct" method="post">
+<form action="PaymentAct" method="post">
     <%
         Payment payment = (Payment) request.getAttribute("payment");
         if(payment ==null){

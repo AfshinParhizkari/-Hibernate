@@ -71,8 +71,8 @@ public class ProductlineTest {
 		pl.setHtmlDescription("https://github.com/AfshinParhizkari");
 		try{
 		//System.out.println(Paths.get("").toAbsolutePath().toString());
-			System.out.println(Paths.get("","/main/webapp/statics/images/","db.jpg"));
-		pl.setImage(Files.readAllBytes(Paths.get(System.getProperty("user.dir"),"/src/main/webapp/statics/images/","db.jpg")));
+			System.out.println(Paths.get("","/main/webapp/statics/images/","OrderDB_Model.jpg"));
+		pl.setImage(Files.readAllBytes(Paths.get(System.getProperty("user.dir"),"/src/main/webapp/statics/images/","OrderDB_Model.jpg")));
 		}catch (Exception e) {
 			System.out.println(e.toString());
 		}

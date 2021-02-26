@@ -13,12 +13,12 @@
     <title>Add or Update Employee</title>
 </head>
 <body>
-<form action="/Dispatcher" method="get">
+<form action="Dispatcher" method="get">
     <input type="hidden" name="entity" value="Employee">
     <input type="submit" value="Back">
 </form>
 </br>
-<form action="/EmployeeAct" method="post">
+<form action="EmployeeAct" method="post">
     <%
         Employee employee = (Employee) request.getAttribute("employee");
         if(employee ==null){

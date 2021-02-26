@@ -16,7 +16,7 @@
     <title>Customer form</title>
 </head>
 <body>
-<form action="/Dispatcher" method="get">
+<form action="Dispatcher" method="get">
     <input type="button" value="Home" onclick="location.href='index.jsp';">
     <input type="hidden" name="entity" value="OrderMerge">
     <input type="submit" value="Add">
@@ -44,15 +44,15 @@
         <c:forEach var="order" items="${requestScope.orders}">
             <c:if test="${not empty order}">
             <tr>
-                <td><a href="/OrderdetailAct?ordernum=${order.orderNumber}&crud=factor"><c:out value="${order.orderNumber}"></c:out></a></td>
+                <td><a href="OrderdetailAct?ordernum=${order.orderNumber}&crud=factor"><c:out value="${order.orderNumber}"></c:out></a></td>
                 <td>${afy:shamsiStr(order.orderDate)}</td>
                 <td>${afy:shamsiStr(order.requiredDate)}</td>
                 <td>${afy:shamsiStr(order.shippedDate)}</td>
                 <td><c:out value="${order.status}"></c:out></td>
                 <td><c:out value="${order.comments}"></c:out></td>
                 <td><c:out value="${order.customerNumber}"></c:out></td>
-                <td><a href="/OrderAct?onum=${order.orderNumber}&crud=edit">edit</a></td>
-                <td><a href="/OrderAct?onum=${order.orderNumber}&crud=delete">delete</a></td>
+                <td><a href="OrderAct?onum=${order.orderNumber}&crud=edit">edit</a></td>
+                <td><a href="OrderAct?onum=${order.orderNumber}&crud=delete">delete</a></td>
             </tr>
             </c:if>
         </c:forEach>

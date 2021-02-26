@@ -16,12 +16,12 @@
     <title>Productline Add or Update</title>
 </head>
 <body>
-<form action="/Dispatcher" method="get">
+<form action="Dispatcher" method="get">
     <input type="hidden" name="entity" value="Productline">
     <input type="submit" value="Back">
 </form>
 </br>
-<form action="/ProductlineAct" method="post" enctype="multipart/form-data">
+<form action="ProductlineAct" method="post" enctype="multipart/form-data">
     <c:if test="${requestScope.productline eq null}">
         Product code: <input type="text" name="proline" required="required"><br>
         Description: <input type="text" name="txtDesc"><br>

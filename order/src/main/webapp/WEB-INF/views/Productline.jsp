@@ -15,12 +15,12 @@ Description: JSTL
     <title>Productline form</title>
 </head>
 <body>
-<form action="/Dispatcher" method="get">
+<form action="Dispatcher" method="get">
     <input type="button" value="Home" onclick="location.href='index.jsp';">
     <input type="hidden" name="entity" value="ProductlineMerge">
     <input type="submit" value="Add">
 </form>
-<form action="/ProductlineAct" method="post">
+<form action="ProductlineAct" method="post">
     Productline : <input type="text" name="prolineNum">
     <input type="hidden" name="crud" value="read">
     <input type="submit" value="ShowProductline">
@@ -46,14 +46,16 @@ Description: JSTL
             <c:if test="${not empty proline}">
                 <tr>
                     <td><c:out value="${proline.productLine}"></c:out></td>
-                    <td><c:out value="${proline.textDescription}"></c:out></td>
+                    <td><c:out value="${proin : User admin is Detected
+2021-02-26 12:37:21.102+0330 [http-nio-8080-exec-91] INFO  EmployeeDao.findall|Try: All are Fetched
+line.textDescription}"></c:out></td>
                     <td><c:out value="${proline.htmlDescription}"></c:out></td>
                     <td><c:if test="${not empty proline.image}">
                             <img src="data:image/jpg+jpeg+png+gif;base64,${proline.photo}" width="200" height="200">
                         </c:if>
                     </td>
-                    <td><a href="/ProductlineAct?proline=${proline.productLine}&crud=edit">edit</a></td>
-                    <td><a href="/ProductlineAct?proline=${proline.productLine}&crud=delete">delete</a></td>
+                    <td><a href="ProductlineAct?proline=${proline.productLine}&crud=edit">edit</a></td>
+                    <td><a href="ProductlineAct?proline=${proline.productLine}&crud=delete">delete</a></td>
                 </tr>
             </c:if>
         </c:forEach>

@@ -17,16 +17,16 @@ public class User {
     public User() {}
 
     @Id
-    @Column(name = "idusers")
+    @Column(name = "id")
     private Integer idusers;
     @Column(name = "username")
     private String username;
     @Column(name = "password")
     private String password;
-    @Column(name = "employeeid")
+    @Column(name = "employeefk")
     private Integer employeeid;
     @ManyToOne
-    @JoinColumn(name = "employeeid",referencedColumnName = "employeeNumber",insertable = false,updatable = false)
+    @JoinColumn(name = "employeefk",referencedColumnName = "employeeNumber",insertable = false,updatable = false)
     private Employee employee;
 
     public Integer getIdusers() {

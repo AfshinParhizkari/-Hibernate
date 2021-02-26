@@ -15,12 +15,12 @@
     <title>Product form</title>
 </head>
 <body>
-<form action="/Dispatcher" method="get">
+<form action="Dispatcher" method="get">
     <input type="button" value="Home" onclick="location.href='index.jsp';">
     <input type="hidden" name="entity" value="ProductMerge">
     <input type="submit" value="Add">
 </form>
-<form action="/ProductAct" method="post">
+<form action="ProductAct" method="post">
     Product : <input type="text" name="proNum">
     <input type="hidden" name="crud" value="read">
     <input type="submit" value="ShowProduct">
@@ -55,8 +55,8 @@
            <td><c:out value="${product.quantityInStock}"/></td>
            <td><c:out value="${product.buyPrice}"/></td>
            <td><c:out value="${product.MSRP}"/></td>
-           <td><a href="/ProductAct?proNum=${product.productCode}&crud=edit">edit</a></td>
-           <td><a href="/ProductAct?proNum=${product.productCode}&crud=delete">delete</a></td>
+           <td><a href="ProductAct?proNum=${product.productCode}&crud=edit">edit</a></td>
+           <td><a href="ProductAct?proNum=${product.productCode}&crud=delete">delete</a></td>
            </tr>
             </c:if>
         </c:forEach>
