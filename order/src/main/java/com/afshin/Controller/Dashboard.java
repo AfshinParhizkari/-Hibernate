@@ -28,9 +28,9 @@ public class Dashboard extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            UserDao dao = new UserDao();
             String action = req.getParameter("crud");
             if (action.equals("login")) {
+                UserDao dao = new UserDao();
                 String userName = req.getParameter("usrnam");
                 String passWord = req.getParameter("paswrd");
                 User user = dao.login(userName);

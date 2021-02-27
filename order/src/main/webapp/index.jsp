@@ -20,7 +20,7 @@
     <input type="submit" value="Logout">
 </form>
 <form action="Dispatcher" method="post">
-    <input type="button" value="Call Payment Services" onclick="location.href='rest/payment/findall';">
+    <input type="button" value="Call User Service" onclick="location.href='rest/user/all';">
     <input name="crud" type="hidden" value="test">
     <input type="submit" value="Test">
 </form>

@@ -31,7 +31,7 @@ Description: JSTL
 </form>
 <c:if test="${requestScope.message ne null}">
     <c:out value="${requestScope.message}"></c:out>
-</c:if><table border="1px">
+</c:if>
 <table border="1px">
     <tr>
         <td>productLine</td>
@@ -46,9 +46,7 @@ Description: JSTL
             <c:if test="${not empty proline}">
                 <tr>
                     <td><c:out value="${proline.productLine}"></c:out></td>
-                    <td><c:out value="${proin : User admin is Detected
-2021-02-26 12:37:21.102+0330 [http-nio-8080-exec-91] INFO  EmployeeDao.findall|Try: All are Fetched
-line.textDescription}"></c:out></td>
+                    <td><c:out value="${proinline.textDescription}"></c:out></td>
                     <td><c:out value="${proline.htmlDescription}"></c:out></td>
                     <td><c:if test="${not empty proline.image}">
                             <img src="data:image/jpg+jpeg+png+gif;base64,${proline.photo}" width="200" height="200">
