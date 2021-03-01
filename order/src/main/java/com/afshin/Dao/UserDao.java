@@ -1,13 +1,4 @@
 package com.afshin.Dao;
-
-import com.afshin.Entity.*;
-import com.afshin.General.Logback;
-import com.afshin.General.Myentitymanager;
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
-import javax.persistence.criteria.*;
-import java.util.List;
-
 /**
  * @Project order
  * @Author Afshin Parhizkari
@@ -17,6 +8,14 @@ import java.util.List;
  * Email:       Afshin.Parhizkari@gmail.com
  * Description:
  */
+import com.afshin.Entity.*;
+import com.afshin.General.Logback;
+import com.afshin.General.Myentitymanager;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.persistence.criteria.*;
+import java.util.List;
+
 public class UserDao {
     public UserDao() {}
 
@@ -55,9 +54,13 @@ public class UserDao {
             criteriaQuery.select(u);
             criteriaQuery.where(criteriaBuilder.equal(u.get("username"),userName));
             Query q = entityManager.createQuery(criteriaQuery);
-            User user= (User) q.getResultList().get(0);
-            Logback.logger.info("{}.{}|Try: record is Fetched",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
-            return user;
+            List<User> users = q.getResultList();
+            if(users ==null || users.size()==0) return null;
+            else {
+                User user = users.get(0);
+                Logback.logger.info("{}.{}|Try: record is Fetched", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
+                return user;
+            }
         }catch (Exception e){
             Logback.logger.error("{}.{}|Exception: {}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();

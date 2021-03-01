@@ -8,13 +8,13 @@ package com.afshin.Entity;
  * Email:       Afshin.Parhizkari@gmail.com
  * Description:
  */
-import com.afshin.Entity.Employee;
-
+import com.fasterxml.jackson.annotation.JsonFilter;
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "offices")
+@JsonFilter("officeFilter")
 public class Office {
 
     public Office() {

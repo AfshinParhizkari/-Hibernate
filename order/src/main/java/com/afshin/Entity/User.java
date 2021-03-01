@@ -13,7 +13,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
-@JsonFilter("Userfilter")
+@JsonFilter("UserFilter")
 public class User {
     public User() {}
 

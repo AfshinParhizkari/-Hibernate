@@ -14,7 +14,13 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
- * @Project order
+ * @Project order        String encodedUserPassword = headers.getRequestHeader("Authorization").get(0).replaceFirst("Basic ", " ");
+        //Decode username and password
+        String usernameAndPassword = new String(Base64.decode(encodedUserPassword));;
+        //Split username and password tokens
+        final StringTokenizer tokenizer = new StringTokenizer(usernameAndPassword, ":");
+        final String username = tokenizer.nextToken();
+        final String password = tokenizer.nextToken();
  * @Author Afshin Parhizkari
  * @Date 2020 - 12 - 15
  * @Time 7:08 PM
@@ -35,12 +41,12 @@ public class Dashboard extends HttpServlet {
                 String passWord = req.getParameter("paswrd");
                 User user = dao.login(userName);
                 HttpSession session = req.getSession(true);
-                if (passWord.equals(user.getPassword())) {
-                    session.setAttribute("sessionUser", user);
-                    session.setAttribute("message", "Login successful!");
+                if (user==null || !passWord.equals(user.getPassword())) {
+                    session.setAttribute("message", "User or Password is incorrect");
                     req.getRequestDispatcher("index.jsp").forward(req, resp);
                 } else {
-                    session.setAttribute("message", "User or Password is incorrect");
+                    session.setAttribute("sessionUser", user);
+                    session.setAttribute("message", "Login successful!");
                     req.getRequestDispatcher("index.jsp").forward(req, resp);
                 }
             }

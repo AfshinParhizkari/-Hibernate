@@ -16,7 +16,7 @@ import java.util.List;
 public class UserWsTest {
 
     @Test
-    public void findallTest() throws Exception {
+    public void all() throws Exception {
         Client client = ClientBuilder.newClient();
         WebTarget webTarget = client.target("http://localhost:8080/order/rest").path("user").path("all");
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
@@ -32,15 +32,14 @@ public class UserWsTest {
 
 
     @Test
-    public void findById() throws Exception {
+    public void find() throws Exception {
         Client client = ClientBuilder.newClient();
         WebTarget webTarget = client.target("http://localhost:8080/order/rest").path("user").path("find").path("3");
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
         Response response = invocationBuilder.get();
         // MAP JSON to User
         ObjectMapper mapper = new ObjectMapper();
-        User obj = mapper.readValue(response.readEntity(String.class), new TypeReference<User>() {
-        });
+        User obj = mapper.readValue(response.readEntity(String.class), new TypeReference<User>() {});
         //System.out.println(response.readEntity(String.class));
         System.out.println(response.getStatusInfo() + "->" + response.getStatus());
         if (response.getStatus() == 200) System.out.println(obj);
@@ -59,7 +58,7 @@ public class UserWsTest {
         user.setEmployeeid(1056);
         //filter attribute to create JSON
         FilterProvider filters = new SimpleFilterProvider().addFilter(
-                "Userfilter", SimpleBeanPropertyFilter.filterOutAllExcept("idusers", "username", "password", "employeeid"));
+                "UserFilter", SimpleBeanPropertyFilter.filterOutAllExcept("idusers", "username", "password", "employeeid"));
         // Map Object -> String
         String userJson = (new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(user);
         System.out.println(userJson);
@@ -88,7 +87,7 @@ public class UserWsTest {
         user.setEmployeeid(1076);
         //filter attribute to create JSON
         FilterProvider filters = new SimpleFilterProvider().addFilter(
-                "Userfilter", SimpleBeanPropertyFilter.filterOutAllExcept("idusers", "username", "password", "employeeid"));
+                "UserFilter", SimpleBeanPropertyFilter.filterOutAllExcept("idusers", "username", "password", "employeeid"));
         // Map Object -> String
         String userJson = (new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(user);
         System.out.println(userJson);

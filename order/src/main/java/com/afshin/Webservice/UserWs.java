@@ -27,26 +27,23 @@ import java.util.List;
 
 @Path("/user")
 public class UserWs {
-
     private UserDao dao = new UserDao();
-    private List<User> userList = new ArrayList<>();
     //http://localhost:8080/order/rest/user/all
     @GET
     @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findall() {
-        userList.clear();
-        userList = dao.findall();
+        List<User> userList = dao.findall();
         try {
             FilterProvider filters = new SimpleFilterProvider().addFilter(
-                    "Userfilter", SimpleBeanPropertyFilter.filterOutAllExcept("idusers","username","password","employeeid"));
+                    "UserFilter", SimpleBeanPropertyFilter.filterOutAllExcept("idusers","username","password","employeeid"));
             String userJson=(new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(userList);
             Logback.logger.info("{}.{}|Try: Send all records to RESTful",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
             return Response.status(Response.Status.OK).entity(userJson).build();
         } catch (JsonProcessingException e) {
             Logback.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
-            return Response.status(Response.Status.NOT_FOUND).entity("").build();
+            return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
         }
     }
     //http://localhost:8080/order/rest/user/find/3
@@ -59,7 +56,7 @@ public class UserWs {
         try {
             //filter attribute to create JSON
             FilterProvider filters = new SimpleFilterProvider().addFilter(
-                    "Userfilter", SimpleBeanPropertyFilter.filterOutAllExcept("idusers","username","password","employeeid"));
+                    "UserFilter", SimpleBeanPropertyFilter.filterOutAllExcept("idusers","username","password","employeeid"));
             // Map Object -> String
             String userJson=(new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(user);
             // http response to program that call me
@@ -68,7 +65,7 @@ public class UserWs {
         } catch (JsonProcessingException e) {
             Logback.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
-            return Response.status(Response.Status.NOT_FOUND).entity("").build();
+            return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
         }
     }
     //http://localhost:8080/order/rest/user/get/3
