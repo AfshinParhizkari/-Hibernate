@@ -14,7 +14,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "offices")
-@JsonFilter("officeFilter")
+@JsonFilter("OfficeFilter")
 public class Office {
 
     public Office() {

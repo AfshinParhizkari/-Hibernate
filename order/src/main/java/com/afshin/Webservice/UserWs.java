@@ -6,7 +6,7 @@ package com.afshin.Webservice;
  * @Time 3:14 PM
  * Created by   IntelliJ IDEA
  * Email:       Afshin.Parhizkari@gmail.com
- * Description:
+ * Description: Simple JAX-RS CRUD RESTful without Authentication
  */
 import com.afshin.Dao.UserDao;
 import com.afshin.Entity.User;
@@ -22,7 +22,6 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
 import java.util.List;
 
 @Path("/user")
@@ -37,9 +36,9 @@ public class UserWs {
         try {
             FilterProvider filters = new SimpleFilterProvider().addFilter(
                     "UserFilter", SimpleBeanPropertyFilter.filterOutAllExcept("idusers","username","password","employeeid"));
-            String userJson=(new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(userList);
+            String usersJson=(new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(userList);
             Logback.logger.info("{}.{}|Try: Send all records to RESTful",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
-            return Response.status(Response.Status.OK).entity(userJson).build();
+            return Response.status(Response.Status.OK).entity(usersJson).build();
         } catch (JsonProcessingException e) {
             Logback.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
@@ -92,32 +91,32 @@ public class UserWs {
     @Path("/insert")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Integer insert(User user) {
+    public Response insert(User user) {
         Integer status = dao.insert(user);
         Logback.logger.info("{}.{}|Try: record is Inserted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
-        return status;
+        return Response.status(Response.Status.OK).entity(status).build();
     }
     //Method:PUT http://localhost:8080/order/rest/user/update
     @PUT
     @Path("/update")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Integer updateUser(User user) {
+    public Response updateUser(User user) {
         User updatedUser=dao.findbyid(user.getIdusers());
         updatedUser.setUsername(user.getUsername());
         updatedUser.setPassword(user.getPassword());
         updatedUser.setEmployeeid(user.getEmployeeid());
         Integer status=dao.update(updatedUser);
         Logback.logger.info("{}.{}|Try: record is Updated",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
-        return status;
+        return Response.status(Response.Status.OK).entity(status).build();
     }
     //Method:DELETE http://localhost:8080/order/rest/user/4
     @DELETE
-    @Path("/{id}")
+    @Path("/delete/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Integer deleteeUser(@PathParam("id") Integer id) {
+    public Response deleteeUser(@PathParam("id") Integer id) {
         Integer status = dao.delete(dao.findbyid(id));
         Logback.logger.info("{}.{}|Try: record is Deleted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
-        return status;
+        return Response.status(Response.Status.OK).entity(status).build();
     }
 }
