@@ -27,7 +27,7 @@ public class User {
     @Column(name = "employeefk")
     private Integer employeeid;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "employeefk",referencedColumnName = "employeeNumber",insertable = false,updatable = false)
     private Employee employee;
 

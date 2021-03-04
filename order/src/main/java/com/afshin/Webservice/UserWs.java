@@ -16,9 +16,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -31,7 +28,7 @@ public class UserWs {
     @GET
     @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findall() {
+    public Response all() {
         List<User> userList = dao.findall();
         try {
             FilterProvider filters = new SimpleFilterProvider().addFilter(
@@ -66,16 +63,6 @@ public class UserWs {
             e.printStackTrace();
             return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
         }
-    }
-    //http://localhost:8080/order/rest/user/get/3
-    @GET
-    @Path("/get/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String GetById(@PathParam("id") Integer id) {
-        User user = dao.findbyid(id);
-        //return user;
-        Logback.logger.info("{}.{}|Try: Send record to RESTful",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
-        return ToStringBuilder.reflectionToString(user, ToStringStyle.JSON_STYLE);
     }
     /* Method:POST http://localhost:8080/order/rest/user/insert
        Content-Type:application/json

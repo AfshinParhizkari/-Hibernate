@@ -36,9 +36,9 @@ public class Dashboard extends HttpServlet {
         try {
             String action = req.getParameter("crud");
             if (action.equals("login")) {
-                UserDao dao = new UserDao();
                 String userName = req.getParameter("usrnam");
                 String passWord = req.getParameter("paswrd");
+                UserDao dao = new UserDao();
                 User user = dao.login(userName);
                 HttpSession session = req.getSession(true);
                 if (user==null || !passWord.equals(user.getPassword())) {

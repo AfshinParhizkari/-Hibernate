@@ -27,10 +27,10 @@ public class OfficeWs {
     @GET
     @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findall(@Context HttpHeaders headers){
+    public Response all(@Context HttpHeaders headers){
         String encodUsrPwd=headers.getRequestHeader("Authorization").get(0).replaceFirst("Basic "," ");
         if(!sec.basicAuthCheck(encodUsrPwd))
-            return Response.status(Response.Status.FORBIDDEN).entity("User or password is wrong").build();
+            return Response.status(Response.Status.UNAUTHORIZED).entity("User or password is wrong").build();
         try{
             List<Office> officeList=dao.findall();
             FilterProvider filters=new SimpleFilterProvider().addFilter("OfficeFilter",
@@ -41,7 +41,7 @@ public class OfficeWs {
         }catch (Exception e){
             Logback.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
-            return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
+            return Response.status(Response.Status.UNAUTHORIZED).entity(e.getMessage()).build();
         }
     }
 
@@ -52,7 +52,7 @@ public class OfficeWs {
         //Get encoded username and password
         String encodUsrPwd=headers.getRequestHeader("Authorization").get(0).replaceFirst("Basic ", " ");
         if(!sec.basicAuthCheck(encodUsrPwd))
-         return Response.status(Response.Status.FORBIDDEN).entity("User or password is wrong").build();
+         return Response.status(Response.Status.UNAUTHORIZED).entity("User or password is wrong").build();
         try {
             Office office=dao.findbyid(officeCode);
             FilterProvider filters = new SimpleFilterProvider().addFilter("OfficeFilter",
@@ -63,7 +63,7 @@ public class OfficeWs {
         }catch (Exception e) {
             Logback.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
-            return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
+            return Response.status(Response.Status.UNAUTHORIZED).entity(e.getMessage()).build();
         }
     }
 
@@ -74,7 +74,7 @@ public class OfficeWs {
     public Response insert(Office office,@Context HttpHeaders headers){
         String encodUsrPwd=headers.getRequestHeader("Authorization").get(0).replaceFirst("Basic "," ");
         if(!sec.basicAuthCheck(encodUsrPwd))
-            return Response.status(Response.Status.FORBIDDEN).entity("User or password is wrong").build();
+            return Response.status(Response.Status.UNAUTHORIZED).entity("User or password is wrong").build();
         String status=dao.insert(office);
         Logback.logger.info("{}.{}|Try: record is Inserted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
         return Response.status(Response.Status.OK).entity(status).build();
@@ -86,7 +86,7 @@ public class OfficeWs {
     public Response updateUser(Office office,@Context HttpHeaders headers) {
         String encodUsrPwd=headers.getRequestHeader("Authorization").get(0).replaceFirst("Basic "," ");
         if(!sec.basicAuthCheck(encodUsrPwd))
-            return Response.status(Response.Status.FORBIDDEN).entity("User or password is wrong").build();
+            return Response.status(Response.Status.UNAUTHORIZED).entity("User or password is wrong").build();
         Office updatedOffice=dao.findbyid(office.getOfficeCode());
         updatedOffice.setCity(office.getCity());
         updatedOffice.setPhone(office.getPhone());
@@ -106,7 +106,7 @@ public class OfficeWs {
     public Response deleteeUser(@PathParam("id") String id,@Context HttpHeaders headers) {
         String encodUsrPwd=headers.getRequestHeader("Authorization").get(0).replaceFirst("Basic "," ");
         if(!sec.basicAuthCheck(encodUsrPwd))
-            return Response.status(Response.Status.FORBIDDEN).entity("User or password is wrong").build();
+            return Response.status(Response.Status.UNAUTHORIZED).entity("User or password is wrong").build();
         Integer status = dao.delete(dao.findbyid(id));
         Logback.logger.info("{}.{}|Try: record is Deleted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
         return Response.status(Response.Status.OK).entity(status).build();

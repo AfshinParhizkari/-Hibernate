@@ -36,7 +36,7 @@ public class OfficeWsTest {
         WebTarget webTarget = client.target(restServicePath).path("all");
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
         Response response = invocationBuilder.get();
-        // MAP JSON to List of User
+        // MAP JSON to List of Office
         ObjectMapper mapper = new ObjectMapper();
         List<Office> list = mapper.readValue(response.readEntity(String.class), new TypeReference<List<Office>>() {
         });

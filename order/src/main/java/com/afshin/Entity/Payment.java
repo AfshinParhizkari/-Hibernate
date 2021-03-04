@@ -9,6 +9,7 @@ package com.afshin.Entity;
  * Description:
  */
 import com.afshin.General.GregorianDate;
+import com.fasterxml.jackson.annotation.JsonFilter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -17,6 +18,7 @@ import java.util.Date;
 @Entity
 @Table(name = "payments")
 @IdClass(PaymentPK.class)
+@JsonFilter("PaymentFilter")
 public class Payment {
     public Payment() {
     }

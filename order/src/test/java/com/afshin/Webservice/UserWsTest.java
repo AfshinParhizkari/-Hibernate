@@ -19,7 +19,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.junit.Test;
 import java.util.List;
-import com.afshin.Entity.*;
+import com.afshin.Entity.User;
 
 public class UserWsTest {
     final String restServicePath="http://localhost:8080/order/rest/user";
@@ -32,8 +32,7 @@ public class UserWsTest {
         Response response = invocationBuilder.get();
         // MAP JSON to List of User
         ObjectMapper mapper = new ObjectMapper();
-        List<User> list = mapper.readValue(response.readEntity(String.class), new TypeReference<List<User>>() {
-        });
+        List<User> list = mapper.readValue(response.readEntity(String.class), new TypeReference<List<User>>() {});
         //System.out.println(response.readEntity(String.class));
         System.out.println(response.getStatusInfo() + "->" + response.getStatus());
         if (response.getStatus() == 200) for (User tempOrd : list) System.out.println(tempOrd);

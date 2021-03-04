@@ -1,9 +1,7 @@
 package com.afshin.Dao;
 
-import com.afshin.Dao.UserDao;
 import com.afshin.Entity.User;
 import org.junit.Test;
-
 import java.util.List;
 
 /**

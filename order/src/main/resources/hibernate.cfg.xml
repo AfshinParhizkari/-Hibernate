@@ -2,25 +2,19 @@
 <hibernate-configuration>
     <session-factory>
         <property name="connection.url">jdbc:mysql://localhost:3306/order</property>
-        <property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="connection.username">admin</property>
         <property name="connection.password">123456</property>
-        <!--property name="connection.pool_size">3</property-->
-        <!-- c3p0 config http://www.hibernate.org/214.html -->
-        <!--
-        <property name="connection.provider_class">org.hibernate.c3p0.internal.C3P0ConnectionProvider</property>
-        <property name="hibernate.c3p0.acquire_increment">1</property>
-        <property name="hibernate.c3p0.idle_test_period">60</property>
-        <property name="hibernate.c3p0.min_size">1</property>
-        <property name="hibernate.c3p0.max_size">2</property>
-        <property name="hibernate.c3p0.max_statements">50</property>
-        <property name="hibernate.c3p0.timeout">0</property>
-        <property name="hibernate.c3p0.acquireRetryAttempts">1</property>
-        <property name="hibernate.c3p0.acquireRetryDelay">250</property>
-        <property name="hibernate.show_sql">true</property>
-        <property name="hibernate.use_sql_comments">true</property>
-        -->
+        <!-- Configuring Connection Pool -->
+<!--
+        <property name="hibernate.c3p0.min_size">2</property>
+        <property name="hibernate.c3p0.max_size">5</property>
+        <property name="hibernate.c3p0.timeout">500</property>&lt;!&ndash; When an idle connection is removed from the pool (in second). Hibernate default: 0, never expire.&ndash;&gt;
+        <property name="hibernate.c3p0.max_statements">50</property>&lt;!&ndash;Number of prepared statements will be cached. Increase performance. Hibernate default: 0 , caching is disable.&ndash;&gt;
+        <property name="hibernate.c3p0.idle_test_period">2000</property>&lt;!&ndash;idle time in seconds before a connection is automatically validated. Hibernate default: 0&ndash;&gt;
+-->
+
 
     </session-factory>
 </hibernate-configuration>

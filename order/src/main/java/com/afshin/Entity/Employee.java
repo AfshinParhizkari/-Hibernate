@@ -56,17 +56,17 @@ public class Employee {
     @Column(name = "jobTitle")
     private String jobTitle;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "officeCode",insertable = false,updatable = false)
     private Office office;
 
-    @OneToMany(mappedBy = "employee",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "employee")
     private List<Customer> customers;
 
-    @OneToMany(mappedBy = "manager",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "manager")
     private List<Employee> employeeList;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "reportsTo",referencedColumnName = "employeeNumber",insertable = false,updatable = false)
     private Employee manager;
 

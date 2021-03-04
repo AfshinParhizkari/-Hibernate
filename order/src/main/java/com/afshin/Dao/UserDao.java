@@ -8,22 +8,42 @@ package com.afshin.Dao;
  * Email:       Afshin.Parhizkari@gmail.com
  * Description:
  */
-import com.afshin.Entity.*;
+import com.afshin.Entity.User;
 import com.afshin.General.Logback;
 import com.afshin.General.Myentitymanager;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import javax.persistence.criteria.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 public class UserDao {
-    public UserDao() {}
-
     EntityManager entityManager = Myentitymanager.getEntityManager();
-    CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-
+    public User login(String userName) {
+        try {
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+            CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
+            Root<User> u = criteriaQuery.from(User.class);
+            criteriaQuery.select(u);
+            criteriaQuery.where(criteriaBuilder.equal(u.get("username"),userName));
+            Query q = entityManager.createQuery(criteriaQuery);
+            List<User> users = q.getResultList();
+            if(users ==null || users.size()==0) return null;
+            else {
+                User user = users.get(0);
+                Logback.logger.info("{}.{}|Try: record is Fetched", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
+                return user;
+            }
+        }catch (Exception e){
+            Logback.logger.error("{}.{}|Exception: {}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
+    }
     public List<User> findall() {
         try {
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
             Root<User> u = criteriaQuery.from(User.class);
             criteriaQuery.select(u);
@@ -42,25 +62,6 @@ public class UserDao {
             User user=entityManager.find(User.class, userid);
             Logback.logger.info("{}.{}|Try: record is Fetched",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
             return user;
-        }catch (Exception e){
-            Logback.logger.error("{}.{}|Exception: {}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
-            e.printStackTrace();
-            return null;
-        }    }
-    public User login(String userName) {
-        try {
-            CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
-            Root<User> u = criteriaQuery.from(User.class);
-            criteriaQuery.select(u);
-            criteriaQuery.where(criteriaBuilder.equal(u.get("username"),userName));
-            Query q = entityManager.createQuery(criteriaQuery);
-            List<User> users = q.getResultList();
-            if(users ==null || users.size()==0) return null;
-            else {
-                User user = users.get(0);
-                Logback.logger.info("{}.{}|Try: record is Fetched", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
-                return user;
-            }
         }catch (Exception e){
             Logback.logger.error("{}.{}|Exception: {}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
             e.printStackTrace();
