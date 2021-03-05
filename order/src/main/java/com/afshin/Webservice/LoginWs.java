@@ -16,12 +16,16 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
-import java.util.Calendar;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.UUID;
 
 @Path("/login")
 public class LoginWs {
     Security sec=new Security();
+    final long amountToAdd=10l;
+
     //  http://localhost:8080/order/rest/login/check
     @GET
     @Path("/check")
@@ -31,6 +35,7 @@ public class LoginWs {
             return Response.status(Response.Status.UNAUTHORIZED).entity("token not valid").build();
         return Response.status(Response.Status.UNAUTHORIZED).entity("token is valid").build();
     }
+
     //  http://localhost:8080/order/rest/login/token
     @POST
     @Path("/token")
@@ -43,14 +48,17 @@ public class LoginWs {
             String credential = new String(Base64.decode(encodUsrPwd));
             String login = credential.substring(0,credential.indexOf(":"));
 
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(new Date());
-            cal.add(Calendar.MINUTE, +1);
-
-            String jwtToken = Jwts.builder().setSubject(login).setIssuedAt(new Date()).setExpiration(cal.getTime())
+            //Calendar cal = Calendar.getInstance();cal.setTime(new Date());cal.add(Calendar.MINUTE, +2);
+            //.setExpiration(cal.getTime())
+            String jwtToken = Jwts.builder().setSubject(login).setId(UUID.randomUUID().toString())
+                    .setIssuedAt(Date.from(Instant.now()))
+                    .setExpiration(Date.from(Instant.now().plus(amountToAdd, ChronoUnit.MINUTES)))
                     .setIssuer("https://github.com/AfshinParhizkari/Hibernate")
                     .signWith(SignatureAlgorithm.HS512,"sharekeyisafshin").compact();
             //System.out.println(jwtToken);
+            //Header : type of the token CryptographicAlgorithm (alg:HS512) , JWT
+            //payload :  setSubject(login),setIssuedAt(Date).setExpiration(ExprDate)
+            //signature : signWith(SignatureAlgorithm.HS512,"private/secret Key=sharekeyisafshin")
             Logback.logger.info("{}.{}|Try: Return Token to Invoker",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
             return Response.status(Response.Status.OK).header(HttpHeaders.AUTHORIZATION, "Bearer " + jwtToken).build();
         }catch (Exception e) {

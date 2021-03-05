@@ -15,6 +15,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.bouncycastle.util.encoders.Base64;
 
+
 public class Security {
 
     protected boolean basicAuthCheck(String encodedUserPassword) {
@@ -50,13 +51,12 @@ public class Security {
 
         try {
             Claims claims = Jwts.parser().setSigningKey("sharekeyisafshin").parseClaimsJws(token).getBody();
-            System.out.println(claims);//System.out.println();
-            //check claims(claims.getSubject() and claims.) with itself? or ???
+            System.out.println(claims);
             Logback.logger.info("{}.{}| Token is correct",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
             return true;
         } catch (Exception e) {
             Logback.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
-            e.printStackTrace();
+            //e.printStackTrace();
             return false;
         }
 
