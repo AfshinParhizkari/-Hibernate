@@ -30,14 +30,15 @@ public class LoginWs {
     @GET
     @Path("/check")
     public Response echo(@Context HttpHeaders headers) {
-        String token=headers.getRequestHeader(HttpHeaders.AUTHORIZATION).get(0).substring("Bearer".length()).trim();
-        if(!sec.tokenAuthCheck(token))
-            return Response.status(Response.Status.UNAUTHORIZED).entity("token not valid").build();
-        return Response.status(Response.Status.UNAUTHORIZED).entity("token is valid").build();
+        String token=headers.getRequestHeader(HttpHeaders.AUTHORIZATION).get(0).substring("Bearer ".length()).trim();
+        if(sec.tokenAuthCheck(token))
+            return Response.status(Response.Status.OK).entity("token is valid").build();
+        else
+        return Response.status(Response.Status.UNAUTHORIZED).entity("token is Expired").build();
     }
 
     //  http://localhost:8080/order/rest/login/token
-    @POST
+    @GET
     @Path("/token")
     public Response getToken(@Context HttpHeaders headers){
         //Get encoded username and password
@@ -55,7 +56,6 @@ public class LoginWs {
                     .setExpiration(Date.from(Instant.now().plus(amountToAdd, ChronoUnit.MINUTES)))
                     .setIssuer("https://github.com/AfshinParhizkari/Hibernate")
                     .signWith(SignatureAlgorithm.HS512,"sharekeyisafshin").compact();
-            //System.out.println(jwtToken);
             //Header : type of the token CryptographicAlgorithm (alg:HS512) , JWT
             //payload :  setSubject(login),setIssuedAt(Date).setExpiration(ExprDate)
             //signature : signWith(SignatureAlgorithm.HS512,"private/secret Key=sharekeyisafshin")

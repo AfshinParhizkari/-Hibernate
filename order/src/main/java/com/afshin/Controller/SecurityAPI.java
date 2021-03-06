@@ -4,7 +4,7 @@ import com.afshin.Entity.User;
 import com.afshin.General.Logback;
 import javax.servlet.http.HttpServletRequest;
 
-public class SecurityCon {
+public class SecurityAPI {
     public static boolean isLogin(HttpServletRequest req){
         Logback.logger.trace("GeneralFunc.login : Enter to method");
         User user=(User)req.getSession(true).getAttribute("sessionUser");

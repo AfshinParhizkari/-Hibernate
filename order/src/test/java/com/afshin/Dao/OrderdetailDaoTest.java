@@ -1,7 +1,6 @@
 package com.afshin.Dao;
 
 import com.afshin.Entity.Orderdetail;
-import com.afshin.Dao.OrderdetailsDao;
 import com.afshin.Entity.OrderdetailPK;
 import org.junit.Test;
 

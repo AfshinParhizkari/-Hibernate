@@ -35,7 +35,7 @@ public class UserWsTest {
         List<User> list = mapper.readValue(response.readEntity(String.class), new TypeReference<List<User>>() {});
         //System.out.println(response.readEntity(String.class));
         System.out.println(response.getStatusInfo() + "->" + response.getStatus());
-        if (response.getStatus() == 200) for (User tempOrd : list) System.out.println(tempOrd);
+        if (response.getStatus() == 200) for (User temp : list) System.out.println(temp);
     }
 
     @Test

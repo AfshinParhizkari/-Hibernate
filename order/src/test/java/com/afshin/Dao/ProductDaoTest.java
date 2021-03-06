@@ -9,7 +9,6 @@ package com.afshin.Dao;
  * Description:
  */
 import com.afshin.Entity.Product;
-import com.afshin.Dao.ProductDao;
 import org.junit.Test;
 
 import java.math.BigDecimal;

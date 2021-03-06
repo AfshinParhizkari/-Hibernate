@@ -23,36 +23,15 @@ import java.util.List;
 public class OfficeWs {
     OfficeDao dao = new OfficeDao();
     Security sec=new Security();
-
-    @GET
-    @Path("/all")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response all(@Context HttpHeaders headers){
-        String encodUsrPwd=headers.getRequestHeader("Authorization").get(0).replaceFirst("Basic "," ");
-        if(!sec.basicAuthCheck(encodUsrPwd))
-            return Response.status(Response.Status.UNAUTHORIZED).entity("User or password is wrong").build();
-        try{
-            List<Office> officeList=dao.findall();
-            FilterProvider filters=new SimpleFilterProvider().addFilter("OfficeFilter",
-                    SimpleBeanPropertyFilter.filterOutAllExcept("officeCode", "city", "phone", "addressLine1", "addressLine2", "state", "country", "postalCode", "territory"));
-            String officesJsoan=(new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(officeList);
-            Logback.logger.info("{}.{}|Try: Send all records to RESTful",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
-            return Response.status(Response.Status.OK).entity(officesJsoan).build();
-        }catch (Exception e){
-            Logback.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
-            e.printStackTrace();
-            return Response.status(Response.Status.UNAUTHORIZED).entity(e.getMessage()).build();
-        }
-    }
-
+    //  http://localhost:8080/order/rest/office/find/8
     @GET
     @Path("/find/{officeCode}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response find(@PathParam("officeCode") String officeCode,@Context HttpHeaders headers){
         //Get encoded username and password
         String encodUsrPwd=headers.getRequestHeader("Authorization").get(0).replaceFirst("Basic ", " ");
-        if(!sec.basicAuthCheck(encodUsrPwd))
-         return Response.status(Response.Status.UNAUTHORIZED).entity("User or password is wrong").build();
+        if(!sec.basicAuthCheck(encodUsrPwd)) return Response.status(Response.Status.UNAUTHORIZED).entity("User or password is wrong").build();
+
         try {
             Office office=dao.findbyid(officeCode);
             FilterProvider filters = new SimpleFilterProvider().addFilter("OfficeFilter",
@@ -66,49 +45,89 @@ public class OfficeWs {
             return Response.status(Response.Status.UNAUTHORIZED).entity(e.getMessage()).build();
         }
     }
+    //  http://localhost:8080/order/rest/office/all
+    @GET
+    @Path("/all")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response all(@Context HttpHeaders headers){
+        String encodUsrPwd=headers.getRequestHeader("Authorization").get(0).replaceFirst("Basic "," ");
+        if(!sec.basicAuthCheck(encodUsrPwd)) return Response.status(Response.Status.UNAUTHORIZED).entity("User or password is wrong").build();
 
+        try{
+            List<Office> officeList=dao.findall();
+            FilterProvider filters=new SimpleFilterProvider().addFilter("OfficeFilter",
+                    SimpleBeanPropertyFilter.filterOutAllExcept("officeCode", "city", "phone", "addressLine1", "addressLine2", "state", "country", "postalCode", "territory"));
+            String officesJsoan=(new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(officeList);
+            Logback.logger.info("{}.{}|Try: Send all records to RESTful",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
+            return Response.status(Response.Status.OK).entity(officesJsoan).build();
+        }catch (Exception e){
+            Logback.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
+            e.printStackTrace();
+            return Response.status(Response.Status.UNAUTHORIZED).entity(e.getMessage()).build();
+        }
+    }
+    //  http://localhost:8080/order/rest/office/delete/8
+    @DELETE
+    @Path("/delete/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteeUser(@PathParam("id") String id,@Context HttpHeaders headers) {
+        String encodUsrPwd=headers.getRequestHeader("Authorization").get(0).replaceFirst("Basic "," ");
+        if(!sec.basicAuthCheck(encodUsrPwd)) return Response.status(Response.Status.UNAUTHORIZED).entity("User or password is wrong").build();
+
+        Integer status = dao.delete(dao.findbyid(id));
+        Logback.logger.info("{}.{}|Try: record is Deleted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
+        return Response.status(Response.Status.OK).entity(status).build();
+    }
+    //  http://localhost:8080/order/rest/office/insert
     @POST
     @Path("/insert")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response insert(Office office,@Context HttpHeaders headers){
         String encodUsrPwd=headers.getRequestHeader("Authorization").get(0).replaceFirst("Basic "," ");
-        if(!sec.basicAuthCheck(encodUsrPwd))
-            return Response.status(Response.Status.UNAUTHORIZED).entity("User or password is wrong").build();
+        if(!sec.basicAuthCheck(encodUsrPwd)) return Response.status(Response.Status.UNAUTHORIZED).entity("User or password is wrong").build();
+
         String status=dao.insert(office);
         Logback.logger.info("{}.{}|Try: record is Inserted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
         return Response.status(Response.Status.OK).entity(status).build();
     }
+    //  http://localhost:8080/order/rest/office/update
     @PUT
     @Path("/update")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateUser(Office office,@Context HttpHeaders headers) {
         String encodUsrPwd=headers.getRequestHeader("Authorization").get(0).replaceFirst("Basic "," ");
-        if(!sec.basicAuthCheck(encodUsrPwd))
-            return Response.status(Response.Status.UNAUTHORIZED).entity("User or password is wrong").build();
-        Office updatedOffice=dao.findbyid(office.getOfficeCode());
-        updatedOffice.setCity(office.getCity());
-        updatedOffice.setPhone(office.getPhone());
-        updatedOffice.setAddressLine1(office.getAddressLine1());
-        updatedOffice.setAddressLine2(office.getAddressLine2());
-        updatedOffice.setState(office.getState());
-        updatedOffice.setCountry(office.getCountry());
-        updatedOffice.setPostalCode(office.getPostalCode());
-        updatedOffice.setTerritory(office.getTerritory());
-        String status = dao.update(updatedOffice);
+        if(!sec.basicAuthCheck(encodUsrPwd)) return Response.status(Response.Status.UNAUTHORIZED).entity("User or password is wrong").build();
+
+        String status = dao.update(office);
         Logback.logger.info("{}.{}|Try: record is Updated",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
         return Response.status(Response.Status.OK).entity(status).build();
     }
-    @DELETE
-    @Path("/delete/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteeUser(@PathParam("id") String id,@Context HttpHeaders headers) {
-        String encodUsrPwd=headers.getRequestHeader("Authorization").get(0).replaceFirst("Basic "," ");
-        if(!sec.basicAuthCheck(encodUsrPwd))
-            return Response.status(Response.Status.UNAUTHORIZED).entity("User or password is wrong").build();
-        Integer status = dao.delete(dao.findbyid(id));
-        Logback.logger.info("{}.{}|Try: record is Deleted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
-        return Response.status(Response.Status.OK).entity(status).build();
-    }
 }
+/*
+    {
+            "officeCode": "8",
+            "city": "tehran",
+            "phone": "+989032430637",
+            "addressLine1": "Just come here 1",
+            "addressLine2": "und the here 2",
+            "state": "Teh",
+            "country": "Iran",
+            "postalCode": "0123456789",
+            "territory": "Persian"
+    }
+*/
+/*
+    {
+            "officeCode": "8",
+            "city": "qazvin",
+            "phone": "09032430637",
+            "addressLine1": "JNew Just come here 1",
+            "addressLine2": "New und the here 2",
+            "state": "Qaz",
+            "country": "IRR",
+            "postalCode": "9876543210",
+            "territory": "Fars"
+    }
+*/

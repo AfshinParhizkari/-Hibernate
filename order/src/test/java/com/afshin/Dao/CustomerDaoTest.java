@@ -1,6 +1,5 @@
 package com.afshin.Dao;
 
-import com.afshin.Dao.CustomerDao;
 import com.afshin.Entity.Customer;
 import org.junit.Test;
 

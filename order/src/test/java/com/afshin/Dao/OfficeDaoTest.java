@@ -10,7 +10,6 @@ package com.afshin.Dao;
  * Description: Hibernate - Criteria(discontinue)
  */
 import com.afshin.Entity.Office;
-import com.afshin.Dao.OfficeDao;
 import org.junit.Test;
 
 import java.util.List;

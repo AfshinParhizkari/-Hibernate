@@ -8,7 +8,6 @@ package com.afshin.Webservice;
  * Email:       Afshin.Parhizkari@gmail.com
  * Description:
  */
-import com.afshin.Entity.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -38,11 +37,10 @@ public class OfficeWsTest {
         Response response = invocationBuilder.get();
         // MAP JSON to List of Office
         ObjectMapper mapper = new ObjectMapper();
-        List<Office> list = mapper.readValue(response.readEntity(String.class), new TypeReference<List<Office>>() {
-        });
+        List<Office> list = mapper.readValue(response.readEntity(String.class), new TypeReference<List<Office>>() {});
         //System.out.println(response.readEntity(String.class));
         System.out.println(response.getStatusInfo() + "->" + response.getStatus());
-        if (response.getStatus() == 200) for (Office tempOrd : list) System.out.println(tempOrd);
+        if (response.getStatus() == 200) for (Office temp : list) System.out.println(temp);
     }
 
     @Test

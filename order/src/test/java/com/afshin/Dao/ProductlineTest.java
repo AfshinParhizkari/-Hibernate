@@ -1,7 +1,6 @@
 package com.afshin.Dao;
 
 import com.afshin.Entity.Productline;
-import com.afshin.Dao.ProductlineDao;
 import org.junit.Assert;
 import org.junit.Test;
 import java.nio.file.Files;
@@ -71,8 +70,8 @@ public class ProductlineTest {
 		pl.setHtmlDescription("https://github.com/AfshinParhizkari");
 		try{
 		//System.out.println(Paths.get("").toAbsolutePath().toString());
-			System.out.println(Paths.get("","/main/webapp/statics/images/","OrderDB_Model.jpg"));
-		pl.setImage(Files.readAllBytes(Paths.get(System.getProperty("user.dir"),"/src/main/webapp/statics/images/","OrderDB_Model.jpg")));
+			System.out.println(Paths.get("","/main/webapp/statics/images/","b52.jpeg"));
+		pl.setImage(Files.readAllBytes(Paths.get(System.getProperty("user.dir"),"/src/main/webapp/statics/images/","b52.jpeg")));
 		}catch (Exception e) {
 			System.out.println(e.toString());
 		}

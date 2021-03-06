@@ -30,7 +30,7 @@ public class ProductCon extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            if (!SecurityCon.isLogin(req)) {
+            if (!SecurityAPI.isLogin(req)) {
                 req.getRequestDispatcher("index.jsp").forward(req, resp);
                 return;
             }
@@ -88,7 +88,7 @@ public class ProductCon extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            if (!SecurityCon.isLogin(req)) {
+            if (!SecurityAPI.isLogin(req)) {
                 req.getRequestDispatcher("index.jsp").forward(req, resp);
                 return;
             }

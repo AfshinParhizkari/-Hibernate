@@ -8,7 +8,6 @@ package com.afshin.Dao;
  * Email:       Afshin.Parhizkari@gmail.com
  * Description:
  */
-import com.afshin.Dao.EmployeeDao;
 import com.afshin.Entity.Employee;
 import org.junit.Test;
 

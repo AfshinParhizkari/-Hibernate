@@ -10,6 +10,7 @@ package com.afshin.Entity;
  */
 import com.afshin.General.GregorianDate;
 import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -32,6 +33,7 @@ public class Payment {
     private String checkNumber;
 
     @Column(name = "paymentDate")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private Date paymentDate;
 
     @Column(name = "amount")
@@ -86,10 +88,12 @@ public class Payment {
         return "Payment{" +
                 "customerNumber=" + customerNumber +
                 ", checkNumber='" + checkNumber + '\'' +
-                ", Miladi_paymentDate=" + GregorianDate.miladiStr(paymentDate) +
-                ", Shamsi_paymentDate=" + GregorianDate.shamsiStr(GregorianDate.miladi2shamsi(paymentDate)) +
+                ", paymentDate=" + paymentDate +
+                //", Miladi_paymentDate=" + GregorianDate.miladiStr(paymentDate) +
+                //", Shamsi_paymentDate=" + GregorianDate.shamsiStr(GregorianDate.miladi2shamsi(paymentDate)) +
                 ", amount=" + amount +
                 ", customer=" + customer +
                 '}';
     }
+
 }

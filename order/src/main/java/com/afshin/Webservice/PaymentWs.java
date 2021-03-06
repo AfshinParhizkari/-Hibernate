@@ -16,26 +16,24 @@ import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Path("/payment")
 public class PaymentWs {
     PaymentDao dao = new PaymentDao();
     Security sec=new Security();
 
-    //http://localhost:8080/order/rest/payment/find/103/HQ336336
+    //  http://localhost:8080/order/rest/payment/find/103/HQ336336
     @GET
     @Path("/find/{customerNumber}/{checkNumber}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response find(@PathParam("customerNumber") Integer custNum, @PathParam("checkNumber") String chkNum, @Context HttpHeaders headers) {
-        String token=headers.getRequestHeader(HttpHeaders.AUTHORIZATION).get(0).substring("Bearer".length()).trim();
+        String token=headers.getRequestHeader(HttpHeaders.AUTHORIZATION).get(0).substring("Bearer ".length()).trim();
         if(!sec.tokenAuthCheck(token))
             return Response.status(Response.Status.UNAUTHORIZED).entity("token not valid").build();
         try {
@@ -52,5 +50,91 @@ public class PaymentWs {
             return Response.status(Response.Status.UNAUTHORIZED).entity(e.getMessage()).build();
         }
     }
-
+    //  http://localhost:8080/order/rest/payment/all
+    @GET
+    @Path("/all")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findall(@Context HttpHeaders headers){
+        String token=headers.getRequestHeader(HttpHeaders.AUTHORIZATION).get(0).substring("Bearer ".length()).trim();
+        if(!sec.tokenAuthCheck(token))
+            return Response.status(Response.Status.UNAUTHORIZED).entity("token not valid").build();
+        try {
+            List<Payment> paymentList=dao.findall();
+            FilterProvider filters=new SimpleFilterProvider().addFilter("PaymentFilter",
+                    SimpleBeanPropertyFilter.filterOutAllExcept("customerNumber", "checkNumber", "paymentDate", "amount"));
+            String paymensJson =(new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(paymentList);
+            Logback.logger.info("{}.{}|Try: Send all records to RESTful",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
+            return Response.status(Response.Status.OK).entity(paymensJson).build();
+        }catch (Exception e){
+            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            e.printStackTrace();
+            return Response.status(Response.Status.UNAUTHORIZED).entity(e.getMessage()).build();
+        }
+    }
+    //  http://localhost:8080/order/rest/payment/delete/496/FN155234
+    @DELETE
+    @Path("/delete/{customerNumber}/{checkNumber}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response delete(@PathParam("customerNumber") Integer custNum, @PathParam("checkNumber") String chkNum, @Context HttpHeaders headers){
+        String token=headers.getRequestHeader(HttpHeaders.AUTHORIZATION).get(0).substring("Bearer ".length()).trim();
+        if(!sec.tokenAuthCheck(token))
+            return Response.status(Response.Status.UNAUTHORIZED).entity("token not valid").build();
+         try {
+             Payment payment=dao.findbyid(custNum,chkNum);
+             Integer returnStatus=dao.delete(payment);
+             Logback.logger.info("{}.{}|Try: record is Deleted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
+             return Response.status(Response.Status.OK).entity(returnStatus).build();
+         }catch (Exception e){
+             Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+             e.printStackTrace();
+             return Response.status(Response.Status.EXPECTATION_FAILED).entity(e.getMessage()).build();
+         }
+    }
+    //  http://localhost:8080/order/rest/payment/insert
+    @POST
+    @Path("/insert")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response insert(@Context HttpHeaders headers, Payment payment){
+        String token=headers.getRequestHeader(HttpHeaders.AUTHORIZATION).get(0).substring("Bearer ".length()).trim();
+        if(!sec.tokenAuthCheck(token))
+            return Response.status(Response.Status.UNAUTHORIZED).entity("token not valid").build();
+        try {
+            System.out.println(payment);
+            Integer returnStatus=dao.insert(payment);
+            Logback.logger.info("{}.{}|Try: record is Inserted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
+            return Response.status(Response.Status.OK).entity(returnStatus).build();
+        }catch (Exception e){
+            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            e.printStackTrace();
+            return Response.status(Response.Status.EXPECTATION_FAILED).entity(e.getMessage()).build();
+        }
+    }
+    //  http://localhost:8080/order/rest/payment/update
+    @PUT
+    @Path("/update")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response update(@Context HttpHeaders headers,Payment payment){
+        String token=headers.getRequestHeader(HttpHeaders.AUTHORIZATION).get(0).substring("Bearer ".length()).trim();
+        if(!sec.tokenAuthCheck(token))
+            return Response.status(Response.Status.UNAUTHORIZED).entity("token not valid").build();
+        try {
+            Integer returnStatus= dao.update(payment);
+            Logback.logger.info("{}.{}|Try: record is Updated",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
+            return Response.status(Response.Status.OK).entity(returnStatus).build();
+        }catch (Exception e){
+            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            e.printStackTrace();
+            return Response.status(Response.Status.EXPECTATION_FAILED).entity(e.getMessage()).build();
+        }
+    }
 }
+/*
+    {
+            "customerNumber": 496,
+            "checkNumber": "FN155234",
+            "paymentDate": "2020-11-24T23:28:56.782Z",
+            "amount": "10000.50"
+    }
+*/

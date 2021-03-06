@@ -1,6 +1,5 @@
 package com.afshin.Dao;
 
-import com.afshin.Dao.PaymentDao;
 import com.afshin.Entity.Payment;
 import com.afshin.General.GregorianDate;
 import org.junit.Test;
