@@ -1,6 +1,5 @@
 package com.afshin.Webservice;
 
-import com.afshin.General.Logback;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.Invocation;
 import jakarta.ws.rs.client.WebTarget;
@@ -29,7 +28,7 @@ public class SecurityTest {
             WebTarget webTarget = client.target(restServicePath).path("check");
             Invocation.Builder invocationBuilder = webTarget.request();
             Response response = invocationBuilder.header(HttpHeaders.AUTHORIZATION, token).get();
-            Logback.logger.info("getToken.{}| Reponse {} -> {}", Thread.currentThread().getStackTrace()[1].getMethodName(), response.getStatus(), response.readEntity(String.class));
+            System.out.println(response.getStatus()+ response.readEntity(String.class));
             if (response.getStatus() == 200) return token;
             else {
                 HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("admin", "123");
@@ -38,11 +37,11 @@ public class SecurityTest {
                 response = invocationBuilder.get();
                 token = response.getHeaderString(HttpHeaders.AUTHORIZATION);
                 Files.writeString(Paths.get(System.getProperty("user.dir"), "/src/main/webapp/statics/", "token.tkn"), token);
-                Logback.logger.info("getToken.{}| New Token is stored in file", Thread.currentThread().getStackTrace()[1].getMethodName());
+                System.out.println("New Token is stored in file");
                 return token;
             }
         } catch (Exception e) {
-            Logback.logger.error("getToken.{}|Exception:{}", Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            System.out.println(e.toString());
             e.printStackTrace();
             return "0";
         }

@@ -15,6 +15,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "payments")
@@ -96,4 +98,10 @@ public class Payment {
                 '}';
     }
 
+    public Set<String> getfilters(){
+        Set<String> hash_Set = new HashSet<String>();
+        hash_Set.add("customerNumber");hash_Set.add("checkNumber");
+        hash_Set.add("paymentDate");   hash_Set.add("amount");
+        return hash_Set;
+    }
 }

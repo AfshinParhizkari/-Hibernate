@@ -103,13 +103,14 @@ public class OrderDao {
     }
     public Integer update(com.afshin.Entity.Order order){
         try{
+            Order orderupdate=findById(order.getOrderNumber());
             entityManager.getTransaction().begin();
-            order.setOrderDate(order.getOrderDate());
-            order.setRequiredDate(order.getRequiredDate());
-            order.setShippedDate(order.getShippedDate());
-            order.setStatus(order.getStatus());
-            order.setComments(order.getComments());
-            order.setCustomerNumber(order.getCustomerNumber());
+            orderupdate.setOrderDate(order.getOrderDate());
+            orderupdate.setRequiredDate(order.getRequiredDate());
+            orderupdate.setShippedDate(order.getShippedDate());
+            orderupdate.setStatus(order.getStatus());
+            orderupdate.setComments(order.getComments());
+            orderupdate.setCustomerNumber(order.getCustomerNumber());
             entityManager.getTransaction().commit();
             Log4j.logger.info("{}.{}|Try: Updated",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
             return order.getOrderNumber();

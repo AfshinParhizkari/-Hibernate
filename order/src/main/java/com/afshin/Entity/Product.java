@@ -9,16 +9,21 @@ package com.afshin.Entity;
  * Description:
  */
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonView;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "products")
+@JsonFilter("Productfilter")
 public class Product {
 
-    public Product() {
-    }
+    public Product() {}
 
     @Id
     @Column(name = "productCode")
@@ -46,6 +51,7 @@ public class Product {
     private BigDecimal buyPrice;
 
     @Column(name = "MSRP")
+    @JsonView
     private BigDecimal MSRP;
 
     @ManyToOne
@@ -58,7 +64,6 @@ public class Product {
     public String getProductCode() {
         return productCode;
     }
-
     public void setProductCode(String productCode) {
         this.productCode = productCode;
     }
@@ -66,7 +71,6 @@ public class Product {
     public String getProductName() {
         return productName;
     }
-
     public void setProductName(String productName) {
         this.productName = productName;
     }
@@ -74,7 +78,6 @@ public class Product {
     public String getProductLine() {
         return productLine;
     }
-
     public void setProductLine(String productLine) {
         this.productLine = productLine;
     }
@@ -82,7 +85,6 @@ public class Product {
     public String getProductScale() {
         return productScale;
     }
-
     public void setProductScale(String productScale) {
         this.productScale = productScale;
     }
@@ -90,7 +92,6 @@ public class Product {
     public String getProductVendor() {
         return productVendor;
     }
-
     public void setProductVendor(String productVendor) {
         this.productVendor = productVendor;
     }
@@ -98,7 +99,6 @@ public class Product {
     public String getProductDescription() {
         return productDescription;
     }
-
     public void setProductDescription(String productDescription) {
         this.productDescription = productDescription;
     }
@@ -106,7 +106,6 @@ public class Product {
     public Integer getQuantityInStock() {
         return quantityInStock;
     }
-
     public void setQuantityInStock(Integer quantityInStock) {
         this.quantityInStock = quantityInStock;
     }
@@ -114,7 +113,6 @@ public class Product {
     public BigDecimal getBuyPrice() {
         return buyPrice;
     }
-
     public void setBuyPrice(BigDecimal buyPrice) {
         this.buyPrice = buyPrice;
     }
@@ -122,23 +120,18 @@ public class Product {
     public BigDecimal getMSRP() {
         return MSRP;
     }
-
     public void setMSRP(BigDecimal MSRP) {
         this.MSRP = MSRP;
     }
 
-    public Productline getProductline() {
+    public Productline getproductline() {
         return productline;
     }
-
-    public void setProductline(Productline productline) {
-        this.productline = productline;
-    }
+    public void setproductline(Productline productline) {this.productline = productline;}
 
     public List<Orderdetail> getOrderdetailsList() {
         return orderdetailsList;
     }
-
     public void setOrderdetailsList(List<Orderdetail> orderdetailsList) {
         this.orderdetailsList = orderdetailsList;
     }
@@ -152,10 +145,18 @@ public class Product {
                 ", productScale='" + productScale + '\'' +
                 ", productVendor='" + productVendor + '\'' +
                 ", productDescription='" + productDescription + '\'' +
-                ", quantityInStock=" + quantityInStock +
-                ", buyPrice=" + buyPrice +
-                ", MSRP=" + MSRP +
-                "\n, productline=" + productline +
+                ", quantityInStock=" + quantityInStock + '\'' +
+                ", buyPrice=" + buyPrice + '\'' +
+                ", MSRP=" + MSRP + '\'' +
+                //"\n, productline=" + productline +
                 '}';
+    }
+
+    public Set<String> getfilters(){
+        Set<String> hash_Set = new HashSet<String>();
+        hash_Set.add("productCode");hash_Set.add("productName");hash_Set.add("productLine");
+        hash_Set.add("productScale");hash_Set.add("productVendor");hash_Set.add("productDescription");
+        hash_Set.add("quantityInStock");hash_Set.add("buyPrice");hash_Set.add("MSRP");
+        return hash_Set;
     }
 }

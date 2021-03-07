@@ -63,7 +63,8 @@ public class ProductlineCon extends HttpServlet {
                 productlines.add(dao.findbyid(status));
             }
             if (action.equals("update")) {
-                Productline productline = dao.findbyid(req.getParameter("proline"));
+                Productline productline = new Productline();
+                productline.setProductLine(req.getParameter("proline"));
                 productline.setTextDescription(req.getParameter("txtDesc"));
                 productline.setHtmlDescription(req.getParameter("htmDesc"));
                 Part filePart = req.getPart("img");

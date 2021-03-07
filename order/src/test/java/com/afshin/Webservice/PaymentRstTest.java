@@ -25,7 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import com.afshin.Entity.Payment;
 
-public class PaymentWsTest {
+public class PaymentRstTest {
     final String restServicePath = "http://localhost:8080/order/rest/payment";
     String objID1 = "496";
     String objID2 = "FN155234";
@@ -89,7 +89,7 @@ public class PaymentWsTest {
         payment.setPaymentDate(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse("2020-11-24T23:28:56.330Z"));
         payment.setAmount(new BigDecimal("10000.50"));
         FilterProvider filters = new SimpleFilterProvider().addFilter("PaymentFilter",
-                SimpleBeanPropertyFilter.filterOutAllExcept("customerNumber", "checkNumber", "paymentDate", "amount"));
+                SimpleBeanPropertyFilter.filterOutAllExcept(payment.getfilters()));
         String paymentJson=(new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(payment);
         Response response=builder.header(HttpHeaders.AUTHORIZATION,token).post(Entity.json(paymentJson));
         System.out.println(response.getStatus());
@@ -111,7 +111,7 @@ public class PaymentWsTest {
         payment.setPaymentDate(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse("2019-12-18T17:10:00.430Z"));
         payment.setAmount(new BigDecimal("20000.50"));
         FilterProvider filters = new SimpleFilterProvider().addFilter("PaymentFilter",
-                SimpleBeanPropertyFilter.filterOutAllExcept("customerNumber", "checkNumber", "paymentDate", "amount"));
+                SimpleBeanPropertyFilter.filterOutAllExcept(payment.getfilters()));
         String paymentJson=(new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(payment);
         Response response=builder.header(HttpHeaders.AUTHORIZATION,token).put(Entity.json(paymentJson));
         System.out.println(response.getStatus());

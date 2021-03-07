@@ -9,7 +9,11 @@ package com.afshin.Entity;
  * Description:
  */
 import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -50,5 +54,12 @@ public class User {
                 ", employeeid=" + employeeid +
                 //", employee=" + employee +
                 '}';
+    }
+
+    public Set<String> getfilters(){
+        Set<String> hash_Set = new HashSet<String>();
+        hash_Set.add("idusers");hash_Set.add("username");hash_Set.add("password");
+        hash_Set.add("employeeid");
+        return hash_Set;
     }
 }

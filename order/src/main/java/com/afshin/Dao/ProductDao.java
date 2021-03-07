@@ -120,15 +120,16 @@ public class ProductDao {
     }
     public String update(Product product) {
         try {
+            Product productupdate=findbyid(product.getProductCode());
             entityManager.getTransaction().begin();
-            product.setProductName(product.getProductName());
-            product.setProductLine(product.getProductLine());
-            product.setProductScale(product.getProductScale());
-            product.setProductVendor(product.getProductVendor());
-            product.setProductDescription(product.getProductDescription());
-            product.setQuantityInStock(product.getQuantityInStock());
-            product.setBuyPrice(product.getBuyPrice());
-            product.setMSRP(product.getMSRP());
+            productupdate.setProductName(product.getProductName());
+            productupdate.setProductLine(product.getProductLine());
+            productupdate.setProductScale(product.getProductScale());
+            productupdate.setProductVendor(product.getProductVendor());
+            productupdate.setProductDescription(product.getProductDescription());
+            productupdate.setQuantityInStock(product.getQuantityInStock());
+            productupdate.setBuyPrice(product.getBuyPrice());
+            productupdate.setMSRP(product.getMSRP());
             entityManager.getTransaction().commit();
             Log4j.logger.info("{}.{}|Try: Updated", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
             return product.getProductCode();

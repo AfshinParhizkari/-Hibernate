@@ -9,10 +9,10 @@ package com.afshin.General;
  * Description: Restful service
  */
 
-import com.afshin.Webservice.LoginWs;
-import com.afshin.Webservice.OfficeWs;
-import com.afshin.Webservice.PaymentWs;
-import com.afshin.Webservice.UserWs;
+import com.afshin.Webservice.LoginRst;
+import com.afshin.Webservice.OfficeRst;
+import com.afshin.Webservice.PaymentRst;
+import com.afshin.Webservice.UserRst;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 import java.util.Arrays;
@@ -21,6 +21,6 @@ import java.util.Set;
 @ApplicationPath("/rest")
 public class Myrestsevice extends Application {
     public Set<Class<?>> Myrestsevice() {
-                return new HashSet<Class<?>>(Arrays.asList(UserWs.class, OfficeWs.class, PaymentWs.class, LoginWs.class));
+                return new HashSet<Class<?>>(Arrays.asList(UserRst.class, OfficeRst.class, PaymentRst.class, LoginRst.class));
     }
 }

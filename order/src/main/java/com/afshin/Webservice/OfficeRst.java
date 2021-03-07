@@ -20,7 +20,7 @@ import javax.ws.rs.core.*;
 import java.util.List;
 
 @Path("/office")
-public class OfficeWs {
+public class OfficeRst {
     OfficeDao dao = new OfficeDao();
     Security sec=new Security();
     //  http://localhost:8080/order/rest/office/find/8
@@ -35,7 +35,7 @@ public class OfficeWs {
         try {
             Office office=dao.findbyid(officeCode);
             FilterProvider filters = new SimpleFilterProvider().addFilter("OfficeFilter",
-                    SimpleBeanPropertyFilter.filterOutAllExcept("officeCode", "city", "phone", "addressLine1", "addressLine2", "state", "country", "postalCode", "territory"));
+                    SimpleBeanPropertyFilter.filterOutAllExcept(office.getfilters()));
             String officeJsoan = (new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(office);
             Logback.logger.info("{}.{}|Try: Send record to RESTful",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
             return Response.status(Response.Status.OK).entity(officeJsoan).build();
@@ -55,8 +55,9 @@ public class OfficeWs {
 
         try{
             List<Office> officeList=dao.findall();
+            Office office=new Office();
             FilterProvider filters=new SimpleFilterProvider().addFilter("OfficeFilter",
-                    SimpleBeanPropertyFilter.filterOutAllExcept("officeCode", "city", "phone", "addressLine1", "addressLine2", "state", "country", "postalCode", "territory"));
+                    SimpleBeanPropertyFilter.filterOutAllExcept(office.getfilters()));
             String officesJsoan=(new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(officeList);
             Logback.logger.info("{}.{}|Try: Send all records to RESTful",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
             return Response.status(Response.Status.OK).entity(officesJsoan).build();
@@ -70,7 +71,7 @@ public class OfficeWs {
     @DELETE
     @Path("/delete/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteeUser(@PathParam("id") String id,@Context HttpHeaders headers) {
+    public Response delete(@PathParam("id") String id,@Context HttpHeaders headers) {
         String encodUsrPwd=headers.getRequestHeader("Authorization").get(0).replaceFirst("Basic "," ");
         if(!sec.basicAuthCheck(encodUsrPwd)) return Response.status(Response.Status.UNAUTHORIZED).entity("User or password is wrong").build();
 
@@ -96,7 +97,7 @@ public class OfficeWs {
     @Path("/update")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateUser(Office office,@Context HttpHeaders headers) {
+    public Response update(Office office,@Context HttpHeaders headers) {
         String encodUsrPwd=headers.getRequestHeader("Authorization").get(0).replaceFirst("Basic "," ");
         if(!sec.basicAuthCheck(encodUsrPwd)) return Response.status(Response.Status.UNAUTHORIZED).entity("User or password is wrong").build();
 

@@ -24,7 +24,7 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/payment")
-public class PaymentWs {
+public class PaymentRst {
     PaymentDao dao = new PaymentDao();
     Security sec=new Security();
 
@@ -40,7 +40,7 @@ public class PaymentWs {
             //PaymentPK paymentPK=new PaymentPK(custNum,chkNum);
             Payment payment = dao.findbyid(custNum, chkNum);
             FilterProvider filters = new SimpleFilterProvider().addFilter("PaymentFilter",
-                    SimpleBeanPropertyFilter.filterOutAllExcept("customerNumber", "checkNumber", "paymentDate", "amount"));
+                    SimpleBeanPropertyFilter.filterOutAllExcept(payment.getfilters()));
             String paymentJson = (new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(payment);
             Logback.logger.info("{}.{}|Try: Send record to RESTful", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
             return Response.status(Response.Status.OK).entity(paymentJson).build();

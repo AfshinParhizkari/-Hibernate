@@ -62,7 +62,8 @@ public class ProductCon extends HttpServlet {
                 products.add(dao.findbyid(status));
             }
             if (action.equals("update")) {
-                Product product = dao.findbyid(req.getParameter("proNum"));
+                Product product = new Product();
+                product.setProductCode(req.getParameter("proNum"));
                 product.setProductName(req.getParameter("proNam"));
                 product.setProductLine(req.getParameter("proLin"));
                 product.setProductScale(req.getParameter("proScal"));

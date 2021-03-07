@@ -10,7 +10,9 @@ package com.afshin.Entity;
  */
 import com.fasterxml.jackson.annotation.JsonFilter;
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "offices")
@@ -145,5 +147,13 @@ public class Office {
                 ", territory='" + territory + '\'' +
                 //", employees=" + employees +
                 '}';
+    }
+
+    public Set<String> getfilters(){
+        Set<String> hash_Set = new HashSet<String>();
+        hash_Set.add("officeCode");hash_Set.add("city");hash_Set.add("phone");
+        hash_Set.add("addressLine1");hash_Set.add("addressLine2");hash_Set.add("state");
+        hash_Set.add("country");hash_Set.add("postalCode");hash_Set.add("territory");
+        return hash_Set;
     }
 }

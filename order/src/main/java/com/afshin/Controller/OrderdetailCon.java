@@ -72,14 +72,13 @@ public class OrderdetailCon extends HttpServlet {
                 orderdetailList.add(dao.findbyid(orderdetailPK));
             }
             if (action.equals("update")) {
-                OrderdetailPK orderdetailPK = new OrderdetailPK();
-                orderdetailPK.setOrderNumber(Integer.parseInt(ordernumber));
-                orderdetailPK.setProductCode(productcode);
-                Orderdetail orderdetail = dao.findbyid(orderdetailPK);
+                Orderdetail orderdetail = new Orderdetail();
+                orderdetail.setOrderNumber(Integer.parseInt(ordernumber));
+                orderdetail.setProductCode(productcode);
                 orderdetail.setQuantityOrdered(Integer.parseInt(req.getParameter("quanord")));
                 orderdetail.setPriceEach(new BigDecimal(req.getParameter("peach")));
                 orderdetail.setOrderLineNumber(Integer.parseInt(req.getParameter("ordlnum")));
-                orderdetailPK = dao.update(orderdetail);
+                OrderdetailPK orderdetailPK = dao.update(orderdetail);
                 if(orderdetailPK!=null) req.setAttribute("message", "record is Updated");
                 else req.setAttribute("message", "record is not Updated");
                 orderdetailList.add(dao.findbyid(orderdetailPK));

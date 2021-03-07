@@ -22,9 +22,9 @@ import org.junit.Test;
 import java.util.List;
 import com.afshin.Entity.Office;
 
-public class OfficeWsTest {
+public class OfficeRstTest {
     final String restServicePath="http://localhost:8080/order/rest/office";
-    String objID="3";
+    String objID="8";
     @Test
     public void all() throws Exception {
         Client client = ClientBuilder.newClient();
@@ -87,21 +87,21 @@ public class OfficeWsTest {
         //
         WebTarget webTarget = client.target(restServicePath).path("insert");
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
-        Office o=new Office();
-        o.setOfficeCode("8");
-        o.setCity("tehran");
-        o.setPhone("+989032430637");
-        o.setAddressLine1("Just come here 1");
-        o.setAddressLine2("und the here 2");
-        o.setState("Teh");
-        o.setCountry("Iran");
-        o.setPostalCode("0123456789");
-        o.setTerritory("Persian");
+        Office office=new Office();
+        office.setOfficeCode("8");
+        office.setCity("tehran");
+        office.setPhone("+989032430637");
+        office.setAddressLine1("Just come here 1");
+        office.setAddressLine2("und the here 2");
+        office.setState("Teh");
+        office.setCountry("Iran");
+        office.setPostalCode("0123456789");
+        office.setTerritory("Persian");
         //filter attribute to create JSON
         FilterProvider filters = new SimpleFilterProvider().addFilter("OfficeFilter",
-                SimpleBeanPropertyFilter.filterOutAllExcept("officeCode", "city", "phone", "addressLine1", "addressLine2", "state", "country", "postalCode", "territory"));
+                SimpleBeanPropertyFilter.filterOutAllExcept(office.getfilters()));
         // Map Object -> String
-        String officeJson = (new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(o);
+        String officeJson = (new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(office);
         Response response = invocationBuilder.post(Entity.json(officeJson));
         System.out.println(response.getStatus());
         System.out.println(response.readEntity(String.class));
@@ -116,21 +116,21 @@ public class OfficeWsTest {
         //
         WebTarget webTarget = client.target(restServicePath).path("update");
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
-        Office o=new Office();
-        o.setOfficeCode("8");
-        o.setCity("qazvin");
-        o.setPhone("09032430637");
-        o.setAddressLine1("New Just come here 1");
-        o.setAddressLine2("New und the here 2");
-        o.setState("Qaz");
-        o.setCountry("IRR");
-        o.setPostalCode("9876543210");
-        o.setTerritory("Fars");
+        Office office=new Office();
+        office.setOfficeCode("8");
+        office.setCity("qazvin");
+        office.setPhone("09032430637");
+        office.setAddressLine1("New Just come here 1");
+        office.setAddressLine2("New und the here 2");
+        office.setState("Qaz");
+        office.setCountry("IRR");
+        office.setPostalCode("9876543210");
+        office.setTerritory("Fars");
         //filter attribute to create JSON
         FilterProvider filters = new SimpleFilterProvider().addFilter("OfficeFilter",
-                SimpleBeanPropertyFilter.filterOutAllExcept("officeCode", "city", "phone", "addressLine1", "addressLine2", "state", "country", "postalCode", "territory"));
+                SimpleBeanPropertyFilter.filterOutAllExcept(office.getfilters()));
         // Map Object -> String
-        String officeJson = (new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(o);
+        String officeJson = (new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(office);
         Response response = invocationBuilder.put(Entity.json(officeJson));
         System.out.println(response.getStatus());
         System.out.println(response.readEntity(String.class));

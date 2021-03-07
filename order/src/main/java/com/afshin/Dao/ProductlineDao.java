@@ -111,10 +111,11 @@ public class ProductlineDao {
 
 	public String update(Productline productline) {
 		try {
+			Productline productlineupdate=findbyid(productline.getProductLine());
 			entityManager.getTransaction().begin();
-			productline.setTextDescription(productline.getTextDescription());
-			productline.setHtmlDescription(productline.getHtmlDescription());
-			productline.setImage(productline.getImage());
+			productlineupdate.setTextDescription(productline.getTextDescription());
+			productlineupdate.setHtmlDescription(productline.getHtmlDescription());
+			productlineupdate.setImage(productline.getImage());
 			entityManager.getTransaction().commit();
 			Log4j.logger.info("{}.{}|Try: Updated", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
 			return productline.getProductLine();

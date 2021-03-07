@@ -85,10 +85,11 @@ public class UserDao {
     }
     public Integer update(User user){
         try {
+            User updatedUser=findbyid(user.getIdusers());
             entityManager.getTransaction().begin();
-            user.setUsername(user.getUsername());
-            user.setPassword(user.getPassword());
-            user.setEmployeeid(user.getEmployeeid());
+            updatedUser.setUsername(user.getUsername());
+            updatedUser.setPassword(user.getPassword());
+            updatedUser.setEmployeeid(user.getEmployeeid());
             entityManager.getTransaction().commit();
             Logback.logger.info("{}.{}|Try: Updated",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
             return user.getIdusers();

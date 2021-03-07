@@ -111,10 +111,12 @@ public class OrderdetailsDao {
     }
     public OrderdetailPK update(Orderdetail orderdetail){
         try {
+
+            Orderdetail orderdetailupdate=findbyid(new OrderdetailPK(orderdetail.getOrderNumber(),orderdetail.getProductCode()));
             entityManager.getTransaction().begin();
-            orderdetail.setQuantityOrdered(orderdetail.getQuantityOrdered());
-            orderdetail.setPriceEach(orderdetail.getPriceEach());
-            orderdetail.setOrderLineNumber(orderdetail.getOrderLineNumber());
+            orderdetailupdate.setQuantityOrdered(orderdetail.getQuantityOrdered());
+            orderdetailupdate.setPriceEach(orderdetail.getPriceEach());
+            orderdetailupdate.setOrderLineNumber(orderdetail.getOrderLineNumber());
             entityManager.getTransaction().commit();
             Log4j.logger.info("{}.{}|Try: Updated",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
             return new OrderdetailPK(orderdetail.getOrderNumber(),orderdetail.getProductCode());

@@ -21,7 +21,7 @@ import org.junit.Test;
 import java.util.List;
 import com.afshin.Entity.User;
 
-public class UserWsTest {
+public class UserRstTest {
     final String restServicePath="http://localhost:8080/order/rest/user";
     String objID="5";
     @Test
@@ -74,7 +74,7 @@ public class UserWsTest {
         user.setEmployeeid(1056);
         //filter attribute to create JSON
         FilterProvider filters = new SimpleFilterProvider().addFilter(
-                "UserFilter", SimpleBeanPropertyFilter.filterOutAllExcept("idusers", "username", "password", "employeeid"));
+                "UserFilter", SimpleBeanPropertyFilter.filterOutAllExcept(user.getfilters()));
         // Map Object -> String
         String userJson = (new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(user);
         Response response = invocationBuilder.post(Entity.json(userJson));
@@ -97,13 +97,13 @@ public class UserWsTest {
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
 
         User user = new User();
-        user.setIdusers(6);
+        user.setIdusers(5);
         user.setUsername("Forough");
         user.setPassword("147");
         user.setEmployeeid(1076);
         //filter attribute to create JSON
         FilterProvider filters = new SimpleFilterProvider().addFilter(
-                "UserFilter", SimpleBeanPropertyFilter.filterOutAllExcept("idusers", "username", "password", "employeeid"));
+                "UserFilter", SimpleBeanPropertyFilter.filterOutAllExcept(user.getfilters()));
         // Map Object -> String
         String userJson = (new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(user);
         System.out.println(userJson);

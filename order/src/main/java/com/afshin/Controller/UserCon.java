@@ -56,8 +56,8 @@ public class UserCon extends HttpServlet {
                 req.setAttribute("users", userList);
             }
             if (action.equals("update")) {
-                String userid = req.getParameter("userid");
-                User user = dao.findbyid(Integer.parseInt(userid));
+                User user = new User();
+                user.setIdusers(Integer.parseInt(req.getParameter("userid")));
                 user.setUsername(req.getParameter("uname"));
                 user.setPassword(req.getParameter("pwd"));
                 user.setEmployeeid(Integer.parseInt(req.getParameter("empid")));

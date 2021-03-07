@@ -62,7 +62,7 @@ public class OrderCon extends HttpServlet {
                 orderList.add(dao.findById(status));
             }
             if (action.equals("update")) {
-                Order order = dao.findById(Integer.parseInt(req.getParameter("ordernum")));
+                Order order = new Order();
                 order.setOrderNumber(Integer.parseInt(req.getParameter("ordernum")));
                 try {
                     order.setOrderDate(new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("odate")));
