@@ -15,7 +15,7 @@ import java.util.List;
  * Email:       Afshin.Parhizkari@gmail.com
  * Description:
  */
-public class ProductlineTest {
+public class ProductlineDaoTest {
 	private ProductlineDao productlineDao=new ProductlineDao();
 
 	@Test

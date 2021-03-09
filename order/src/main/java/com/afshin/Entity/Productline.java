@@ -9,12 +9,17 @@ package com.afshin.Entity;
  * Description:
  */
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+
 import javax.persistence.*;
 import javax.xml.bind.DatatypeConverter;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "productlines")
+@JsonFilter("ProductlineFilter")
 public class Productline {
     public Productline() {
     }
@@ -74,5 +79,11 @@ public class Productline {
                 ", textDescription='" + textDescription + '\'' +
                 ", htmlDescription='" + htmlDescription + '\'' +
                 '}';
+    }
+    public Set<String> getfilters(){
+        Set<String> hash_Set = new HashSet<String>();
+        hash_Set.add("productLine");hash_Set.add("textDescription");hash_Set.add("htmlDescription");
+        hash_Set.add("image");
+        return hash_Set;
     }
 }

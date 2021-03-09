@@ -80,8 +80,7 @@ public class PaymentRst {
         if(!sec.tokenAuthCheck(token))
             return Response.status(Response.Status.UNAUTHORIZED).entity("token not valid").build();
          try {
-             Payment payment=dao.findbyid(custNum,chkNum);
-             Integer returnStatus=dao.delete(payment);
+             Integer returnStatus=dao.delete(dao.findbyid(custNum,chkNum));
              Logback.logger.info("{}.{}|Try: record is Deleted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
              return Response.status(Response.Status.OK).entity(returnStatus).build();
          }catch (Exception e){
@@ -100,7 +99,6 @@ public class PaymentRst {
         if(!sec.tokenAuthCheck(token))
             return Response.status(Response.Status.UNAUTHORIZED).entity("token not valid").build();
         try {
-            System.out.println(payment);
             Integer returnStatus=dao.insert(payment);
             Logback.logger.info("{}.{}|Try: record is Inserted",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
             return Response.status(Response.Status.OK).entity(returnStatus).build();
@@ -120,9 +118,9 @@ public class PaymentRst {
         if(!sec.tokenAuthCheck(token))
             return Response.status(Response.Status.UNAUTHORIZED).entity("token not valid").build();
         try {
-            Integer returnStatus= dao.update(payment);
+            Integer returnstatus= dao.update(payment);
             Logback.logger.info("{}.{}|Try: record is Updated",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
-            return Response.status(Response.Status.OK).entity(returnStatus).build();
+            return Response.status(Response.Status.OK).entity(returnstatus).build();
         }catch (Exception e){
             Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();

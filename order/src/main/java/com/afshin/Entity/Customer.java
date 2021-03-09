@@ -9,9 +9,13 @@ package com.afshin.Entity;
  * Description:
  */
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "customers")
@@ -25,6 +29,7 @@ import java.util.List;
                 "from Customer c"+" where c.customerName=:custname"
         )
 })
+@JsonFilter("CustomerFilter")
 public class Customer {
     public Customer() {
     }
@@ -216,5 +221,13 @@ public class Customer {
                 ", salesRepEmployeeNumber=" + salesRepEmployeeNumber +
                 ", creditLimit=" + creditLimit +
                 '}';
+    }
+    public Set<String> getfilters(){
+        Set<String> hash_Set = new HashSet<String>();
+        hash_Set.add("customerNumber");hash_Set.add("customerName");hash_Set.add("contactLastName");
+        hash_Set.add("contactFirstName");hash_Set.add("phone");hash_Set.add("addressLine1");
+        hash_Set.add("addressLine2");hash_Set.add("city");hash_Set.add("state");hash_Set.add("postalCode");
+        hash_Set.add("country");hash_Set.add("salesRepEmployeeNumber");hash_Set.add("creditLimit");
+        return hash_Set;
     }
 }

@@ -20,7 +20,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "products")
-@JsonFilter("Productfilter")
+@JsonFilter("ProductFilter")
 public class Product {
 
     public Product() {}
@@ -151,7 +151,6 @@ public class Product {
                 //"\n, productline=" + productline +
                 '}';
     }
-
     public Set<String> getfilters(){
         Set<String> hash_Set = new HashSet<String>();
         hash_Set.add("productCode");hash_Set.add("productName");hash_Set.add("productLine");

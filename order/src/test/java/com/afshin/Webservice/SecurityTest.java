@@ -21,7 +21,7 @@ import java.nio.file.Paths;
 public class SecurityTest {
     final static String restServicePath = "http://localhost:8080/order/rest/login";
 
-    protected static String getToken(Client client) {
+    protected static String getToken(Client client,String usr,String pass) {
         try {
             String token = Files.readString(Paths.get(System.getProperty("user.dir"), "/src/main/webapp/statics/", "token.tkn"));
             if (token == null || token.isEmpty()) return "0";
@@ -31,7 +31,7 @@ public class SecurityTest {
             System.out.println(response.getStatus()+ response.readEntity(String.class));
             if (response.getStatus() == 200) return token;
             else {
-                HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic("admin", "123");
+                HttpAuthenticationFeature feature = HttpAuthenticationFeature.basic(usr, pass);
                 webTarget = client.register(feature).target(restServicePath).path("token");
                 invocationBuilder = webTarget.request();
                 response = invocationBuilder.get();

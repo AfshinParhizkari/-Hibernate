@@ -33,8 +33,8 @@ public class PaymentRstTest {
     @Test
     public void findall() throws IOException {
         Client client = ClientBuilder.newClient();
-        String token = SecurityTest.getToken(client);
-        if (token == "0") return;
+        String token = SecurityTest.getToken(client,"admin", "123");
+        if (token.equals("0")) return;
 
         WebTarget webTarget = client.target(restServicePath).path("all");
         Invocation.Builder builder = webTarget.request(MediaType.APPLICATION_JSON);
@@ -51,8 +51,8 @@ public class PaymentRstTest {
     @Test
     public void find() throws IOException {
         Client client = ClientBuilder.newClient();
-        String token = SecurityTest.getToken(client);
-        if (token == "0") return;
+        String token = SecurityTest.getToken(client,"admin", "123");
+        if (token.equals("0")) return;
 
         WebTarget webTarget = client.target(restServicePath).path("find").path(objID1).path(objID2);
         Invocation.Builder builder = webTarget.request(MediaType.APPLICATION_JSON);
@@ -65,8 +65,8 @@ public class PaymentRstTest {
     @Test
     public void delete() throws IOException {
         Client client = ClientBuilder.newClient();
-        String token = SecurityTest.getToken(client);
-        if (token == "0") return;
+        String token = SecurityTest.getToken(client,"admin", "123");
+        if (token.equals("0")) return;
 
         WebTarget webTarget = client.target(restServicePath).path("delete").path(objID1).path(objID2);
         Invocation.Builder builder = webTarget.request(MediaType.APPLICATION_JSON);
@@ -78,8 +78,8 @@ public class PaymentRstTest {
     @Test
     public void insert() throws IOException, ParseException {
         Client client = ClientBuilder.newClient();
-        String token = SecurityTest.getToken(client);
-        if (token == "0") return;
+        String token = SecurityTest.getToken(client,"admin", "123");
+        if (token.equals("0")) return;
 
         WebTarget webTarget=client.target(restServicePath).path("insert");
         Invocation.Builder builder=webTarget.request(MediaType.APPLICATION_JSON);
@@ -93,15 +93,13 @@ public class PaymentRstTest {
         String paymentJson=(new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(payment);
         Response response=builder.header(HttpHeaders.AUTHORIZATION,token).post(Entity.json(paymentJson));
         System.out.println(response.getStatus());
-        if (response.getStatus() == 200){
-            System.out.println(response.readEntity(String.class));
-        }
+        if (response.getStatus() == 200) System.out.println(response.readEntity(String.class));
     }
     @Test
     public void update() throws IOException, ParseException {
         Client client = ClientBuilder.newClient();
-        String token = SecurityTest.getToken(client);
-        if (token == "0") return;
+        String token = SecurityTest.getToken(client,"admin", "123");
+        if (token.equals("0")) return;
 
         WebTarget webTarget=client.target(restServicePath).path("update");
         Invocation.Builder builder=webTarget.request(MediaType.APPLICATION_JSON);
@@ -115,8 +113,6 @@ public class PaymentRstTest {
         String paymentJson=(new ObjectMapper()).writer(filters).withDefaultPrettyPrinter().writeValueAsString(payment);
         Response response=builder.header(HttpHeaders.AUTHORIZATION,token).put(Entity.json(paymentJson));
         System.out.println(response.getStatus());
-        if (response.getStatus() == 200){
-            System.out.println(response.readEntity(String.class));
-        }
+        if (response.getStatus() == 200) System.out.println(response.readEntity(String.class));
     }
 }

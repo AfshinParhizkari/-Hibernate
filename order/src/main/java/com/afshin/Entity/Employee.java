@@ -9,8 +9,12 @@ package com.afshin.Entity;
  * Description:
  */
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "employees")
@@ -23,6 +27,7 @@ import java.util.List;
         @NamedQuery(name = "Selectedquery",query = "select e from Employee e where e.reportsTo=:empnum"
         )
 })
+@JsonFilter("EmployeeFilter")
 public class Employee {
 
     public Employee() {
@@ -183,5 +188,12 @@ public class Employee {
 //               "\n, employeeList=" + employeeList +
 //                "\n, manager=" + manager +
                 '}';
+    }
+    public Set<String> getfilters(){
+        Set<String> hash_Set = new HashSet<String>();
+        hash_Set.add("employeeNumber");hash_Set.add("lastName");hash_Set.add("firstName");
+        hash_Set.add("extension");hash_Set.add("email");hash_Set.add("officeCode");
+        hash_Set.add("reportsTo");hash_Set.add("PRIMARY");
+        return hash_Set;
     }
 }

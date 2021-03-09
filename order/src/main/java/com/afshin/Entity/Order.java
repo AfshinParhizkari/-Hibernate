@@ -9,13 +9,17 @@ package com.afshin.Entity;
  * Description:
  */
 import com.afshin.General.GregorianDate;
+import com.fasterxml.jackson.annotation.JsonFilter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "orders")
+@JsonFilter("OrderFilter")
 public class Order {
     public Order() {
     }
@@ -120,5 +124,12 @@ public class Order {
                 ", customerNumber=" + customerNumber +
                 //", orderdetails=" + orderdetails +
                 '}';
+    }
+    public Set<String> getfilters(){
+        Set<String> hash_Set = new HashSet<String>();
+        hash_Set.add("orderNumber");hash_Set.add("orderDate");hash_Set.add("requiredDate");
+        hash_Set.add("shippedDate");hash_Set.add("status");hash_Set.add("comments");
+        hash_Set.add("customerNumber");
+        return hash_Set;
     }
 }

@@ -9,11 +9,16 @@ package com.afshin.Entity;
  * Description:
  */
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "orderdetails")
+@JsonFilter("OrderdetailFilter")
 @IdClass(OrderdetailPK.class)
 public class Orderdetail {
     public Orderdetail() {}
@@ -108,5 +113,11 @@ public class Orderdetail {
                 ", priceEach=" + priceEach +
                 ", orderLineNumber=" + orderLineNumber +
                 '}';
+    }
+    public Set<String> getfilters(){
+        Set<String> hash_Set = new HashSet<String>();
+        hash_Set.add("orderNumber");hash_Set.add("productCode");hash_Set.add("quantityOrdered");
+        hash_Set.add("priceEach");hash_Set.add("orderLineNumber");
+        return hash_Set;
     }
 }
