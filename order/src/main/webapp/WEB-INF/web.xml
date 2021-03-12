@@ -7,5 +7,16 @@
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
-
+  <!--____________________Connect API to JSP (convert /api to /)-->
+  <servlet>
+    <servlet-name>AllJSP</servlet-name>
+    <jsp-file>/</jsp-file> <!-- Your JSP. Must begin with '/' -->
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AllJSP</servlet-name>
+    <url-pattern>/api/*</url-pattern> <!-- Any URL you want here -->
+  </servlet-mapping>
+  <!--REST Servlet : Handel via @ApplicationPath,@Path-->
+  <!--API Servlet : Handel via @webServlet-->
+  <!--Soap Servlet : Handel via @webService-->
 </web-app>

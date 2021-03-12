@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet(name = "OrderdetailAct", urlPatterns = {"/OrderdetailAct"})
+@WebServlet(name = "OrderdetailAct", urlPatterns = {"/api/OrderdetailAct"})
 public class OrderdetailCon extends HttpServlet {
     OrderdetailsDao dao = new OrderdetailsDao();
     List<Orderdetail> orderdetailList = new ArrayList<>();
@@ -38,7 +38,7 @@ public class OrderdetailCon extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             if (!SecurityAPI.isLogin(req)) {
-                req.getRequestDispatcher("index.jsp").forward(req, resp);
+                req.getRequestDispatcher("/index.jsp").forward(req, resp);
                 return;
             }
             orderdetailList.clear();
@@ -84,11 +84,13 @@ public class OrderdetailCon extends HttpServlet {
                 orderdetailList.add(dao.findbyid(orderdetailPK));
             }
             req.setAttribute("orderdetails", orderdetailList);
-            req.getRequestDispatcher("WEB-INF/views/Orderdetail.jsp").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/views/Orderdetail.jsp").forward(req, resp);
         } catch (Exception e) {
-            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            String UUID= java.util.UUID.randomUUID().toString();
+            Logback.logger.error("{}.{}|Exception:UUID-{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
-            req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
+            req.setAttribute("ErrorKey", UUID);
+            req.getRequestDispatcher("/WEB-INF/views/error.jsp").forward(req, resp);
         }
     }
 
@@ -96,7 +98,7 @@ public class OrderdetailCon extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             if (!SecurityAPI.isLogin(req)) {
-                req.getRequestDispatcher("index.jsp").forward(req, resp);
+                req.getRequestDispatcher("/index.jsp").forward(req, resp);
                 return;
             }
             orderdetailList.clear();
@@ -112,10 +114,10 @@ public class OrderdetailCon extends HttpServlet {
                 Integer status = dao.delete(orderdetail);
                 if(status==1) {
                     req.setAttribute("message", "record is deleted");
-                    req.getRequestDispatcher("WEB-INF/views/Orderdetail.jsp").forward(req, resp);
+                    req.getRequestDispatcher("/WEB-INF/views/Orderdetail.jsp").forward(req, resp);
                 }else{
                     req.setAttribute("message", "record is not deleted");
-                    req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
+                    req.getRequestDispatcher("/WEB-INF/views/error.jsp").forward(req, resp);
                 }
                 req.getRequestDispatcher("/Orderdetail.jsp").forward(req, resp);
             }
@@ -125,7 +127,7 @@ public class OrderdetailCon extends HttpServlet {
                 orderdetailPK.setProductCode(productcode);
                 Orderdetail orderdetail = dao.findbyid(orderdetailPK);
                 req.setAttribute("orderdetail", orderdetail);
-                req.getRequestDispatcher("WEB-INF/views/OrderdetailMerge.jsp").forward(req, resp);
+                req.getRequestDispatcher("/WEB-INF/views/OrderdetailMerge.jsp").forward(req, resp);
             }
             if (action.equals("factor")) {
             /*Grandtotal variable properties:
@@ -151,12 +153,14 @@ public class OrderdetailCon extends HttpServlet {
                 parameters.put("OrderDate", orderDate);
 
                 JRsqlFunc.viewReport(path, parameters, "web");
-                req.getRequestDispatcher("WEB-INF/views/Order.jsp").forward(req, resp);
+                req.getRequestDispatcher("/WEB-INF/views/Order.jsp").forward(req, resp);
             }
         } catch (Exception e) {
-            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            String UUID= java.util.UUID.randomUUID().toString();
+            Logback.logger.error("{}.{}|Exception:UUID-{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
-            req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
+            req.setAttribute("ErrorKey", UUID);
+            req.getRequestDispatcher("/WEB-INF/views/error.jsp").forward(req, resp);
         }
     }
 }

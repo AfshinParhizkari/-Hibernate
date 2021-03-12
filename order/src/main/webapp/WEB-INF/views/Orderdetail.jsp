@@ -15,12 +15,12 @@
     <title>Customer form</title>
 </head>
 <body>
-<form action="Dispatcher" method="get">
-    <input type="button" value="Home" onclick="location.href='index.jsp';">
+<form action="${pageContext.request.contextPath}/api/Dispatcher" method="get">
+    <input type="button" value="Home" onclick="location.href='${pageContext.request.contextPath}/index.jsp';">
     <input type="hidden" name="entity" value="OrderdetailMerge">
     <input type="submit" value="Add">
 </form>
-<form action="OrderdetailAct" method="post">
+<form action="${pageContext.request.contextPath}/api/OrderdetailAct" method="post">
     Order Number: <input type="number" name="ordnum">
     Product Code: <input type="text" name="procode">
     <input type="hidden" name="crud" value="read">
@@ -29,7 +29,7 @@
 <c:if test="${requestScope.message ne null}">
     <c:out value="${requestScope.message}"></c:out>
 </c:if>
-<table border="1px"><table border="1px" style="color: #00aa00">
+<table border="1px" style="color: #00aa00">
     <tr>
         <td>OrderNumber</td>
         <td>ProductCode</td>
@@ -48,8 +48,8 @@
             <td><c:out value="${orderdetail.quantityOrdered}"></c:out></td>
             <td><c:out value="${orderdetail.priceEach}"></c:out></td>
             <td><c:out value="${orderdetail.orderLineNumber}"></c:out></td>
-            <td><a href="OrderdetailAct?ordnum=${orderdetail.orderNumber}&procode=${orderdetail.productCode}&crud=edit">edit</a></td>
-            <td><a href="OrderdetailAct?ordnum=${orderdetail.orderNumber}&procode=${orderdetail.productCode}&crud=delete">delete</a></td>
+            <td><a href="${pageContext.request.contextPath}/api/OrderdetailAct?ordnum=${orderdetail.orderNumber}&procode=${orderdetail.productCode}&crud=edit">edit</a></td>
+            <td><a href="${pageContext.request.contextPath}/api/OrderdetailAct?ordnum=${orderdetail.orderNumber}&procode=${orderdetail.productCode}&crud=delete">delete</a></td>
         </tr>
         </c:if>
     </c:forEach>

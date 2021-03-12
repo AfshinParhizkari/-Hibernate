@@ -42,7 +42,7 @@ public class LoginRst {
     @Path("/token")
     public Response getToken(@Context HttpHeaders headers){
         //Get encoded username and password
-        String encodUsrPwd=headers.getRequestHeader(HttpHeaders.AUTHORIZATION).get(0).replaceFirst("Basic ", " ");
+        String encodUsrPwd=headers.getRequestHeader(HttpHeaders.AUTHORIZATION).get(0).replaceFirst("Basic ", "");
         if(!sec.basicAuthCheck(encodUsrPwd))
             return Response.status(Response.Status.UNAUTHORIZED).entity("User or password is wrong").build();
         try {

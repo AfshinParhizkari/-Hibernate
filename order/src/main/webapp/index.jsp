@@ -9,23 +9,23 @@
     <label>${sessionScope.message}</label>
 </c:if>
 
-<form action="Dispatcher" method="post">
+<form action="${pageContext.request.contextPath}/api/Dispatcher" method="post">
     <br>User name:<input name="usrnam" type="text"><br>
     Password: <input name="paswrd" type="password"><br>
     <input name="crud" type="hidden" value="login"><br>
     <input type="submit" value="Login">
 </form>
-<form action="Dispatcher" method="post">
+<form action="${pageContext.request.contextPath}/api/Dispatcher" method="post">
     <input name="crud" type="hidden" value="logout">
     <input type="submit" value="Logout">
 </form>
-<form action="Dispatcher" method="post">
+<form action="${pageContext.request.contextPath}/api/Dispatcher" method="post">
     <input type="button" value="Call User Service" onclick="location.href='rest/user/all';">
     <input name="crud" type="hidden" value="test">
     <input type="submit" value="Test">
 </form>
 
-<form action="Dispatcher" method="get">
+<form action="${pageContext.request.contextPath}/api/Dispatcher" method="get">
     <br>Select Form:
     <select name="entity">
         <option value="Employee">Employee</option>

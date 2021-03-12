@@ -1,3 +1,6 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.afshin.Entity.Office" %>
 <%--
   @Project     order
   @Author      Afshin Parhizkari
@@ -7,21 +10,17 @@
   Email:       Afshin.Parhizkari@gmail.com
   Description:  JSP
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.util.List" %>
-<%@ page import="com.afshin.Entity.Office" %>
-
 <html>
 <head>
     <title>Office form - JSP</title>
 </head>
 <body>
-<form action="Dispatcher" method="get">
-    <input type="button" value="Home" onclick="location.href='index.jsp';">
+<form action="${pageContext.request.contextPath}/api/Dispatcher" method="get">
+    <input type="button" value="Home" onclick="location.href='${pageContext.request.contextPath}/index.jsp';">
     <input type="hidden" name="entity" value="OfficeMerge">
     <input type="submit" value="Add">
 </form>
-<form action="OfficeAct" method="post">
+<form action="${pageContext.request.contextPath}/api/OfficeAct" method="post">
     Product : <input type="text" name="offcode">
     <input type="hidden" name="crud" value="read">
     <input type="submit" value="ShowProduct">
@@ -59,8 +58,8 @@
         <td><%=office.getCountry()%></td>
         <td><%=office.getPostalCode()%></td>
         <td><%=office.getTerritory()%></td>
-        <td><a href="OfficeAct?offcode=<%=office.getOfficeCode()%>&crud=edit">Edit</a></td>
-        <td><a href="OfficeAct?offcode=<%=office.getOfficeCode()%>&crud=delete">Delete</a></td>
+        <td><a href="${pageContext.request.contextPath}/api/OfficeAct?offcode=<%=office.getOfficeCode()%>&crud=edit">Edit</a></td>
+        <td><a href="${pageContext.request.contextPath}/api/OfficeAct?offcode=<%=office.getOfficeCode()%>&crud=delete">Delete</a></td>
     </tr>
     <%}}}%>
 </table>

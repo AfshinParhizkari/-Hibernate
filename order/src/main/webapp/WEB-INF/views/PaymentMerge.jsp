@@ -1,7 +1,6 @@
 <%@ page import="com.afshin.Entity.Payment" %>
 <%@ page import="com.afshin.General.GregorianDate" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <%--
   @Project     order
   @Author      Afshin Parhizkari
@@ -11,15 +10,14 @@
   Email:       Afshin.Parhizkari@gmail.com
   Description:  
 --%>
-
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" type="text/css" media="all" href="/statics/JalaliJSCalendar-master/skins/calendar-blue.css" title="winter" />
-    <script type="text/javascript" src="/statics/JalaliJSCalendar-master/jalali.js"></script>
-    <script type="text/javascript" src="/statics/JalaliJSCalendar-master/calendar.js"></script>
-    <script type="text/javascript" src="/statics/JalaliJSCalendar-master/calendar-setup.js"></script>
-    <script type="text/javascript" src="/statics/JalaliJSCalendar-master/lang/calendar-fa.js"></script>
+    <link rel="stylesheet" type="text/css" media="all" href="${pageContext.request.contextPath}/statics/JalaliJSCalendar-master/skins/calendar-blue.css" title="winter" />
+    <script type="text/javascript" src="${pageContext.request.contextPath}/statics/JalaliJSCalendar-master/jalali.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/statics/JalaliJSCalendar-master/calendar.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/statics/JalaliJSCalendar-master/calendar-setup.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/statics/JalaliJSCalendar-master/lang/calendar-fa.js"></script>
     <!-- helper script that uses the calendar -->
     <script type="text/javascript">
         var oldLink = null;
@@ -60,11 +58,11 @@
     <title>Add or Update Payment</title>
 </head>
 <body>
-<form action="Dispatcher" method="get">
+<form action="${pageContext.request.contextPath}/api/Dispatcher" method="get">
     <input type="hidden" name="entity" value="Payment">
     <input type="submit" value="Back">
 </form>
-<form action="PaymentAct" method="post">
+<form action="${pageContext.request.contextPath}/api/PaymentAct" method="post">
     <%
         Payment payment = (Payment) request.getAttribute("payment");
         if(payment ==null){
@@ -75,7 +73,7 @@
 
                 <div class="example">
                     Payment date :
-                    <input id="date_input_1" type="text" name="payDate"  required="required"/><img id="date_btn_1" src="/statics/JalaliJSCalendar-master/examples/cal.png" style="vertical-align: top;" />
+                    <input id="date_input_1" type="text" name="payDate"  required="required"/><img id="date_btn_1" src="${pageContext.request.contextPath}/statics/JalaliJSCalendar-master/examples/cal.png" style="vertical-align: top;" />
                     <script type="text/javascript">
                         Calendar.setup({
                             inputField     :    "date_input_1",   // id of the input field
@@ -95,7 +93,7 @@
                 <%request.setAttribute("persianDate", GregorianDate.shamsiStr(GregorianDate.miladi2shamsi(payment.getPaymentDate())));%>
                 <div class="example">
                     Payment date :
-                    <input id="date_input_2" type="text" name="payDate" value="<%=request.getAttribute("persianDate")%>" required="required"/><img id="date_btn_2" src="/statics/JalaliJSCalendar-master/examples/cal.png" style="vertical-align: top;" />
+                    <input id="date_input_2" type="text" name="payDate" value="<%=request.getAttribute("persianDate")%>" required="required"/><img id="date_btn_2" src="${pageContext.request.contextPath}/statics/JalaliJSCalendar-master/examples/cal.png" style="vertical-align: top;" />
                     <script type="text/javascript">
                         Calendar.setup({
                             inputField     :    "date_input_2",   // id of the input field

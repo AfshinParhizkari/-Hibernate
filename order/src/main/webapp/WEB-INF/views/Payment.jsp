@@ -1,3 +1,7 @@
+<%@ page import="com.afshin.Entity.Payment" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.afshin.General.GregorianDate" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--
   @Project     order
   @Author      Afshin Parhizkari
@@ -7,21 +11,17 @@
   Email:       Afshin.Parhizkari@gmail.com
   Description:
 --%>
-<%@ page import="com.afshin.Entity.Payment" %>
-<%@ page import="java.util.List" %>
-<%@ page import="com.afshin.General.GregorianDate" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Payment List</title>
 </head>
 <body>
-<form action="Dispatcher" method="get">
-    <input type="button" value="Home" onclick="location.href='index.jsp';">
+<form action="${pageContext.request.contextPath}/api/Dispatcher" method="get">
+    <input type="button" value="Home" onclick="location.href='${pageContext.request.contextPath}/index.jsp';">
     <input type="hidden" name="entity" value="PaymentMerge">
     <input type="submit" value="Add">
 </form>
-<form action="Dispatcher" method="get">
+<form action="${pageContext.request.contextPath}/api/Dispatcher" method="get">
     <input type="hidden" name="entity" value="PaymentRep">
     <input type="submit" value="ReportPage">
 </form><form action="PaymentAct" method="post">
@@ -55,8 +55,8 @@
         <td><%=payment.getCheckNumber()%></td>
         <td><%=GregorianDate.shamsiStr(GregorianDate.miladi2shamsi(payment.getPaymentDate()))%></td>
         <td><%=payment.getAmount()%></td>
-        <td><a href="PaymentAct?custnum=<%=payment.getCustomerNumber()%>&checknum=<%=payment.getCheckNumber()%>&crud=edit"> edit </a></td>
-        <td><a href="PaymentAct?custnum=<%=payment.getCustomerNumber()%>&checknum=<%=payment.getCheckNumber()%>&crud=delete"> delete </a></td>
+        <td><a href="${pageContext.request.contextPath}/api/PaymentAct?custnum=<%=payment.getCustomerNumber()%>&checknum=<%=payment.getCheckNumber()%>&crud=edit"> edit </a></td>
+        <td><a href="${pageContext.request.contextPath}/api/PaymentAct?custnum=<%=payment.getCustomerNumber()%>&checknum=<%=payment.getCheckNumber()%>&crud=delete"> delete </a></td>
     </tr>
     <%}}}%>
 </table>

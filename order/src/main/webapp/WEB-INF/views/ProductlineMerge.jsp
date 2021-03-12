@@ -1,6 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.afshin.Entity.Productline" %>
-<%@ page import="java.util.Base64" %><%--
+<%@ page import="java.util.Base64" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
+<%@page isELIgnored="false" %>
+<%--
   @Project     order
   @Author      Afshin Parhizkari
   @Date        2020 - 12 - 16
@@ -9,19 +12,17 @@
   Email:       Afshin.Parhizkari@gmail.com
   Description: JSTL
 --%>
-<%@ page contentType="text/html;charset=UTF-8"%>
-<%@page isELIgnored="false" %>
 <html>
 <head>
     <title>Productline Add or Update</title>
 </head>
 <body>
-<form action="Dispatcher" method="get">
+<form action="${pageContext.request.contextPath}/api/Dispatcher" method="get">
     <input type="hidden" name="entity" value="Productline">
     <input type="submit" value="Back">
 </form>
 </br>
-<form action="ProductlineAct" method="post" enctype="multipart/form-data">
+<form action="${pageContext.request.contextPath}/api/ProductlineAct" method="post" enctype="multipart/form-data">
     <c:if test="${requestScope.productline eq null}">
         Product code: <input type="text" name="proline" required="required"><br>
         Description: <input type="text" name="txtDesc"><br>
@@ -42,6 +43,5 @@
         <input type="submit" value="Update">
     </c:if>
 </form>
-
 </body>
 </html>

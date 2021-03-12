@@ -26,7 +26,7 @@ import java.util.List;
  * Email:       Afshin.Parhizkari@gmail.com
  * Description:
  */
-@WebServlet(name = "ProductlineAct" , urlPatterns = {"/ProductlineAct"})
+@WebServlet(name = "ProductlineAct" , urlPatterns = {"/api/ProductlineAct"})
 @MultipartConfig
 public class ProductlineCon extends HttpServlet {
     ProductlineDao dao = new ProductlineDao();
@@ -35,10 +35,7 @@ public class ProductlineCon extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            if (!SecurityAPI.isLogin(req)) {
-                req.getRequestDispatcher("index.jsp").forward(req, resp);
-                return;
-            }
+            if (!SecurityAPI.isLogin(req)) {req.getRequestDispatcher("/index.jsp").forward(req, resp);return;}
             productlines.clear();
             String action = req.getParameter("crud");
             if (action.equals("read")) {
@@ -75,11 +72,13 @@ public class ProductlineCon extends HttpServlet {
                 productlines.add(dao.findbyid(status));
             }
             req.setAttribute("products", productlines);
-            req.getRequestDispatcher("WEB-INF/views/Productline.jsp").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/views/Productline.jsp").forward(req, resp);
         } catch (Exception e) {
-            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            String UUID= java.util.UUID.randomUUID().toString();
+            Logback.logger.error("{}.{}|Exception:UUID-{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
-            req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
+            req.setAttribute("ErrorKey", UUID);
+            req.getRequestDispatcher("/WEB-INF/views/error.jsp").forward(req, resp);
         }
     }
 
@@ -87,7 +86,7 @@ public class ProductlineCon extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             if (!SecurityAPI.isLogin(req)) {
-                req.getRequestDispatcher("index.jsp").forward(req, resp);
+                req.getRequestDispatcher("/index.jsp").forward(req, resp);
                 return;
             }
             productlines.clear();
@@ -96,25 +95,27 @@ public class ProductlineCon extends HttpServlet {
                 Integer status = dao.delete(dao.findbyid(req.getParameter("proline")));
                 if(status==1) {
                     req.setAttribute("message", "record is deleted");
-                    req.getRequestDispatcher("WEB-INF/views/Productline.jsp").forward(req, resp);
+                    req.getRequestDispatcher("/WEB-INF/views/Productline.jsp").forward(req, resp);
                     req.setAttribute("message", "record is not deleted");
-                    req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
+                    req.getRequestDispatcher("/WEB-INF/views/error.jsp").forward(req, resp);
                 }}
             if (action.equals("edit")) {
                 Productline productline = dao.findbyid(req.getParameter("proline"));
                 req.setAttribute("productline", productline);
-                req.getRequestDispatcher("WEB-INF/views/ProductlineMerge.jsp").forward(req, resp);
+                req.getRequestDispatcher("/WEB-INF/views/ProductlineMerge.jsp").forward(req, resp);
                 //req.getRequestDispatcher("WEB-INF/views/ProductlineMergeJSP.jsp").forward(req,resp);
             }
             if (action.equals("report")) {
                 String path = req.getSession().getServletContext().getRealPath("/WEB-INF/reports/Productline.jrxml");
                 JRsqlFunc.viewReport(path, null, "web");
-                req.getRequestDispatcher("WEB-INF/views/Productline.jsp").forward(req, resp);
+                req.getRequestDispatcher("/WEB-INF/views/Productline.jsp").forward(req, resp);
             }
         } catch (Exception e) {
-            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            String UUID= java.util.UUID.randomUUID().toString();
+            Logback.logger.error("{}.{}|Exception:UUID-{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
-            req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
+            req.setAttribute("ErrorKey", UUID);
+            req.getRequestDispatcher("/WEB-INF/views/error.jsp").forward(req, resp);
         }
     }
 }

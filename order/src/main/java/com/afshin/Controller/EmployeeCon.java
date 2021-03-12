@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet(name = "EmployeeAct",urlPatterns = {"/EmployeeAct"})
+@WebServlet(name = "EmployeeAct",urlPatterns = {"/api/EmployeeAct"})
 public class EmployeeCon extends HttpServlet {
     EmployeeDao dao =new EmployeeDao();
     List<Employee> employeeList =new ArrayList<>();
@@ -31,7 +31,7 @@ public class EmployeeCon extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       try {
-          if (!SecurityAPI.isLogin(req)) {req.getRequestDispatcher("index.jsp").forward(req, resp); return;}
+          if (!SecurityAPI.isLogin(req)) {req.getRequestDispatcher("/index.jsp").forward(req, resp); return;}
           employeeList.clear();
           String action = req.getParameter("crud");
           if (action.equals("read")) {
@@ -80,18 +80,20 @@ public class EmployeeCon extends HttpServlet {
               Logback.logger.trace("{}.{}|update: Exit to IF!",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
           }
           req.setAttribute("employees", employeeList);
-          req.getRequestDispatcher("WEB-INF/views/Employee.jsp").forward(req, resp);
+          req.getRequestDispatcher("/WEB-INF/views/Employee.jsp").forward(req, resp);
       }catch (Exception e){
-          Logback.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
+          String UUID= java.util.UUID.randomUUID().toString();
+          Logback.logger.error("{}.{}|Exception:UUID-{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
           e.printStackTrace();
-          req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
+          req.setAttribute("ErrorKey", UUID);
+          req.getRequestDispatcher("/WEB-INF/views/error.jsp").forward(req, resp);
       }
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            if (!SecurityAPI.isLogin(req)) {req.getRequestDispatcher("index.jsp").forward(req, resp); return;}
+            if (!SecurityAPI.isLogin(req)) {req.getRequestDispatcher("/index.jsp").forward(req, resp); return;}
             employeeList.clear();
             String action = req.getParameter("crud");
             if (action.equals("delete")) {
@@ -101,11 +103,11 @@ public class EmployeeCon extends HttpServlet {
                 if(status==1) {
                     req.setAttribute("message", "record is deleted");
                     Logback.logger.trace("{}.{}|delete: Successfully Exit from IF!", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
-                    req.getRequestDispatcher("WEB-INF/views/Employee.jsp").forward(req, resp);
+                    req.getRequestDispatcher("/WEB-INF/views/Employee.jsp").forward(req, resp);
                 }else{
                     req.setAttribute("message", "record is not deleted");
                     Logback.logger.trace("{}.{}|delete: Not Successfully Exit from IF!", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
-                    req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
+                    req.getRequestDispatcher("/WEB-INF/views/error.jsp").forward(req, resp);
                 }
             }
             if (action.equals("edit")) {
@@ -113,15 +115,14 @@ public class EmployeeCon extends HttpServlet {
                 Employee employee = dao.findbyid(Integer.parseInt(req.getParameter("employeenum")));
                 req.setAttribute("employee", employee);
                 Logback.logger.trace("{}.{}|edit: Exit from IF!",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
-                req.getRequestDispatcher("WEB-INF/views/EmployeeMerge.jsp").forward(req, resp);
-
+                req.getRequestDispatcher("/WEB-INF/views/EmployeeMerge.jsp").forward(req, resp);
             }
             if (action.equals("mngof")) {
                 Logback.logger.trace("{}.{}|manageFrom: Enter to IF!",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
                 employeeList = dao.parameterized(Integer.parseInt(req.getParameter("manageof")));
                 req.setAttribute("employees", employeeList);
                 Logback.logger.trace("{}.{}|manageFrom: Exit from IF!",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
-                req.getRequestDispatcher("WEB-INF/views/Employee.jsp").forward(req, resp);
+                req.getRequestDispatcher("/WEB-INF/views/Employee.jsp").forward(req, resp);
             }
             if (action.equals("mngby")) {
                 Logback.logger.trace("{}.{}|manageBy: Enter to IF!",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
@@ -129,7 +130,7 @@ public class EmployeeCon extends HttpServlet {
                 employeeList.add(employee);
                 req.setAttribute("employees", employeeList);
                 Logback.logger.trace("{}.{}|manageBy: Exit from IF!",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
-                req.getRequestDispatcher("WEB-INF/views/Employee.jsp").forward(req, resp);
+                req.getRequestDispatcher("/WEB-INF/views/Employee.jsp").forward(req, resp);
             }
             if (action.equals("report")) {
                 Logback.logger.trace("{}.{}|report: Enter to IF!",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
@@ -138,12 +139,14 @@ public class EmployeeCon extends HttpServlet {
                 parameters.put("emp_num", Integer.parseInt(req.getParameter("empNum")));
                 JRsqlFunc.viewReport(path, parameters, "web");
                 Logback.logger.trace("{}.{}|report: Exit from IF!",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
-                req.getRequestDispatcher("WEB-INF/views/Employee.jsp").forward(req, resp);
+                req.getRequestDispatcher("/WEB-INF/views/Employee.jsp").forward(req, resp);
             }
         }catch (Exception e){
-            Logback.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
+            String UUID= java.util.UUID.randomUUID().toString();
+            Logback.logger.error("{}.{}|Exception:UUID-{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
-            req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
+            req.setAttribute("ErrorKey", UUID);
+            req.getRequestDispatcher("/WEB-INF/views/error.jsp").forward(req, resp);
         }
     }
 }

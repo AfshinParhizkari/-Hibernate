@@ -29,7 +29,7 @@ public class SecurityFilter implements Filter {
         else {
             Logback.logger.warn("{}.{}| Session is not Valid", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
             req.setAttribute("message", "Session is not Valid, Please login");
-            ((HttpServletResponse) response).sendRedirect("index.jsp");
+            req.getRequestDispatcher("/index.jsp").forward(req, (HttpServletResponse) response);
         }
     }
 }

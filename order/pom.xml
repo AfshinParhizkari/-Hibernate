@@ -71,7 +71,19 @@
       <artifactId>javax.ws.rs-api</artifactId>
       <version>2.1.1</version>
     </dependency>
-    <!-- Token -->
+    <!-- Filter,Object2Json mapper -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.12.1</version>
+    </dependency>
+    <!--Client Test : InjectionManagerFactory-->
+    <dependency>
+      <groupId>org.glassfish.jersey.inject</groupId>
+      <artifactId>jersey-hk2</artifactId>
+      <version>3.0.1</version>
+    </dependency>
+    <!-- ________________________ Token ________________________ -->
     <dependency>
       <groupId>io.jsonwebtoken</groupId>
       <artifactId>jjwt</artifactId>
@@ -82,18 +94,10 @@
       <artifactId>jjwt-api</artifactId>
       <version>0.11.2</version>
     </dependency>
-    <!-- _____________________ JAX-RS Client __________________ -->
-
-    <!--Test-->
+    <!--Authentication-->
     <dependency>
       <groupId>org.glassfish.jersey.core</groupId>
       <artifactId>jersey-client</artifactId>
-      <version>3.0.1</version>
-    </dependency>
-    <!--Test : InjectionManagerFactory-->
-    <dependency>
-      <groupId>org.glassfish.jersey.inject</groupId>
-      <artifactId>jersey-hk2</artifactId>
       <version>3.0.1</version>
     </dependency>
     <!-- ________________________ JAX-WS ________________________ -->
@@ -106,6 +110,11 @@
       <groupId>com.sun.xml.ws</groupId>
       <artifactId>jaxws-rt</artifactId>
       <version>3.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.xml.bind</groupId>
+      <artifactId>jaxb-api</artifactId>
+      <version>2.3.1</version>
     </dependency>
 
     <!-- __________________ Image:change part to byte[] __________________ -->

@@ -1,4 +1,6 @@
-<%@ page import="com.afshin.Entity.Office" %><%--
+<%@ page import="com.afshin.Entity.Office" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%--
   @Project     order
   @Author      Afshin Parhizkari
   @Date        2020 - 12 - 31
@@ -7,18 +9,17 @@
   Email:       Afshin.Parhizkari@gmail.com
   Description:  
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Add or Update Office</title>
 </head>
 <body>
-<form action="Dispatcher" method="get">
+<form action="${pageContext.request.contextPath}/api/Dispatcher" method="get">
     <input type="hidden" name="entity" value="Office">
     <input type="submit" value="Back">
 </form>
 </br>
-<form action="OfficeAct" method="post">
+<form action="${pageContext.request.contextPath}/api/OfficeAct" method="post">
     <%
         Office office = (Office) request.getAttribute("office");
         if(office ==null){

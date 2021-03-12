@@ -8,6 +8,7 @@ package com.afshin.Webservice;
  * Email:       Afshin.Parhizkari@gmail.com
  * Description:
  */
+import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,7 +18,6 @@ import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import jakarta.ws.rs.client.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.junit.Test;
 import java.util.List;
 import com.afshin.Entity.Office;

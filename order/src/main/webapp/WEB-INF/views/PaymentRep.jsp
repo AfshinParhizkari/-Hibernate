@@ -14,11 +14,11 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" type="text/css" media="all" href="/statics/JalaliJSCalendar-master/skins/calendar-blue.css" title="winter" />
-    <script type="text/javascript" src="/statics/JalaliJSCalendar-master/jalali.js"></script>
-    <script type="text/javascript" src="/statics/JalaliJSCalendar-master/calendar.js"></script>
-    <script type="text/javascript" src="/statics/JalaliJSCalendar-master/calendar-setup.js"></script>
-    <script type="text/javascript" src="/statics/JalaliJSCalendar-master/lang/calendar-fa.js"></script>
+    <link rel="stylesheet" type="text/css" media="all" href="${pageContext.request.contextPath}/statics/JalaliJSCalendar-master/skins/calendar-blue.css" title="winter" />
+    <script type="text/javascript" src="${pageContext.request.contextPath}/statics/JalaliJSCalendar-master/jalali.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/statics/JalaliJSCalendar-master/calendar.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/statics/JalaliJSCalendar-master/calendar-setup.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/statics/JalaliJSCalendar-master/lang/calendar-fa.js"></script>
     <!-- helper script that uses the calendar -->
     <script type="text/javascript">
         var oldLink = null;
@@ -59,11 +59,11 @@
     <title>Payment Report</title>
 </head>
 <body>
-<form action="Dispatcher" method="get">
+<form action="${pageContext.request.contextPath}/api/Dispatcher" method="get">
     <input type="hidden" name="entity" value="Payment">
     <input type="submit" value="Back">
 </form>
-<form action="PaymentAct" method="get">
+<form action="${pageContext.request.contextPath}/api/PaymentAct" method="get">
     FromDate: <span id="display_area_1" style="cursor: pointer;" class="display_area">Choose Date</span>
     <input id="date_input_1" type="hidden" name="fdate"/>
     <script type="text/javascript">

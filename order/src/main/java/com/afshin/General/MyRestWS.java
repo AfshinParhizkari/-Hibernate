@@ -8,19 +8,20 @@ package com.afshin.General;
  * Email:       Afshin.Parhizkari@gmail.com
  * Description: Restful service
  */
-
-import com.afshin.Webservice.LoginRst;
-import com.afshin.Webservice.OfficeRst;
-import com.afshin.Webservice.PaymentRst;
-import com.afshin.Webservice.UserRst;
+import com.afshin.Webservice.*;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 @ApplicationPath("/rest")
-public class Myrestsevice extends Application {
-    public Set<Class<?>> Myrestsevice() {
-                return new HashSet<Class<?>>(Arrays.asList(UserRst.class, OfficeRst.class, PaymentRst.class, LoginRst.class));
+public class MyRestWS extends Application {
+    public Set<Class<?>> MyRestWS() {
+                return new HashSet<Class<?>>(Arrays.asList(UserRst.class
+                        , OfficeRst.class
+                        , PaymentRst.class
+                        , LoginRst.class
+                        ,ProductRst.class
+                ));
     }
 }

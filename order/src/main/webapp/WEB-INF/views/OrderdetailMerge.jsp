@@ -15,12 +15,12 @@
     <title>Customer Add or Update</title>
 </head>
 <body>
-<form action="Dispatcher" method="get">
+<form action="${pageContext.request.contextPath}/api/Dispatcher" method="get">
     <input type="hidden" name="entity" value="Orderdetail">
     <input type="submit" value="Back">
 </form>
 </br>
-<form action="OrderdetailAct" method="post">
+<form action="${pageContext.request.contextPath}/api/OrderdetailAct" method="post">
     <c:if test="${requestScope.orderdetail == null}">
        OrderNumber: <input type="number" name="ordnum" required="required"><br>
        ProductCode: <input type="text" name="procode" required="required"><br>

@@ -29,7 +29,7 @@ public class OfficeRst {
     @Produces(MediaType.APPLICATION_JSON)
     public Response find(@PathParam("officeCode") String officeCode,@Context HttpHeaders headers){
         //Get encoded username and password
-        String encodUsrPwd=headers.getRequestHeader("Authorization").get(0).replaceFirst("Basic ", " ");
+        String encodUsrPwd=headers.getRequestHeader("Authorization").get(0).replaceFirst("Basic ", "");
         if(!sec.basicAuthCheck(encodUsrPwd)) return Response.status(Response.Status.UNAUTHORIZED).entity("User or password is wrong").build();
 
         try {
@@ -50,7 +50,7 @@ public class OfficeRst {
     @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
     public Response all(@Context HttpHeaders headers){
-        String encodUsrPwd=headers.getRequestHeader("Authorization").get(0).replaceFirst("Basic "," ");
+        String encodUsrPwd=headers.getRequestHeader("Authorization").get(0).replaceFirst("Basic ","");
         if(!sec.basicAuthCheck(encodUsrPwd)) return Response.status(Response.Status.UNAUTHORIZED).entity("User or password is wrong").build();
 
         try{

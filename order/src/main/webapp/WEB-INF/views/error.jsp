@@ -10,6 +10,9 @@
 <head>
     <title>Error</title>
 </head>
+<c:if test="${requestScope.ErrorKey ne null}">
+    <label>Please give this key to support team: ${requestScope.ErrorKey}</label>
+</c:if>
 <body>
     there are some error in the page.please contact with administrator
 </body>

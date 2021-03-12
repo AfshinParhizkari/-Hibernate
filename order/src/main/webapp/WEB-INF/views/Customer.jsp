@@ -15,17 +15,17 @@
     <title>Customer form</title>
 </head>
 <body>
-<form action="Dispatcher" method="get">
-    <input type="button" value="Home" onclick="location.href='index.jsp';">
+<form action="${pageContext.request.contextPath}/api/Dispatcher" method="get">
+    <input type="button" value="Home" onclick="location.href='${pageContext.request.contextPath}/index.jsp';">
     <input type="hidden" name="entity" value="CustomerMerge">
     <input type="submit" value="Add">
 </form>
-<form action="CustomerAct" method="post">
+<form action="${pageContext.request.contextPath}/api/CustomerAct" method="post">
     Productline : <input type="text" name="custnum">
     <input type="hidden" name="crud" value="read">
     <input type="submit" value="ShowCustomer">
 </form>
-<form action="CustomerAct" method="get">
+<form action="${pageContext.request.contextPath}/api/CustomerAct" method="get">
     <input type="hidden" name="crud" value="report">
     <input type="submit" value="Report - Allcustomer">
 </form>
@@ -67,8 +67,8 @@
                 <td><c:out value="${customer.country}"></c:out></td>
                 <td><c:out value="${customer.salesRepEmployeeNumber}"></c:out></td>
                 <td><c:out value="${customer.creditLimit}"></c:out></td>
-                <td><a href="CustomerAct?custnum=${customer.customerNumber}&crud=edit" >edit</a></td>
-                <td><a href="CustomerAct?custnum=${customer.customerNumber}&crud=delete">delete</a></td>
+                <td><a href="${pageContext.request.contextPath}/api/CustomerAct?custnum=${customer.customerNumber}&crud=edit" >edit</a></td>
+                <td><a href="${pageContext.request.contextPath}/api/CustomerAct?custnum=${customer.customerNumber}&crud=delete">delete</a></td>
             </tr>
             </c:if>
         </c:forEach>

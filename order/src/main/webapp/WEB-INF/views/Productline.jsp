@@ -15,12 +15,12 @@ Description: JSTL
     <title>Productline form</title>
 </head>
 <body>
-<form action="Dispatcher" method="get">
-    <input type="button" value="Home" onclick="location.href='index.jsp';">
+<form action="${pageContext.request.contextPath}/api/Dispatcher" method="get">
+    <input type="button" value="Home" onclick="location.href='${pageContext.request.contextPath}/index.jsp';">
     <input type="hidden" name="entity" value="ProductlineMerge">
     <input type="submit" value="Add">
 </form>
-<form action="ProductlineAct" method="post">
+<form action="${pageContext.request.contextPath}/api/ProductlineAct" method="post">
     Productline : <input type="text" name="prolineNum">
     <input type="hidden" name="crud" value="read">
     <input type="submit" value="ShowProductline">
@@ -52,8 +52,8 @@ Description: JSTL
                             <img src="data:image/jpg+jpeg+png+gif;base64,${proline.photo}" width="200" height="200">
                         </c:if>
                     </td>
-                    <td><a href="ProductlineAct?proline=${proline.productLine}&crud=edit">edit</a></td>
-                    <td><a href="ProductlineAct?proline=${proline.productLine}&crud=delete">delete</a></td>
+                    <td><a href="${pageContext.request.contextPath}/api/ProductlineAct?proline=${proline.productLine}&crud=edit">edit</a></td>
+                    <td><a href="${pageContext.request.contextPath}/api/ProductlineAct?proline=${proline.productLine}&crud=delete">delete</a></td>
                 </tr>
             </c:if>
         </c:forEach>

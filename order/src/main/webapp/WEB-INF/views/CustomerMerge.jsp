@@ -15,7 +15,7 @@
     <title>Customer Add or Update</title>
 </head>
 <body>
-<form action="Dispatcher" method="get">
+<form action="${pageContext.request.contextPath}/api/Dispatcher" method="get">
     <input type="hidden" name="entity" value="Customer">
     <input type="submit" value="Back">
 </form>

@@ -1,5 +1,13 @@
 package com.afshin.Controller;
-
+/**
+ * @Project order
+ * @Author Afshin Parhizkari
+ * @Date 2020 - 12 - 16
+ * @Time 1:10 AM
+ * Created by   IntelliJ IDEA
+ * Email:       Afshin.Parhizkari@gmail.com
+ * Description:
+ */
 import com.afshin.Dao.JRsqlFunc;
 import com.afshin.Dao.PaymentDao;
 import com.afshin.Entity.Payment;
@@ -20,16 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @Project order
- * @Author Afshin Parhizkari
- * @Date 2020 - 12 - 16
- * @Time 1:10 AM
- * Created by   IntelliJ IDEA
- * Email:       Afshin.Parhizkari@gmail.com
- * Description:
- */
-@WebServlet(name = "PaymentAct", urlPatterns = {"/PaymentAct"})
+@WebServlet(name = "PaymentAct", urlPatterns = {"/api/PaymentAct"})
 public class PaymentCon extends HttpServlet {
     PaymentDao dao = new PaymentDao();
     List<Payment> paymentList = new ArrayList<>();
@@ -37,7 +36,7 @@ public class PaymentCon extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            if (!SecurityAPI.isLogin(req)) {req.getRequestDispatcher("index.jsp").forward(req, resp); return;}
+            if (!SecurityAPI.isLogin(req)) {req.getRequestDispatcher("/index.jsp").forward(req, resp); return;}
             paymentList.clear();
             String action = req.getParameter("crud");
             if (action.equals("read")) {
@@ -75,18 +74,20 @@ public class PaymentCon extends HttpServlet {
                 paymentList.add(dao.findbyid(payment.getCustomerNumber(),payment.getCheckNumber()));
             }
             req.setAttribute("payments", paymentList);
-            req.getRequestDispatcher("WEB-INF/views/Payment.jsp").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/views/Payment.jsp").forward(req, resp);
         } catch (Exception e) {
-            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            String UUID= java.util.UUID.randomUUID().toString();
+            Logback.logger.error("{}.{}|Exception:UUID-{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
-            req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
+            req.setAttribute("ErrorKey", UUID);
+            req.getRequestDispatcher("/WEB-INF/views/error.jsp").forward(req, resp);
         }
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            if (!SecurityAPI.isLogin(req)) {req.getRequestDispatcher("index.jsp").forward(req, resp); return;}
+            if (!SecurityAPI.isLogin(req)) {req.getRequestDispatcher("/index.jsp").forward(req, resp); return;}
             paymentList.clear();
             String action = req.getParameter("crud");
             String custnumber = req.getParameter("custnum");
@@ -99,13 +100,13 @@ public class PaymentCon extends HttpServlet {
                     req.getRequestDispatcher("WEB-INF/views/Payment.jsp").forward(req, resp);
                 }else{
                     req.setAttribute("message", "record is not deleted");
-                    req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
+                    req.getRequestDispatcher("/WEB-INF/views/error.jsp").forward(req, resp);
                 }
             }
             if (action.equals("edit")) {
                 Payment payment = dao.findbyid(Integer.parseInt(custnumber), checknumber);
                 req.setAttribute("payment", payment);
-                req.getRequestDispatcher("WEB-INF/views/PaymentMerge.jsp").forward(req, resp);
+                req.getRequestDispatcher("/WEB-INF/views/PaymentMerge.jsp").forward(req, resp);
             }
             if (action.equals("report")) {
                 String path = req.getSession().getServletContext().getRealPath("/WEB-INF/reports/Payment.jrxml");
@@ -114,15 +115,21 @@ public class PaymentCon extends HttpServlet {
                     parameters.put("Fdate", new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("fdate")));
                     parameters.put("Tdate", new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("tdate")));
                 } catch (ParseException e) {
+                    String UUID= java.util.UUID.randomUUID().toString();
+                    Logback.logger.error("{}.{}|Exception:UUID-{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
                     e.printStackTrace();
+                    req.setAttribute("ErrorKey", UUID);
+                    req.getRequestDispatcher("/WEB-INF/views/error.jsp").forward(req, resp);
                 }
                 JRsqlFunc.viewReport(path, parameters, req.getParameter("exporttype"));
-                req.getRequestDispatcher("WEB-INF/views/PaymentRep.jsp").forward(req, resp);
+                req.getRequestDispatcher("/WEB-INF/views/PaymentRep.jsp").forward(req, resp);
             }
         } catch (Exception e) {
-            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            String UUID= java.util.UUID.randomUUID().toString();
+            Logback.logger.error("{}.{}|Exception:UUID-{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
-            req.getRequestDispatcher("WEB-INF/views/error.jsp").forward(req, resp);
+            req.setAttribute("ErrorKey", UUID);
+            req.getRequestDispatcher("/WEB-INF/views/error.jsp").forward(req, resp);
         }
     }
 }

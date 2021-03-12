@@ -1,4 +1,6 @@
-<%@ page import="com.afshin.Entity.Employee" %><%--
+<%@ page import="com.afshin.Entity.Employee" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%--
   @Project     order
   @Author      Afshin Parhizkari
   @Date        2020 - 12 - 15
@@ -7,13 +9,12 @@
   Email:       Afshin.Parhizkari@gmail.com
   Description:  
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Add or Update Employee</title>
 </head>
 <body>
-<form action="Dispatcher" method="get">
+<form action="${pageContext.request.contextPath}/api/Dispatcher" method="get">
     <input type="hidden" name="entity" value="Employee">
     <input type="submit" value="Back">
 </form>
@@ -46,6 +47,5 @@
     <input type="submit" value="Update">
     <%}%>
 </form>
-
 </body>
 </html>

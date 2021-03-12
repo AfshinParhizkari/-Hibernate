@@ -1,3 +1,6 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page isELIgnored="false" %>
 <%--
   @Project     order
   @Author      Afshin Parhizkari
@@ -7,20 +10,17 @@
   Email:       Afshin.Parhizkari@gmail.com
   Description:  
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page isELIgnored="false" %>
 <html>
 <head>
     <title>Product Add or Update</title>
 </head>
 <body>
-<form action="Dispatcher" method="get">
+<form action="${pageContext.request.contextPath}/api/Dispatcher" method="get">
     <input type="hidden" name="entity" value="Product">
     <input type="submit" value="Back">
 </form>
 <br>
-<form action="ProductAct" method="post">
+<form action="${pageContext.request.contextPath}/api/ProductAct" method="post">
     <c:if test="${empty product}">
         Product code : <input type="text" name="proNum" required="required"><br>
         Product Name : <input type="text" name="proNam" required="required"><br>
