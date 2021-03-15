@@ -1,13 +1,4 @@
 package com.afshin.Webservice;
-
-
-import jakarta.jws.WebMethod;
-import jakarta.jws.WebResult;
-import jakarta.jws.WebService;
-import jakarta.jws.soap.SOAPBinding;
-import jakarta.xml.ws.WebEndpoint;
-import jakarta.xml.ws.WebServiceProvider;
-
 /**
  * @Project order
  * @Author Afshin Parhizkari
@@ -17,15 +8,17 @@ import jakarta.xml.ws.WebServiceProvider;
  * Email:       Afshin.Parhizkari@gmail.com
  * Description: http://localhost:8080/order/soap/product
  */
+import javax.jws.WebMethod;
+import javax.jws.WebService;
+import javax.jws.soap.SOAPBinding;
 
-@WebService(name = "productSoap",serviceName = "productSoap",portName = "productPort"
-        ,targetNamespace = "http://afshin.com/product"
-        //,wsdlLocation = "/soap/product?wsdl"
-)
+@WebService
 @SOAPBinding(style=SOAPBinding.Style.RPC)
 public class ProductSop {
+    public ProductSop() {}
+
     @WebMethod
-    @WebResult(name="product")
+    //@WebResult(name="product")
     public String helloworld(String name) {
         return "Hello World JAX-WS " + name;
     }
