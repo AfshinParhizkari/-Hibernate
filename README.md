@@ -10,7 +10,9 @@ Servlet Container : Tomcat 9.0.37
 
 View (JSP2.3.3, JSTL1.2, Customtag, EL)
 
-Webservice JAX-RS 2.1.1 + Basic Auth. and Token Auth
+Webservice-RESTful JAX-RS 2.1.1 + Basic Auth. and Token Auth JJWT 0.11.2
+
+Webservice-SOAP jakarta8 2.3.3
 
 Controller Servlet4.0.1 & Webfilter
 
