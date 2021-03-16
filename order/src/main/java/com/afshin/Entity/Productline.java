@@ -80,6 +80,7 @@ public class Productline {
                 ", htmlDescription='" + htmlDescription + '\'' +
                 '}';
     }
+    @Transient
     public Set<String> getfilters(){
         Set<String> hash_Set = new HashSet<String>();
         hash_Set.add("productLine");hash_Set.add("textDescription");hash_Set.add("htmlDescription");

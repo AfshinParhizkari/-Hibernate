@@ -114,6 +114,7 @@ public class Orderdetail {
                 ", orderLineNumber=" + orderLineNumber +
                 '}';
     }
+    @Transient
     public Set<String> getfilters(){
         Set<String> hash_Set = new HashSet<String>();
         hash_Set.add("orderNumber");hash_Set.add("productCode");hash_Set.add("quantityOrdered");

@@ -55,7 +55,7 @@ public class User {
                 //", employee=" + employee +
                 '}';
     }
-
+    @Transient
     public Set<String> getfilters(){
         Set<String> hash_Set = new HashSet<String>();
         hash_Set.add("idusers");hash_Set.add("username");hash_Set.add("password");

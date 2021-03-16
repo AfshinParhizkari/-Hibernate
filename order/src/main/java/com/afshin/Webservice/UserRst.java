@@ -11,7 +11,6 @@ package com.afshin.Webservice;
 import com.afshin.Dao.UserDao;
 import com.afshin.Entity.User;
 import com.afshin.General.Logback;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;

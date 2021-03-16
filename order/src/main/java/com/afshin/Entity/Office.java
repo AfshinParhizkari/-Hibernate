@@ -148,7 +148,7 @@ public class Office {
                 //", employees=" + employees +
                 '}';
     }
-
+    @Transient
     public Set<String> getfilters(){
         Set<String> hash_Set = new HashSet<String>();
         hash_Set.add("officeCode");hash_Set.add("city");hash_Set.add("phone");

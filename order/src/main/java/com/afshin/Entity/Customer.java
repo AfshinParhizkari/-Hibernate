@@ -10,8 +10,8 @@ package com.afshin.Entity;
  */
 
 import com.fasterxml.jackson.annotation.JsonFilter;
-
 import javax.persistence.*;
+import javax.xml.bind.annotation.*;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.List;
@@ -30,6 +30,8 @@ import java.util.Set;
         )
 })
 @JsonFilter("CustomerFilter")
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Customer {
     public Customer() {
     }
@@ -72,16 +74,20 @@ public class Customer {
     private Integer salesRepEmployeeNumber;
 
     @Column(name = "creditLimit")
+    //@XmlElement(name = "creditLimit",required = true)
     private BigDecimal creditLimit;
 
     @OneToMany(mappedBy = "customer")
+    @XmlTransient
     private List<Payment> payments;
 
     @ManyToOne
     @JoinColumn(name = "salesRepEmployeeNumber",referencedColumnName = "employeeNumber",insertable = false,updatable = false)
+    @XmlTransient
     private Employee employee;
 
     @OneToMany(mappedBy = "customer")
+    @XmlTransient
     private  List<Order> orders;
 
 
@@ -176,9 +182,7 @@ public class Customer {
         return salesRepEmployeeNumber;
     }
 
-    public void setSalesRepEmployeeNumber(Integer salesRepEmployeeNumber) {
-        this.salesRepEmployeeNumber = salesRepEmployeeNumber;
-    }
+    public void setSalesRepEmployeeNumber(Integer salesRepEmployeeNumber) {this.salesRepEmployeeNumber = salesRepEmployeeNumber;}
 
     public BigDecimal getCreditLimit() {
         return creditLimit;
@@ -222,6 +226,7 @@ public class Customer {
                 ", creditLimit=" + creditLimit +
                 '}';
     }
+    @Transient
     public Set<String> getfilters(){
         Set<String> hash_Set = new HashSet<String>();
         hash_Set.add("customerNumber");hash_Set.add("customerName");hash_Set.add("contactLastName");

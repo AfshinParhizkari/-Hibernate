@@ -15,6 +15,11 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.bouncycastle.util.encoders.Base64;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import java.io.StringWriter;
+
 public class Security {
 
     protected boolean basicAuthCheck(String encodedUserPassword) {
@@ -59,5 +64,4 @@ public class Security {
         }
 
     }
-
 }

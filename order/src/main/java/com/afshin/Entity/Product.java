@@ -151,6 +151,7 @@ public class Product {
                 //"\n, productline=" + productline +
                 '}';
     }
+    @Transient
     public Set<String> getfilters(){
         Set<String> hash_Set = new HashSet<String>();
         hash_Set.add("productCode");hash_Set.add("productName");hash_Set.add("productLine");

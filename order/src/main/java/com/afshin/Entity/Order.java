@@ -125,6 +125,7 @@ public class Order {
                 //", orderdetails=" + orderdetails +
                 '}';
     }
+    @Transient
     public Set<String> getfilters(){
         Set<String> hash_Set = new HashSet<String>();
         hash_Set.add("orderNumber");hash_Set.add("orderDate");hash_Set.add("requiredDate");

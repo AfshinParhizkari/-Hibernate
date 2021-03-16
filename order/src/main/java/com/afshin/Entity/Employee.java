@@ -189,6 +189,7 @@ public class Employee {
 //                "\n, manager=" + manager +
                 '}';
     }
+    @Transient
     public Set<String> getfilters(){
         Set<String> hash_Set = new HashSet<String>();
         hash_Set.add("employeeNumber");hash_Set.add("lastName");hash_Set.add("firstName");

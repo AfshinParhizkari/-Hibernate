@@ -97,7 +97,7 @@ public class Payment {
                 ", customer=" + customer +
                 '}';
     }
-
+    @Transient
     public Set<String> getfilters(){
         Set<String> hash_Set = new HashSet<String>();
         hash_Set.add("customerNumber");hash_Set.add("checkNumber");
