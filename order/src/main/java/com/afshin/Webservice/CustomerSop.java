@@ -17,6 +17,8 @@ import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -42,11 +44,27 @@ public class CustomerSop {
     </Body>
 </Envelope>
  */
-/*    @WebMethod
-    @WebResult(name="CustomerList")
-    public List<Customer> all() {
+    @WebMethod
+    @WebResult(name="Customers")
+    public Customer[] all() {
         List<Customer> customerList = dao.findall();
-        Log4j.logger.info("{}.{}|Try: Send record to Soap", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
-        return customerList;
-    }*/
+        Customer[] itemsArray = new Customer[customerList.size()];
+        Log4j.logger.info("{}.{}|Try: Send records to Soap", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
+        return customerList.toArray(itemsArray);
+    }
+/*
+<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
+    <Body>
+        <all xmlns="http://Webservice.afshin.com/"/>
+    </Body>
+</Envelope>
+ */
+    @WebMethod
+    @WebResult(name="ReturnStatus")
+    public Integer Delete(@WebParam(name="customerNumber") Integer Custnum) {
+       Integer returnStatus = dao.delete(dao.findbyid(Custnum));
+        Log4j.logger.info("{}.{}|Try: Delete record", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
+        return 1;
+    }
+
 }
