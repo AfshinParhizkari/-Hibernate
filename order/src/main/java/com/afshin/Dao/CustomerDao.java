@@ -68,20 +68,21 @@ public class CustomerDao {
     }
     public Integer update(Customer customer){
         try{
+            Customer customerUpdate=findbyid(customer.getCustomerNumber());
             entityManager.getTransaction().begin();
-            customer.setCustomerName(customer.getCustomerName());
-            customer.setContactLastName(customer.getContactLastName());
-            customer.setContactFirstName(customer.getContactFirstName());
-            customer.setContactLastName(customer.getContactLastName());
-            customer.setPhone(customer.getPhone());
-            customer.setAddressLine1(customer.getAddressLine1());
-            customer.setAddressLine2(customer.getAddressLine2());
-            customer.setCity(customer.getCity());
-            customer.setState(customer.getState());
-            customer.setPostalCode(customer.getPostalCode());
-            customer.setCountry(customer.getCountry());
-            customer.setSalesRepEmployeeNumber(customer.getSalesRepEmployeeNumber());
-            customer.setCreditLimit(customer.getCreditLimit());
+            customerUpdate.setCustomerName(customer.getCustomerName());
+            customerUpdate.setContactLastName(customer.getContactLastName());
+            customerUpdate.setContactFirstName(customer.getContactFirstName());
+            customerUpdate.setContactLastName(customer.getContactLastName());
+            customerUpdate.setPhone(customer.getPhone());
+            customerUpdate.setAddressLine1(customer.getAddressLine1());
+            customerUpdate.setAddressLine2(customer.getAddressLine2());
+            customerUpdate.setCity(customer.getCity());
+            customerUpdate.setState(customer.getState());
+            customerUpdate.setPostalCode(customer.getPostalCode());
+            customerUpdate.setCountry(customer.getCountry());
+            customerUpdate.setSalesRepEmployeeNumber(customer.getSalesRepEmployeeNumber());
+            customerUpdate.setCreditLimit(customer.getCreditLimit());
             entityManager.getTransaction().commit();
             Logback.logger.info("{}.{}|Try: Updated",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
             return customer.getCustomerNumber();

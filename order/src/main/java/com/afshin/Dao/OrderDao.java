@@ -101,7 +101,7 @@ public class OrderDao {
             return -1;
         }
     }
-    public Integer update(com.afshin.Entity.Order order){
+    public Integer update(Order order){
         try{
             Order orderupdate=findById(order.getOrderNumber());
             entityManager.getTransaction().begin();

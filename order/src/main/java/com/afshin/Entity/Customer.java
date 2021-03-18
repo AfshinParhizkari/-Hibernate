@@ -30,7 +30,7 @@ import java.util.Set;
         )
 })
 @JsonFilter("CustomerFilter")
-@XmlRootElement
+@XmlRootElement(name = "Customer")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Customer {
     public Customer() {

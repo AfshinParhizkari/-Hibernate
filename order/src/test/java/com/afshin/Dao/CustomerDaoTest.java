@@ -61,7 +61,7 @@ public class CustomerDaoTest {
         c.setContactFirstName("Helman");
         c.setPhone("+989032430637");
         c.setAddressLine1("Iran Tehran 1");
-        c.setAddressLine2(" Allay and Paque");
+        c.setAddressLine2(" c");
         c.setCity("Tehran");
         c.setState("Th");
         c.setPostalCode("123456789");

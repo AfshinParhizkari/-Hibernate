@@ -62,9 +62,10 @@ public class LoginRst {
             Logback.logger.info("{}.{}|Try: Return Token to Invoker",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName());
             return Response.status(Response.Status.OK).header(HttpHeaders.AUTHORIZATION, "Bearer " + jwtToken).build();
         }catch (Exception e) {
-            Logback.logger.error("{}.{}|Exception:{}",this.getClass().getSimpleName(),Thread.currentThread().getStackTrace()[1].getMethodName(),e.getMessage());
+            String UUID= java.util.UUID.randomUUID().toString();
+            Logback.logger.error("{}.{}|Exception:UUID-{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
-            return Response.status(Response.Status.UNAUTHORIZED).entity(e.getMessage()).build();
+            return Response.status(Response.Status.EXPECTATION_FAILED).entity("Your Trace number is"+UUID+e.toString()).build();
         }
     }
 }
