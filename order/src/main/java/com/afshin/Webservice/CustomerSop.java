@@ -19,15 +19,14 @@ import com.afshin.General.Logback;
 import com.afshin.Dao.CustomerDao;
 import com.afshin.Entity.Customer;
 
-@WebService
+@WebService(name = "CustomerInt",serviceName = "CustomerSrv")
 @SOAPBinding(style=SOAPBinding.Style.RPC)
 public class CustomerSop {
     CustomerDao dao=new CustomerDao();
-    Security sec=new Security();
 
     @WebMethod
     @WebResult(name="Customer")
-    public Customer find(@WebParam(name="customerNumber") Integer Custnum) {
+    public Customer find(@WebParam(name="customerNumber")  Integer Custnum) {
         try {
             Customer customer = dao.findbyid(Custnum);
             Log4j.logger.info("{}.{}|Try: Send record to Soap", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
