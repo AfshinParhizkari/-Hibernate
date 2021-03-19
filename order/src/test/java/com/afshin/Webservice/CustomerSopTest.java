@@ -7,6 +7,13 @@ package com.afshin.Webservice;
  * Created by   IntelliJ IDEA
  * Email:       Afshin.Parhizkari@gmail.com
  * Description:
+                1. Add @XmlRootElement,@XmlAccessorType annotation to Entity for mapping obj to XML and vice versa
+                2. Develop Soap service
+                3. Test service via Postman
+                4. Build Project and Deploy it via Tomee
+                5. Add codehaus.mojo library in POM Plugin
+                3. Create(wsimport) Stub by Maven build
+                4. Develop client side(test)
  */
 import com.afshin.Webservice.stub.customer.Customer;
 import com.afshin.Webservice.stub.customer.CustomerArray;
