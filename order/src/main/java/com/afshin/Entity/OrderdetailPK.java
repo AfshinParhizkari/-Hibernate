@@ -8,14 +8,16 @@ package com.afshin.Entity;
  * Email:       Afshin.Parhizkari@gmail.com
  * Description:
  */
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.Objects;
-
+@XmlRootElement(name = "OrderdetailPKXML")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class OrderdetailPK implements Serializable {
 
-    public OrderdetailPK() {
-    }
-
+    public OrderdetailPK() {    }
     public OrderdetailPK(Integer orderNumber, String productCode) {
         this.orderNumber = orderNumber;
         this.productCode = productCode;

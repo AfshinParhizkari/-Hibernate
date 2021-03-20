@@ -12,6 +12,7 @@ package com.afshin.Entity;
 import com.fasterxml.jackson.annotation.JsonFilter;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.*;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,6 +21,8 @@ import java.util.Set;
 @Table(name = "orderdetails")
 @JsonFilter("OrderdetailFilter")
 @IdClass(OrderdetailPK.class)
+@XmlRootElement(name = "OrderdetailXML")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Orderdetail {
     public Orderdetail() {}
 
@@ -42,10 +45,12 @@ public class Orderdetail {
 
     @ManyToOne
     @JoinColumn(name = "orderNumber",referencedColumnName = "orderNumber",insertable = false,updatable = false)
+    @XmlTransient
     private Order order;
 
     @ManyToOne
     @JoinColumn(name = "productCode",referencedColumnName = "productCode",insertable = false,updatable = false)
+    @XmlTransient
     private Product product;
 
     public Integer getOrderNumber() {
