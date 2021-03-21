@@ -26,24 +26,41 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
-@WebServiceClient(name = "CustomerSopService",
+@WebServiceClient(name = "CustomerSrvClient",
         wsdlLocation = "http://localhost:8080/order/soap/customer")
 public class CustomerSopTest {
     final String soapServicePath="http://localhost:8080/order/soap/customer";
+    URL url = new URL(soapServicePath);
+    CustomerSrv CSrv = new CustomerSrv(url);
+    CustomerInt CInt = CSrv.getCustomerIntPort();
     Integer objID=497;
+
+    public CustomerSopTest() throws MalformedURLException {}
+    public String toString(Customer customer) {
+        return "Customer{" +
+                "customerNumber=" + customer.getCustomerNumber() +
+                ", customerName='" + customer.getCustomerName() + '\'' +
+                ", contactLastName='" + customer.getContactLastName() + '\'' +
+                ", contactFirstName='" + customer.getContactFirstName() + '\'' +
+                ", phone='" + customer.getPhone() + '\'' +
+                ", addressLine1='" + customer.getAddressLine1() + '\'' +
+                ", addressLine2='" + customer.getAddressLine2() + '\'' +
+                ", city='" + customer.getCity() + '\'' +
+                ", state='" + customer.getState() + '\'' +
+                ", postalCode='" + customer.getPostalCode() + '\'' +
+                ", country='" + customer.getCountry() + '\'' +
+                ", salesRepEmployeeNumber=" + customer.getSalesRepEmployeeNumber() +
+                ", creditLimit=" + customer.getCreditLimit() +
+                '}';
+    }
+
     @Test
     public void findTest() throws MalformedURLException {
-        URL url = new URL(soapServicePath);
-        CustomerSrv CService = new CustomerSrv(url);
-        CustomerInt CInt = CService.getCustomerIntPort();
         Customer customer= CInt.find(objID);
         System.out.println(toString(customer));
     }
     @Test
     public void allTest() throws MalformedURLException {
-        URL url = new URL(soapServicePath);
-        CustomerSrv CService = new CustomerSrv(url);
-        CustomerInt CInt = CService.getCustomerIntPort();
         CustomerArray customers= CInt.all();
         List<Customer> customerList=customers.getItem();
         for(Customer customer:customerList)
@@ -51,17 +68,11 @@ public class CustomerSopTest {
     }
     @Test
     public void deleteTest() throws MalformedURLException {
-        URL url = new URL(soapServicePath);
-        CustomerSrv CService = new CustomerSrv(url);
-        CustomerInt CInt = CService.getCustomerIntPort();
         String returnStatus = CInt.delete(objID);
         System.out.println(returnStatus);
     }
     @Test
     public void insertTest() throws MalformedURLException {
-        URL url = new URL(soapServicePath);
-        CustomerSrv CService = new CustomerSrv(url);
-        CustomerInt CInt = CService.getCustomerIntPort();
         Customer c=new Customer();
         c.setCustomerNumber(objID);
         c.setCustomerName("Afshin Parhizkari");
@@ -83,9 +94,6 @@ public class CustomerSopTest {
     }
     @Test
     public void updateTest() throws MalformedURLException {
-        URL url = new URL(soapServicePath);
-        CustomerSrv CService = new CustomerSrv(url);
-        CustomerInt CInt = CService.getCustomerIntPort();
         Customer c=new Customer();
         c.setCustomerNumber(objID);
         c.setCustomerName("Helman Kitty");
@@ -103,22 +111,5 @@ public class CustomerSopTest {
         String returnStatus = CInt.update(c);
         System.out.println(returnStatus);
         System.out.println(toString(CInt.find(objID)));
-    }
-    public String toString(Customer customer) {
-        return "Customer{" +
-                "customerNumber=" + customer.getCustomerNumber() +
-                ", customerName='" + customer.getCustomerName() + '\'' +
-                ", contactLastName='" + customer.getContactLastName() + '\'' +
-                ", contactFirstName='" + customer.getContactFirstName() + '\'' +
-                ", phone='" + customer.getPhone() + '\'' +
-                ", addressLine1='" + customer.getAddressLine1() + '\'' +
-                ", addressLine2='" + customer.getAddressLine2() + '\'' +
-                ", city='" + customer.getCity() + '\'' +
-                ", state='" + customer.getState() + '\'' +
-                ", postalCode='" + customer.getPostalCode() + '\'' +
-                ", country='" + customer.getCountry() + '\'' +
-                ", salesRepEmployeeNumber=" + customer.getSalesRepEmployeeNumber() +
-                ", creditLimit=" + customer.getCreditLimit() +
-                '}';
     }
 }

@@ -1,19 +1,4 @@
 package com.afshin.Webservice;
-
-import com.afshin.Dao.OrderdetailsDao;
-import com.afshin.Entity.Customer;
-import com.afshin.Entity.Orderdetail;
-import com.afshin.Entity.OrderdetailPK;
-import com.afshin.General.Log4j;
-import com.afshin.General.Logback;
-
-import javax.jws.WebMethod;
-import javax.jws.WebParam;
-import javax.jws.WebResult;
-import javax.jws.WebService;
-import javax.jws.soap.SOAPBinding;
-import java.util.List;
-
 /**
  * @Project order
  * @Author Afshin Parhizkari
@@ -21,8 +6,20 @@ import java.util.List;
  * @Time 2:16 PM
  * Created by   IntelliJ IDEA
  * Email:       Afshin.Parhizkari@gmail.com
- * Description:
+ * Description: http://localhost:8080/order/soap/orderdetail?
  */
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
+import javax.jws.WebResult;
+import javax.jws.WebService;
+import javax.jws.soap.SOAPBinding;
+import java.util.List;
+import com.afshin.General.Log4j;
+import com.afshin.General.Logback;
+import com.afshin.Dao.OrderdetailsDao;
+import com.afshin.Entity.Orderdetail;
+import com.afshin.Entity.OrderdetailPK;
+
 @WebService(name = "OrderdetailInt",serviceName = "OrderdetailSrv")
 @SOAPBinding(style=SOAPBinding.Style.RPC)
 public class OrderdetailSop {
