@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
+import jakarta.ws.rs.Priorities;
 import jakarta.ws.rs.client.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -22,7 +23,7 @@ import java.util.List;
 import com.afshin.Entity.User;
 
 public class UserRstTest {
-    final String restServicePath="http://localhost:8080/order/rest/user";
+    String restServicePath="http://localhost:8080/order/rest/user";
     String objID="5";
     @Test
     public void all() throws Exception {

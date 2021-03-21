@@ -13,21 +13,35 @@ import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
+import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.handler.MessageContext;
 import java.util.List;
+import java.util.Map;
+
 import com.afshin.General.Log4j;
 import com.afshin.General.Logback;
 import com.afshin.Dao.OrderdetailsDao;
 import com.afshin.Entity.Orderdetail;
 import com.afshin.Entity.OrderdetailPK;
+import javax.annotation.Resource;
 
 @WebService(name = "OrderdetailInt",serviceName = "OrderdetailSrv")
 @SOAPBinding(style=SOAPBinding.Style.RPC)
 public class OrderdetailSop {
     OrderdetailsDao dao=new OrderdetailsDao();
+    Security sec=new Security();
+
+    @Resource
+    WebServiceContext wsctx;
 
     @WebMethod
     @WebResult(name = "Orderdetail")
     public Orderdetail find(@WebParam(name = "OrderNumber") Integer orderNum, @WebParam(name = "ProductCode") String ProductCod){
+        Map http_headers = (Map) wsctx.getMessageContext().get(MessageContext.HTTP_REQUEST_HEADERS);
+        String encodUsrPwd=http_headers.get("Authorization").toString().replaceFirst("Basic ","")
+                .replaceFirst("\\[","").replace("]","");
+        if(!sec.basicAuthCheck(encodUsrPwd)) return null;
+
         try {
             Orderdetail orderdetail=dao.findbyid(new OrderdetailPK(orderNum,ProductCod));
             Log4j.logger.info("{}.{}|Try: Send record to Soap", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
@@ -49,6 +63,11 @@ public class OrderdetailSop {
     @WebMethod
     @WebResult(name = "OrderdetailList")
     public Orderdetail[] all() {
+        Map http_headers = (Map) wsctx.getMessageContext().get(MessageContext.HTTP_REQUEST_HEADERS);
+        String encodUsrPwd=http_headers.get("Authorization").toString().replaceFirst("Basic ","")
+                .replaceFirst("\\[","").replace("]","");
+        if(!sec.basicAuthCheck(encodUsrPwd)) return null;
+
         try {
             List<Orderdetail> orderdetails = dao.findall();
             Orderdetail[] itemsArray = new Orderdetail[orderdetails.size()];
@@ -68,6 +87,11 @@ public class OrderdetailSop {
     @WebMethod
     @WebResult(name = "returnStatus")
     public String delete(@WebParam(name = "OrderNumber") Integer orderNum, @WebParam(name = "ProductCode") String ProductCod){
+        Map http_headers = (Map) wsctx.getMessageContext().get(MessageContext.HTTP_REQUEST_HEADERS);
+        String encodUsrPwd=http_headers.get("Authorization").toString().replaceFirst("Basic ","")
+                .replaceFirst("\\[","").replace("]","");
+        if(!sec.basicAuthCheck(encodUsrPwd)) return null;
+
         try {
             Orderdetail orderdetail=dao.findbyid(new OrderdetailPK(orderNum,ProductCod));
             Integer returnStatus = dao.delete(orderdetail);
@@ -93,6 +117,11 @@ public class OrderdetailSop {
     @WebMethod
     @WebResult(name="OrderdetailPK")
     public OrderdetailPK insert(@WebParam(name="Orderdetail") Orderdetail orderdetail) {
+        Map http_headers = (Map) wsctx.getMessageContext().get(MessageContext.HTTP_REQUEST_HEADERS);
+        String encodUsrPwd=http_headers.get("Authorization").toString().replaceFirst("Basic ","")
+                .replaceFirst("\\[","").replace("]","");
+        if(!sec.basicAuthCheck(encodUsrPwd)) return null;
+
         try{
             OrderdetailPK orderdetailPK = dao.insert(orderdetail);
             Log4j.logger.info("{}.{}|Try: record is inserted", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
@@ -121,6 +150,11 @@ public class OrderdetailSop {
     @WebMethod
     @WebResult(name="OrderdetailPK")
     public OrderdetailPK update(@WebParam(name="Orderdetail") Orderdetail orderdetail) {
+        Map http_headers = (Map) wsctx.getMessageContext().get(MessageContext.HTTP_REQUEST_HEADERS);
+        String encodUsrPwd=http_headers.get("Authorization").toString().replaceFirst("Basic ","")
+                .replaceFirst("\\[","").replace("]","");
+        if(!sec.basicAuthCheck(encodUsrPwd)) return null;
+
         try{
             OrderdetailPK orderdetailPK = dao.update(orderdetail);
             Log4j.logger.info("{}.{}|Try: record is updated", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());

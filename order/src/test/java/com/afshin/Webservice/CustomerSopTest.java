@@ -6,7 +6,7 @@ package com.afshin.Webservice;
  * @Time 4:29 AM
  * Created by   IntelliJ IDEA
  * Email:       Afshin.Parhizkari@gmail.com
- * Description:
+ * Description:  without any authentication
                 1. Add @XmlRootElement,@XmlAccessorType annotation to Entity for mapping obj to XML and vice versa
                 2. Develop Soap service
                 3. Test service via Postman
@@ -29,7 +29,7 @@ import java.util.List;
 @WebServiceClient(name = "CustomerSrvClient",
         wsdlLocation = "http://localhost:8080/order/soap/customer")
 public class CustomerSopTest {
-    final String soapServicePath="http://localhost:8080/order/soap/customer";
+    String soapServicePath="http://localhost:8080/order/soap/customer";
     URL url = new URL(soapServicePath);
     CustomerSrv CSrv = new CustomerSrv(url);
     CustomerInt CInt = CSrv.getCustomerIntPort();

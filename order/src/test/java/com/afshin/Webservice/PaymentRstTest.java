@@ -26,7 +26,7 @@ import java.util.List;
 import com.afshin.Entity.Payment;
 
 public class PaymentRstTest {
-    final String restServicePath = "http://localhost:8080/order/rest/payment";
+    String restServicePath = "http://localhost:8080/order/rest/payment";
     String objID1 = "496";
     String objID2 = "FN155234";
 

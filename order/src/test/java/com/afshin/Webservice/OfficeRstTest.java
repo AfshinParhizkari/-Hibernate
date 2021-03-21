@@ -23,7 +23,7 @@ import java.util.List;
 import com.afshin.Entity.Office;
 
 public class OfficeRstTest {
-    final String restServicePath="http://localhost:8080/order/rest/office";
+    String restServicePath="http://localhost:8080/order/rest/office";
     String objID="8";
     @Test
     public void all() throws Exception {

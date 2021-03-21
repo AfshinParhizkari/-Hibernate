@@ -26,7 +26,7 @@ import com.afshin.Entity.Product;
 
 
 public class ProductRstTest {
-    final String restServicePath = "http://localhost:8080/order/rest/product";
+    String restServicePath = "http://localhost:8080/order/rest/product";
     String objID1 = "S72_3213";
     @Test
     public void find() throws IOException {

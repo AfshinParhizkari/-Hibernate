@@ -19,7 +19,7 @@ import java.nio.file.Paths;
  * Description:
  */
 public class SecurityTest {
-    final static String restServicePath = "http://localhost:8080/order/rest/login";
+    static String restServicePath = "http://localhost:8080/order/rest/login";
 
     protected static String getToken(Client client,String usr,String pass) {
         try {
