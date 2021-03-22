@@ -55,8 +55,10 @@ public class Dashboard extends HttpServlet {
                 req.getRequestDispatcher("/index.jsp").forward(req, resp);
             }
         } catch (Exception e) {
-            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            String UUID= java.util.UUID.randomUUID().toString();
+            Logback.logger.error("{}.{}|UUID:{} - Exception: {}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(),UUID, e.getMessage());
             e.printStackTrace();
+            req.setAttribute("ErrorKey", UUID);
             req.getRequestDispatcher("/WEB-INF/views/error.jsp").forward(req, resp);
         }
     }
@@ -68,8 +70,10 @@ public class Dashboard extends HttpServlet {
             req.getRequestDispatcher("/WEB-INF/views/" + entity + ".jsp").forward(req, resp);
             //req.getRequestDispatcher("WEB-INF/views/EmployeeMerge.jsp").forward(req,resp);
         } catch (Exception e) {
-            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            String UUID= java.util.UUID.randomUUID().toString();
+            Logback.logger.error("{}.{}|UUID:{} - Exception: {}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(),UUID, e.getMessage());
             e.printStackTrace();
+            req.setAttribute("ErrorKey", UUID);
             req.getRequestDispatcher("/WEB-INF/views/error.jsp").forward(req, resp);
         }
     }

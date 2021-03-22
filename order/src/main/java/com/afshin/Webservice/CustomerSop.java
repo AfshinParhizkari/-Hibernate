@@ -76,7 +76,7 @@ public class CustomerSop {
             return returnStatus.toString();
         } catch (Exception e) {
             String UUID= java.util.UUID.randomUUID().toString();
-            Logback.logger.error("{}.{}|Exception:UUID-{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            Logback.logger.error("{}.{}|UUID:{} - Exception: {}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(),UUID, e.getMessage());
             e.printStackTrace();
             return "Your Trace number is"+UUID+e.toString();
         }
@@ -91,7 +91,7 @@ public class CustomerSop {
         return  returnStatus.toString();
         } catch (Exception e) {
             String UUID= java.util.UUID.randomUUID().toString();
-            Logback.logger.error("{}.{}|Exception:UUID-{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            Logback.logger.error("{}.{}|UUID:{} - Exception: {}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(),UUID, e.getMessage());
             e.printStackTrace();
             return "Your Trace number is"+UUID+e.toString();
         }
@@ -128,13 +128,14 @@ public class CustomerSop {
             return returnStatus.toString();
         } catch (Exception e) {
             String UUID = java.util.UUID.randomUUID().toString();
-            Logback.logger.error("{}.{}|Exception:UUID-{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            Logback.logger.error("{}.{}|UUID:{} - Exception: {}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(),UUID, e.getMessage());
             e.printStackTrace();
             return "Your Trace number is" + UUID + e.toString();
         }
     }
 /*
-    <Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
+    <Envelope xmlns="http://schemas.xm            Logback.logger.error("{}.{}|Exception:UUID-{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+lsoap.org/soap/envelope/">
     <Body>
         <update xmlns="http://Webservice.afshin.com/">
         	<customer xmlns="">

@@ -36,14 +36,14 @@ public class OrderdetailSop {
 
     @WebMethod
     @WebResult(name = "Orderdetail")
-    public Orderdetail find(@WebParam(name = "OrderNumber") Integer orderNum, @WebParam(name = "ProductCode") String ProductCod){
-        Map http_headers = (Map) wsctx.getMessageContext().get(MessageContext.HTTP_REQUEST_HEADERS);
-        String encodUsrPwd=http_headers.get("Authorization").toString().replaceFirst("Basic ","")
-                .replaceFirst("\\[","").replace("]","");
-        if(!sec.basicAuthCheck(encodUsrPwd)) return null;
-
+    public Orderdetail find(@WebParam(name = "OrderNumber") Integer orderNum, @WebParam(name = "ProductCode") String ProductCod) {
         try {
-            Orderdetail orderdetail=dao.findbyid(new OrderdetailPK(orderNum,ProductCod));
+            Map http_headers = (Map) wsctx.getMessageContext().get(MessageContext.HTTP_REQUEST_HEADERS);
+            String encodUsrPwd = http_headers.get("Authorization").toString().replaceFirst("Basic ", "")
+                    .replaceFirst("\\[", "").replace("]", "");
+            if (!sec.basicAuthCheck(encodUsrPwd)) return null;
+
+            Orderdetail orderdetail = dao.findbyid(new OrderdetailPK(orderNum, ProductCod));
             Log4j.logger.info("{}.{}|Try: Send record to Soap", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
             return orderdetail;
         } catch (Exception e) {
@@ -63,12 +63,12 @@ public class OrderdetailSop {
     @WebMethod
     @WebResult(name = "OrderdetailList")
     public Orderdetail[] all() {
-        Map http_headers = (Map) wsctx.getMessageContext().get(MessageContext.HTTP_REQUEST_HEADERS);
-        String encodUsrPwd=http_headers.get("Authorization").toString().replaceFirst("Basic ","")
-                .replaceFirst("\\[","").replace("]","");
-        if(!sec.basicAuthCheck(encodUsrPwd)) return null;
-
         try {
+            Map http_headers = (Map) wsctx.getMessageContext().get(MessageContext.HTTP_REQUEST_HEADERS);
+            String encodUsrPwd = http_headers.get("Authorization").toString().replaceFirst("Basic ", "")
+                    .replaceFirst("\\[", "").replace("]", "");
+            if (!sec.basicAuthCheck(encodUsrPwd)) return null;
+
             List<Orderdetail> orderdetails = dao.findall();
             Orderdetail[] itemsArray = new Orderdetail[orderdetails.size()];
             Log4j.logger.info("{}.{}|Try: Send records to Soap", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
@@ -86,22 +86,22 @@ public class OrderdetailSop {
 </Envelope>*/
     @WebMethod
     @WebResult(name = "returnStatus")
-    public String delete(@WebParam(name = "OrderNumber") Integer orderNum, @WebParam(name = "ProductCode") String ProductCod){
-        Map http_headers = (Map) wsctx.getMessageContext().get(MessageContext.HTTP_REQUEST_HEADERS);
-        String encodUsrPwd=http_headers.get("Authorization").toString().replaceFirst("Basic ","")
-                .replaceFirst("\\[","").replace("]","");
-        if(!sec.basicAuthCheck(encodUsrPwd)) return null;
-
+    public String delete(@WebParam(name = "OrderNumber") Integer orderNum, @WebParam(name = "ProductCode") String ProductCod) {
         try {
-            Orderdetail orderdetail=dao.findbyid(new OrderdetailPK(orderNum,ProductCod));
+            Map http_headers = (Map) wsctx.getMessageContext().get(MessageContext.HTTP_REQUEST_HEADERS);
+            String encodUsrPwd = http_headers.get("Authorization").toString().replaceFirst("Basic ", "")
+                    .replaceFirst("\\[", "").replace("]", "");
+            if (!sec.basicAuthCheck(encodUsrPwd)) return null;
+
+            Orderdetail orderdetail = dao.findbyid(new OrderdetailPK(orderNum, ProductCod));
             Integer returnStatus = dao.delete(orderdetail);
             Log4j.logger.info("{}.{}|Try: record is deleted", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
             return returnStatus.toString();
         } catch (Exception e) {
-            String UUID= java.util.UUID.randomUUID().toString();
-            Logback.logger.error("{}.{}|Exception:UUID-{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            String UUID = java.util.UUID.randomUUID().toString();
+            Logback.logger.error("{}.{}|UUID:{} - Exception: {}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(),UUID, e.getMessage());
             e.printStackTrace();
-            return "Your Trace number is"+UUID+e.toString();
+            return "Your Trace number is" + UUID + e.toString();
         }
     }
 /*
@@ -117,15 +117,15 @@ public class OrderdetailSop {
     @WebMethod
     @WebResult(name="OrderdetailPK")
     public OrderdetailPK insert(@WebParam(name="Orderdetail") Orderdetail orderdetail) {
-        Map http_headers = (Map) wsctx.getMessageContext().get(MessageContext.HTTP_REQUEST_HEADERS);
-        String encodUsrPwd=http_headers.get("Authorization").toString().replaceFirst("Basic ","")
-                .replaceFirst("\\[","").replace("]","");
-        if(!sec.basicAuthCheck(encodUsrPwd)) return null;
+        try {
+            Map http_headers = (Map) wsctx.getMessageContext().get(MessageContext.HTTP_REQUEST_HEADERS);
+            String encodUsrPwd = http_headers.get("Authorization").toString().replaceFirst("Basic ", "")
+                    .replaceFirst("\\[", "").replace("]", "");
+            if (!sec.basicAuthCheck(encodUsrPwd)) return null;
 
-        try{
             OrderdetailPK orderdetailPK = dao.insert(orderdetail);
             Log4j.logger.info("{}.{}|Try: record is inserted", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
-            return  orderdetailPK;
+            return orderdetailPK;
         } catch (Exception e) {
             Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
@@ -150,15 +150,15 @@ public class OrderdetailSop {
     @WebMethod
     @WebResult(name="OrderdetailPK")
     public OrderdetailPK update(@WebParam(name="Orderdetail") Orderdetail orderdetail) {
-        Map http_headers = (Map) wsctx.getMessageContext().get(MessageContext.HTTP_REQUEST_HEADERS);
-        String encodUsrPwd=http_headers.get("Authorization").toString().replaceFirst("Basic ","")
-                .replaceFirst("\\[","").replace("]","");
-        if(!sec.basicAuthCheck(encodUsrPwd)) return null;
+        try {
+            Map http_headers = (Map) wsctx.getMessageContext().get(MessageContext.HTTP_REQUEST_HEADERS);
+            String encodUsrPwd = http_headers.get("Authorization").toString().replaceFirst("Basic ", "")
+                    .replaceFirst("\\[", "").replace("]", "");
+            if (!sec.basicAuthCheck(encodUsrPwd)) return null;
 
-        try{
             OrderdetailPK orderdetailPK = dao.update(orderdetail);
             Log4j.logger.info("{}.{}|Try: record is updated", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
-            return  orderdetailPK;
+            return orderdetailPK;
         } catch (Exception e) {
             Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();

@@ -63,7 +63,7 @@ public class LoginRst {
             return Response.status(Response.Status.OK).header(HttpHeaders.AUTHORIZATION, "Bearer " + jwtToken).build();
         }catch (Exception e) {
             String UUID= java.util.UUID.randomUUID().toString();
-            Logback.logger.error("{}.{}|Exception:UUID-{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            Logback.logger.error("{}.{}|UUID:{} - Exception: {}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(),UUID, e.getMessage());
             e.printStackTrace();
             return Response.status(Response.Status.EXPECTATION_FAILED).entity("Your Trace number is"+UUID+e.toString()).build();
         }

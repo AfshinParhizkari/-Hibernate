@@ -46,7 +46,7 @@ public class PaymentRst {
             return Response.status(Response.Status.OK).entity(paymentJson).build();
         } catch (Exception e) {
             String UUID= java.util.UUID.randomUUID().toString();
-            Logback.logger.error("{}.{}|Exception:UUID-{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            Logback.logger.error("{}.{}|UUID:{} - Exception: {}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(),UUID, e.getMessage());
             e.printStackTrace();
             return Response.status(Response.Status.EXPECTATION_FAILED).entity("Your Trace number is"+UUID+e.toString()).build();
         }
@@ -68,7 +68,7 @@ public class PaymentRst {
             return Response.status(Response.Status.OK).entity(paymensJson).build();
         }catch (Exception e){
             String UUID= java.util.UUID.randomUUID().toString();
-            Logback.logger.error("{}.{}|Exception:UUID-{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            Logback.logger.error("{}.{}|UUID:{} - Exception: {}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(),UUID, e.getMessage());
             e.printStackTrace();
             return Response.status(Response.Status.EXPECTATION_FAILED).entity("Your Trace number is"+UUID+e.toString()).build();
         }
@@ -87,7 +87,7 @@ public class PaymentRst {
              return Response.status(Response.Status.OK).entity(returnStatus).build();
          }catch (Exception e){
              String UUID= java.util.UUID.randomUUID().toString();
-             Logback.logger.error("{}.{}|Exception:UUID-{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+             Logback.logger.error("{}.{}|UUID:{} - Exception: {}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(),UUID, e.getMessage());
              e.printStackTrace();
              return Response.status(Response.Status.EXPECTATION_FAILED).entity("Your Trace number is"+UUID+e.toString()).build();
          }
@@ -107,7 +107,7 @@ public class PaymentRst {
             return Response.status(Response.Status.OK).entity(returnStatus).build();
         }catch (Exception e){
             String UUID= java.util.UUID.randomUUID().toString();
-            Logback.logger.error("{}.{}|Exception:UUID-{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            Logback.logger.error("{}.{}|UUID:{} - Exception: {}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(),UUID, e.getMessage());
             e.printStackTrace();
             return Response.status(Response.Status.EXPECTATION_FAILED).entity("Your Trace number is"+UUID+e.toString()).build();
         }
@@ -127,7 +127,7 @@ public class PaymentRst {
             return Response.status(Response.Status.OK).entity(returnstatus).build();
         }catch (Exception e){
             String UUID= java.util.UUID.randomUUID().toString();
-            Logback.logger.error("{}.{}|Exception:UUID-{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            Logback.logger.error("{}.{}|UUID:{} - Exception: {}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(),UUID, e.getMessage());
             e.printStackTrace();
             return Response.status(Response.Status.EXPECTATION_FAILED).entity("Your Trace number is"+UUID+e.toString()).build();
         }
