@@ -87,9 +87,8 @@ public class ProductlineDaoTest {
 		pl.setTextDescription("just update order database model");
 		pl.setHtmlDescription("https://www.linkedin.com/in/afshin-parhizkari/");
 		try{pl.setImage(Files.readAllBytes(Paths.get(System.getProperty("user.dir"),"/src/main/webapp/statics/images/","b52changed.jpg")));}
-		catch (Exception e) {
-			System.out.println(e.toString());
-		}		productlineDao.update(pl);
+		catch (Exception e) {System.out.println(e.toString());}
+		productlineDao.update(pl);
 		System.out.println(productlineDao.findbyid("dbmodel"));
 	}
 	@Test

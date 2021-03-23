@@ -15,7 +15,6 @@ import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import java.util.List;
 import com.afshin.General.Log4j;
-import com.afshin.General.Logback;
 import com.afshin.Dao.CustomerDao;
 import com.afshin.Entity.Customer;
 
@@ -32,7 +31,7 @@ public class CustomerSop {
             Log4j.logger.info("{}.{}|Try: Send record to Soap", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
             return customer;
         } catch (Exception e) {
-            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            Log4j.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
             return null;
         }
@@ -55,7 +54,7 @@ public class CustomerSop {
             Log4j.logger.info("{}.{}|Try: Send records to Soap", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
             return customerList.toArray(itemsArray);
         } catch (Exception e) {
-            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            Log4j.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
             return null;
         }
@@ -76,7 +75,7 @@ public class CustomerSop {
             return returnStatus.toString();
         } catch (Exception e) {
             String UUID= java.util.UUID.randomUUID().toString();
-            Logback.logger.error("{}.{}|UUID:{} - Exception: {}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(),UUID, e.getMessage());
+            Log4j.logger.error("{}.{}|UUID:{} - Exception: {}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(),UUID, e.getMessage());
             e.printStackTrace();
             return "Your Trace number is"+UUID+e.toString();
         }
@@ -91,7 +90,7 @@ public class CustomerSop {
         return  returnStatus.toString();
         } catch (Exception e) {
             String UUID= java.util.UUID.randomUUID().toString();
-            Logback.logger.error("{}.{}|UUID:{} - Exception: {}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(),UUID, e.getMessage());
+            Log4j.logger.error("{}.{}|UUID:{} - Exception: {}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(),UUID, e.getMessage());
             e.printStackTrace();
             return "Your Trace number is"+UUID+e.toString();
         }
@@ -128,7 +127,7 @@ public class CustomerSop {
             return returnStatus.toString();
         } catch (Exception e) {
             String UUID = java.util.UUID.randomUUID().toString();
-            Logback.logger.error("{}.{}|UUID:{} - Exception: {}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(),UUID, e.getMessage());
+            Log4j.logger.error("{}.{}|UUID:{} - Exception: {}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(),UUID, e.getMessage());
             e.printStackTrace();
             return "Your Trace number is" + UUID + e.toString();
         }

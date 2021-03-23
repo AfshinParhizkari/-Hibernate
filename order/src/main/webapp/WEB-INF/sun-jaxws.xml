@@ -4,4 +4,5 @@
     <endpoint name="Customer" implementation="com.afshin.Webservice.CustomerSop" url-pattern="/soap/customer"/>
     <endpoint name="Orderdetail" implementation="com.afshin.Webservice.OrderdetailSop" url-pattern="/soap/orderdetail"/>
     <endpoint name="Order" implementation="com.afshin.Webservice.OrderSop" url-pattern="/soap/order"/>
+    <endpoint name="Productline" implementation="com.afshin.Webservice.ProductlineSop" url-pattern="/soap/productline"/>
 </endpoints>

@@ -257,6 +257,16 @@
                   <sourceDestDir>${basedir}/src/test/java</sourceDestDir>
                 </configuration>
               </execution>
+              <execution>
+                <id>Productline_wsdl</id>
+                <goals><goal>wsimport</goal></goals>
+                <configuration>
+                  <wsdlUrls><wsdlUrl>http://localhost:8080/order/soap/productline?wsdl</wsdlUrl></wsdlUrls>
+                  <keep>true</keep>
+                  <packageName>com.afshin.Webservice.stub.productline</packageName>
+                  <sourceDestDir>${basedir}/src/test/java</sourceDestDir>
+                </configuration>
+              </execution>
             </executions>
             <dependencies>
               <dependency>
