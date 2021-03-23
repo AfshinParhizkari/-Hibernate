@@ -41,8 +41,7 @@ public class PaymentRstTest {
         Response response = builder.header(HttpHeaders.AUTHORIZATION, token).get();
         // MAP JSON to List of Office
         ObjectMapper mapper = new ObjectMapper();
-        List<Payment> list = mapper.readValue(response.readEntity(String.class), new TypeReference<List<Payment>>() {
-        });
+        List<Payment> list = mapper.readValue(response.readEntity(String.class), new TypeReference<List<Payment>>() {});
         //System.out.println(response.readEntity(String.class));
         System.out.println(response.getStatusInfo() + "->" + response.getStatus());
         if (response.getStatus() == 200) for (Payment temp : list) System.out.println(temp);

@@ -1,0 +1,397 @@
+{
+	"info": {
+		"_postman_id": "5a5e6a95-90c9-4dc3-8d83-8dfdd25e73f8",
+		"name": "RESTful",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetToken",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/order/rest/login/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"rest",
+						"login",
+						"token"
+					]
+				},
+				"description": "GetToken"
+			},
+			"response": []
+		},
+		{
+			"name": "CheckToken",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6IjI1MTVmNGZmLTA3OWQtNGI5Ny1hYWY3LTM4NTBlOWM3ZDhjMiIsImlhdCI6MTYxNjQ4MzMwMywiZXhwIjoxNjE2NDgzOTAzLCJpc3MiOiJodHRwczovL2dpdGh1Yi5jb20vQWZzaGluUGFyaGl6a2FyaS9IaWJlcm5hdGUifQ.6geyZSsXoWksj--Ur9FQNSbnBnro4G02QNRaQleOVzUUqAUkbCtsXmf6yXXamyMQfByJXglZ0mt2fL91lPv8Ig",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/order/rest/login/check",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"rest",
+						"login",
+						"check"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Product/All",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImI4MzQxZTc3LTNjYzctNDkyMi05NjM0LTQ2MTJiMzRjNWM2MSIsImlhdCI6MTYxNTQyOTAxMywiZXhwIjoxNjE1NDI5NjEzLCJpc3MiOiJodHRwczovL2dpdGh1Yi5jb20vQWZzaGluUGFyaGl6a2FyaS9IaWJlcm5hdGUifQ.Z59TuRzwk71me7jJRsTjSmA2s3D9TeMWM-ivuZp_bQo4EKNAFhzHHh4rAEm6OKIOmRBPNQqLtajyv2sOaV9yMg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/order/rest/product/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"rest",
+						"product",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Office/All",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/order/rest/office/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"rest",
+						"office",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Employee/all",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6IjZiMDMxMzJlLWFhMTctNDYzOS1hY2E5LTc0NDc3Nzc5ZGU2MCIsImlhdCI6MTYxNjUxODIyNiwiZXhwIjoxNjE2NTE4ODI2LCJpc3MiOiJodHRwczovL2dpdGh1Yi5jb20vQWZzaGluUGFyaGl6a2FyaS9IaWJlcm5hdGUifQ.aPgJFmWlj4co3vTUJ-MTvAvojUYh3A0Kb6jWj0zRRXs7b7YYrcq2TSYJKuQgx6JpxckQGkCu6nCNrHKalpIXMA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/order/rest/employee/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"rest",
+						"employee",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Employee/find",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6IjZiMDMxMzJlLWFhMTctNDYzOS1hY2E5LTc0NDc3Nzc5ZGU2MCIsImlhdCI6MTYxNjUxODIyNiwiZXhwIjoxNjE2NTE4ODI2LCJpc3MiOiJodHRwczovL2dpdGh1Yi5jb20vQWZzaGluUGFyaGl6a2FyaS9IaWJlcm5hdGUifQ.aPgJFmWlj4co3vTUJ-MTvAvojUYh3A0Kb6jWj0zRRXs7b7YYrcq2TSYJKuQgx6JpxckQGkCu6nCNrHKalpIXMA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/order/rest/employee/find/1705",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"rest",
+						"employee",
+						"find",
+						"1705"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Employee/insert",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6IjVlNTlkYmM0LTUzZGEtNDhiYS1hOTllLTlhZjI2MWM4MWE5NyIsImlhdCI6MTYxNjUxODgzNSwiZXhwIjoxNjE2NTE5NDM1LCJpc3MiOiJodHRwczovL2dpdGh1Yi5jb20vQWZzaGluUGFyaGl6a2FyaS9IaWJlcm5hdGUifQ.QfdDL3IskromOReDAppUUdYLeSGoauYAVwzr5zWK1_JzPIRQts-ZUM14J4-gVstowTiI8m9b1cr5aSjZPfMEWA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\n            \"employeeNumber\": 1705,\n            \"lastName\": \"Parhizkari\",\n            \"firstName\": \"Afshin\",\n            \"extension\": \"x2542\",\n            \"email\": \"Afshin.Parhizkari@gmail.com\",\n            \"officeCode\": \"1\",\n            \"reportsTo\": 1002,\n            \"jobTitle\": \"Java Dev\"\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:8080/order/rest/employee/insert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"rest",
+						"employee",
+						"insert"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Employee/update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6IjVlNTlkYmM0LTUzZGEtNDhiYS1hOTllLTlhZjI2MWM4MWE5NyIsImlhdCI6MTYxNjUxODgzNSwiZXhwIjoxNjE2NTE5NDM1LCJpc3MiOiJodHRwczovL2dpdGh1Yi5jb20vQWZzaGluUGFyaGl6a2FyaS9IaWJlcm5hdGUifQ.QfdDL3IskromOReDAppUUdYLeSGoauYAVwzr5zWK1_JzPIRQts-ZUM14J4-gVstowTiI8m9b1cr5aSjZPfMEWA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\n            \"employeeNumber\": 1705,\n            \"lastName\": \"Maraghi\",\n            \"firstName\": \"Hadi\",\n            \"extension\": \"x2543\",\n            \"email\": \"Afshin.Parhizkari@unknown.com\",\n            \"officeCode\": \"7\",\n            \"reportsTo\": 1501,\n            \"jobTitle\": \"Python Dev\"\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:8080/order/rest/employee/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"rest",
+						"employee",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Employee/delete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6IjVlNTlkYmM0LTUzZGEtNDhiYS1hOTllLTlhZjI2MWM4MWE5NyIsImlhdCI6MTYxNjUxODgzNSwiZXhwIjoxNjE2NTE5NDM1LCJpc3MiOiJodHRwczovL2dpdGh1Yi5jb20vQWZzaGluUGFyaGl6a2FyaS9IaWJlcm5hdGUifQ.QfdDL3IskromOReDAppUUdYLeSGoauYAVwzr5zWK1_JzPIRQts-ZUM14J4-gVstowTiI8m9b1cr5aSjZPfMEWA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/order/rest/employee/delete/1705",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"rest",
+						"employee",
+						"delete",
+						"1705"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

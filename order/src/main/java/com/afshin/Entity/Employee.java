@@ -10,6 +10,7 @@ package com.afshin.Entity;
  */
 
 import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -194,7 +195,7 @@ public class Employee {
         Set<String> hash_Set = new HashSet<String>();
         hash_Set.add("employeeNumber");hash_Set.add("lastName");hash_Set.add("firstName");
         hash_Set.add("extension");hash_Set.add("email");hash_Set.add("officeCode");
-        hash_Set.add("reportsTo");hash_Set.add("PRIMARY");
+        hash_Set.add("reportsTo");hash_Set.add("jobTitle");
         return hash_Set;
     }
 }

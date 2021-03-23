@@ -1,0 +1,892 @@
+{
+	"info": {
+		"_postman_id": "fbc8bfd5-0d60-4b91-8e8a-2ffd70494726",
+		"name": "Soap",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "583af356-bfd5-4ef8-a87b-7a06a673ff91",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "text/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<Envelope xmlns=\"http://schemas.xmlsoap.org/soap/envelope/\">\n    <Body>\n        <Echo xmlns=\"http://Webservice.afshin.com/\">\n            <name>Afshin</name>\n        </Echo>\n    </Body>\n</Envelope>"
+				},
+				"url": {
+					"raw": "http://localhost:8080/order/soap/test",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"soap",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Customer/find",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "text/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<Envelope xmlns=\"http://schemas.xmlsoap.org/soap/envelope/\">\n    <Body>\n        <find xmlns=\"http://Webservice.afshin.com/\">\n            <customerNumber xmlns=\"\">103</customerNumber>\n        </find>\n    </Body>\n</Envelope>"
+				},
+				"url": {
+					"raw": "http://localhost:8080/order/soap/customer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"soap",
+						"customer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Customer/all",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "text/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<Envelope xmlns=\"http://schemas.xmlsoap.org/soap/envelope/\">\n    <Body>\n        <all xmlns=\"http://Webservice.afshin.com/\"/>\n    </Body>\n</Envelope>"
+				},
+				"url": {
+					"raw": "http://localhost:8080/order/soap/customer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"soap",
+						"customer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Customer/Insert",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "text/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    <Envelope xmlns=\"http://schemas.xmlsoap.org/soap/envelope/\">\n    <Body>\n        <insert xmlns=\"http://Webservice.afshin.com/\">\n        \t<customer xmlns=\"\">\n\t            <customerNumber xmlns=\"\">497</customerNumber>\n\t            <customerName xmlns=\"\">Helman Kitty</customerName>\n\t            <contactLastName xmlns=\"\">Parhizkari</contactLastName>\n\t            <contactFirstName xmlns=\"\">Afshin</contactFirstName>\n\t            <phone xmlns=\"\">+9030000000</phone>\n\t            <addressLine1 xmlns=\"\">Persian Qazvin 1</addressLine1>\n\t            <addressLine2 xmlns=\"\">Street and Building</addressLine2>\n\t            <city xmlns=\"\">Qazvin</city>\n\t            <state xmlns=\"\">Qa</state>\n\t            <postalCode xmlns=\"\">987654321</postalCode>\n\t            <country xmlns=\"\">Persian</country>\n\t            <salesRepEmployeeNumber xmlns=\"\">1188</salesRepEmployeeNumber>\n\t            <creditLimit xmlns=\"\">100000</creditLimit>\n\t        </customer>\n         </insert>\n    </Body>\n</Envelope>"
+				},
+				"url": {
+					"raw": "http://localhost:8080/order/soap/customer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"soap",
+						"customer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Customer/update",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "text/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    <Envelope xmlns=\"http://schemas.xmlsoap.org/soap/envelope/\">\n    <Body>\n        <update xmlns=\"http://Webservice.afshin.com/\">\n        \t<customer xmlns=\"\">\n\t            <customerNumber xmlns=\"\">497</customerNumber>\n\t            <customerName xmlns=\"\">Afshin Parhizkari</customerName>\n\t            <contactLastName xmlns=\"\">Kitty</contactLastName>\n\t            <contactFirstName xmlns=\"\">Helman</contactFirstName>\n\t            <phone xmlns=\"\">+989032430637</phone>\n\t            <addressLine1 xmlns=\"\">Iran Tehran 1</addressLine1>\n\t            <addressLine2 xmlns=\"\">Iran Tehran 1</addressLine2>\n\t            <city xmlns=\"\">Tehran</city>\n\t            <state xmlns=\"\">Th</state>\n\t            <postalCode xmlns=\"\">123456789</postalCode>\n\t            <country xmlns=\"\">Iran</country>\n\t            <salesRepEmployeeNumber xmlns=\"\">1612</salesRepEmployeeNumber>\n\t            <creditLimit xmlns=\"\">150000</creditLimit>\n\t        </customer>\n         </update>\n    </Body>\n</Envelope>"
+				},
+				"url": {
+					"raw": "http://localhost:8080/order/soap/customer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"soap",
+						"customer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Customer/delete",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "text/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<Envelope xmlns=\"http://schemas.xmlsoap.org/soap/envelope/\">\n    <Body>\n        <Delete xmlns=\"http://Webservice.afshin.com/\">\n            <customerNumber xmlns=\"\">497</customerNumber>\n        </Delete>\n    </Body>\n</Envelope>"
+				},
+				"url": {
+					"raw": "http://localhost:8080/order/soap/customer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"soap",
+						"customer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Orderdetail/find",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "123",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "text/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<Envelope xmlns=\"http://schemas.xmlsoap.org/soap/envelope/\">\n    <Body>\n        <find xmlns=\"http://Webservice.afshin.com/\">\n            <OrderNumber xmlns=\"\">10100</OrderNumber>\n            <ProductCode xmlns=\"\">S18_1749</ProductCode>\n        </find>\n    </Body>\n</Envelope>"
+				},
+				"url": {
+					"raw": "http://localhost:8080/order/soap/orderdetail",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"soap",
+						"orderdetail"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Orderdetail/all",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "text/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<Envelope xmlns=\"http://schemas.xmlsoap.org/soap/envelope/\">\n    <Body>\n        <all xmlns=\"http://Webservice.afshin.com/\"/>\n    </Body>\n</Envelope>"
+				},
+				"url": {
+					"raw": "http://localhost:8080/order/soap/orderdetail",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"soap",
+						"orderdetail"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Orderdetail/insert",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "text/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<Envelope xmlns=\"http://schemas.xmlsoap.org/soap/envelope/\">\n    <Body>\n        <insert xmlns=\"http://Webservice.afshin.com/\">\n            <Orderdetail  xmlns=\"\">\n\t            <orderNumber xmlns=\"\">10125</orderNumber>\n\t            <productCode xmlns=\"\">S24_2887</productCode>\n\t            <quantityOrdered xmlns=\"\">2</quantityOrdered>\n\t            <priceEach xmlns=\"\">137.01</priceEach>\n\t            <orderLineNumber xmlns=\"\">3</orderLineNumber>\n            </Orderdetail>\n        </insert>\n    </Body>\n</Envelope>"
+				},
+				"url": {
+					"raw": "http://localhost:8080/order/soap/orderdetail",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"soap",
+						"orderdetail"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Orderdetail/update",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "text/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<Envelope xmlns=\"http://schemas.xmlsoap.org/soap/envelope/\">\n    <Body>\n        <update xmlns=\"http://Webservice.afshin.com/\">\n            <Orderdetail  xmlns=\"\">\n\t            <orderNumber xmlns=\"\">10125</orderNumber>\n\t            <productCode xmlns=\"\">S24_2887</productCode>\n\t            <quantityOrdered xmlns=\"\">5</quantityOrdered>\n\t            <priceEach xmlns=\"\">120.05</priceEach>\n\t            <orderLineNumber xmlns=\"\">8</orderLineNumber>\n            </Orderdetail>\n        </update>\n    </Body>\n</Envelope>"
+				},
+				"url": {
+					"raw": "http://localhost:8080/order/soap/orderdetail",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"soap",
+						"orderdetail"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Orderdetail/delete",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "text/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<Envelope xmlns=\"http://schemas.xmlsoap.org/soap/envelope/\">\n    <Body>\n        <delete xmlns=\"http://Webservice.afshin.com/\">\n            <OrderNumber>10125</OrderNumber>\n            <ProductCode>S24_2887</ProductCode>\n        </delete>\n    </Body>\n</Envelope>"
+				},
+				"url": {
+					"raw": "http://localhost:8080/order/soap/orderdetail",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"soap",
+						"orderdetail"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Order/find",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6ImIzM2JiZjc2LWViYjUtNDFmYi05Y2VkLWE5OTBhMGQ5OGVlMSIsImlhdCI6MTYxNjQ3NjY0MiwiZXhwIjoxNjE2NDc3MjQyLCJpc3MiOiJodHRwczovL2dpdGh1Yi5jb20vQWZzaGluUGFyaGl6a2FyaS9IaWJlcm5hdGUifQ.xSkmg5HHmH2m59nDQDSi3di2SucUo7vpZbcBdZqVndlFC50pIkcZmedFVw5k8eJzsKk4LriIeG8ZQ-ym4kH8kw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "text/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<Envelope xmlns=\"http://schemas.xmlsoap.org/soap/envelope/\">\n    <Body>\n        <find xmlns=\"http://Webservice.afshin.com/\">\n            <orderNumber xmlns=\"\">10108</orderNumber>\n        </find>\n    </Body>\n</Envelope>"
+				},
+				"url": {
+					"raw": "http://localhost:8080/order/soap/order",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"soap",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Order/all",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "123",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "text/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<Envelope xmlns=\"http://schemas.xmlsoap.org/soap/envelope/\">\n    <Body>\n        <all xmlns=\"http://Webservice.afshin.com/\"/>\n    </Body>\n</Envelope>"
+				},
+				"url": {
+					"raw": "http://localhost:8080/order/soap/order",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"soap",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Order/delete",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "123",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "text/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<Envelope xmlns=\"http://schemas.xmlsoap.org/soap/envelope/\">\n    <Body>\n        <delete xmlns=\"http://Webservice.afshin.com/\">\n            <orderNumber xmlns=\"\">10426</orderNumber>\n        </delete>\n    </Body>\n</Envelope> "
+				},
+				"url": {
+					"raw": "http://localhost:8080/order/soap/order",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"soap",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Order/insert",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "123",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "text/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<Envelope xmlns=\"http://schemas.xmlsoap.org/soap/envelope/\">\n    <Body>\n        <insert xmlns=\"http://Webservice.afshin.com/\">\n            <Order xmlns=\"\">\n\t            <orderNumber xmlns=\"\">10426</orderNumber>\n\t            <orderDate xmlns=\"\">2020-10-15T23:28:56.782Z</orderDate>\n\t            <requiredDate xmlns=\"\">2021-11-16T23:28:56.782Z</requiredDate>\n\t            <shippedDate xmlns=\"\">2022-12-17T23:28:56.782Z</shippedDate>\n\t            <status xmlns=\"\">Cancelled</status>\n\t            <comments xmlns=\"\">We must pay it soon</comments>\n\t            <customerNumber xmlns=\"\">481</customerNumber>\n            </Order>\n        </insert>\n    </Body>\n</Envelope>"
+				},
+				"url": {
+					"raw": "http://localhost:8080/order/soap/order",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"soap",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Order/update",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "123",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "text/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<Envelope xmlns=\"http://schemas.xmlsoap.org/soap/envelope/\">\n    <Body>\n        <update xmlns=\"http://Webservice.afshin.com/\">\n            <Order xmlns=\"\">\n\t            <orderNumber xmlns=\"\">10426</orderNumber>\n\t            <orderDate xmlns=\"\">2017-07-07T23:28:56.782Z</orderDate>\n\t            <requiredDate xmlns=\"\">2018-08-08T23:28:56.782Z</requiredDate>\n\t            <shippedDate xmlns=\"\">2019-09-09T23:28:56.782Z</shippedDate>\n\t            <status xmlns=\"\">Shipped</status>\n\t            <comments xmlns=\"\">We can't pay it soon</comments>\n\t            <customerNumber xmlns=\"\">496</customerNumber>\n            </Order>\n        </update>\n    </Body>\n</Envelope>"
+				},
+				"url": {
+					"raw": "http://localhost:8080/order/soap/order",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"soap",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Productline/find",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "123",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "text/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    <Envelope xmlns=\"http://schemas.xmlsoap.org/soap/envelope/\">\n        <Body>\n            <find xmlns=\"http://Webservice.afshin.com/\">\n                <ProductlineNumber xmlns=\"\">Bomber</ProductlineNumber>\n            </find>\n        </Body>\n    </Envelope>"
+				},
+				"url": {
+					"raw": "http://localhost:8080/order/soap/productline",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"soap",
+						"productline"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Productline/all",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "123",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "text/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    <Envelope xmlns=\"http://schemas.xmlsoap.org/soap/envelope/\">\n        <Body>\n            <all xmlns=\"http://Webservice.afshin.com/\"/>\n        </Body>\n    </Envelope>"
+				},
+				"url": {
+					"raw": "http://localhost:8080/order/soap/productline",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"soap",
+						"productline"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Productline/delete",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "123",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "text/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    <Envelope xmlns=\"http://schemas.xmlsoap.org/soap/envelope/\">\n        <Body>\n            <delete xmlns=\"http://Webservice.afshin.com/\">\n                <ProductlineNumber xmlns=\"\">dbmodel</ProductlineNumber>\n            </delete>\n        </Body>\n    </Envelope>"
+				},
+				"url": {
+					"raw": "http://localhost:8080/order/soap/productline",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"soap",
+						"productline"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Productline/insert",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "123",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "text/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "        <Envelope xmlns=\"http://schemas.xmlsoap.org/soap/envelope/\">\n        <Body>\n            <insert xmlns=\"http://Webservice.afshin.com/\">\n                <Productline xmlns=\"\">\n                    <productLine xmlns=\"\">dbmodel</productLine>\n                    <textDescription xmlns=\"\">order database model in graphic's way</textDescription>\n                    <htmlDescription xmlns=\"\">https://github.com/AfshinParhizkari</htmlDescription>\n                    <image xmlns=\"\"></image>\n                </Productline>\n             </insert>\n        </Body>\n    </Envelope>"
+				},
+				"url": {
+					"raw": "http://localhost:8080/order/soap/productline",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"soap",
+						"productline"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Productline/update",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "123",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "text/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "        <Envelope xmlns=\"http://schemas.xmlsoap.org/soap/envelope/\">\n        <Body>\n            <update xmlns=\"http://Webservice.afshin.com/\">\n                <Productline xmlns=\"\">\n                    <productLine xmlns=\"\">dbmodel</productLine>\n                    <textDescription xmlns=\"\">just update order database modely</textDescription>\n                    <htmlDescription xmlns=\"\">https://www.linkedin.com/in/afshin-parhizkari</htmlDescription>\n                    <image xmlns=\"\"></image>\n                </Productline>\n             </update>\n        </Body>\n    </Envelope>"
+				},
+				"url": {
+					"raw": "http://localhost:8080/order/soap/productline",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"soap",
+						"productline"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "123",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "admin",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "2778f4cc-3747-403e-8612-380ed07a0d93",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "97f5824e-51dc-4ee6-88d5-f7e484057472",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

@@ -22,6 +22,7 @@ public class MyRestWS extends Application {
                         , PaymentRst.class
                         , LoginRst.class
                         ,ProductRst.class
+                        ,EmployeeRst.class
                 ));
     }
 }
