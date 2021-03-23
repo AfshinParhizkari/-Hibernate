@@ -8,13 +8,12 @@ package com.afshin.Webservice;
  * Email:       Afshin.Parhizkari@gmail.com
  * Description:
  */
-import com.afshin.General.GregorianDate;
 import com.afshin.Webservice.stub.order.Order;
 import com.afshin.Webservice.stub.order.OrderArray;
 import com.afshin.Webservice.stub.order.OrderInt;
 import com.afshin.Webservice.stub.order.OrderSrv;
-import com.afshin.Webservice.stub.orderdetail.Orderdetail;
-import com.afshin.Webservice.stub.orderdetail.OrderdetailArray;
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
 import org.bouncycastle.util.encoders.Base64;
 import org.junit.Test;
 
@@ -24,7 +23,6 @@ import javax.xml.ws.handler.MessageContext;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -55,10 +53,13 @@ public class OrderSopTest {
 
     @Test
     public void find() throws MalformedURLException  {
+        Client client = ClientBuilder.newClient();
+        String token = SecurityTest.getToken(client,"admin", "123");
+        if (token.equals("0")) return;
+
         Map<String, Object> req_ctx = ((BindingProvider)OInt).getRequestContext();
         Map<String, List<String>> headers = new HashMap<String, List<String>>();
-        String credential= "Basic "+ new String(Base64.encode("admin:123".getBytes()));
-        headers.put("Authorization", Collections.singletonList(credential));
+        headers.put("Authorization", Collections.singletonList(token));
         req_ctx.put(MessageContext.HTTP_REQUEST_HEADERS, headers);
 
         Order order=OInt.find(objID1);
@@ -67,10 +68,13 @@ public class OrderSopTest {
 
     @Test
     public void all() throws MalformedURLException  {
+        Client client = ClientBuilder.newClient();
+        String token = SecurityTest.getToken(client,"admin", "123");
+        if (token.equals("0")) return;
+
         Map<String, Object> req_ctx = ((BindingProvider)OInt).getRequestContext();
         Map<String, List<String>> headers = new HashMap<String, List<String>>();
-        String credential= "Basic "+ new String(Base64.encode("admin:123".getBytes()));
-        headers.put("Authorization", Collections.singletonList(credential));
+        headers.put("Authorization", Collections.singletonList(token));
         req_ctx.put(MessageContext.HTTP_REQUEST_HEADERS, headers);
 
         OrderArray orderArray=OInt.all();
@@ -81,10 +85,13 @@ public class OrderSopTest {
 
     @Test
     public void delete() throws MalformedURLException  {
+        Client client = ClientBuilder.newClient();
+        String token = SecurityTest.getToken(client,"admin", "123");
+        if (token.equals("0")) return;
+
         Map<String, Object> req_ctx = ((BindingProvider)OInt).getRequestContext();
         Map<String, List<String>> headers = new HashMap<String, List<String>>();
-        String credential= "Basic "+ new String(Base64.encode("admin:123".getBytes()));
-        headers.put("Authorization", Collections.singletonList(credential));
+        headers.put("Authorization", Collections.singletonList(token));
         req_ctx.put(MessageContext.HTTP_REQUEST_HEADERS, headers);
 
         String returnStatus = OInt.delete(objID1);
@@ -93,17 +100,20 @@ public class OrderSopTest {
 
     @Test
     public void insert() throws MalformedURLException, ParseException {
+        Client client = ClientBuilder.newClient();
+        String token = SecurityTest.getToken(client,"admin", "123");
+        if (token.equals("0")) return;
+
         Map<String, Object> req_ctx = ((BindingProvider)OInt).getRequestContext();
         Map<String, List<String>> headers = new HashMap<String, List<String>>();
-        String credential= "Basic "+ new String(Base64.encode("admin:123".getBytes()));
-        headers.put("Authorization", Collections.singletonList(credential));
+        headers.put("Authorization", Collections.singletonList(token));
         req_ctx.put(MessageContext.HTTP_REQUEST_HEADERS, headers);
 
         Order order = new Order();
         order.setOrderNumber(10426);
-        order.setOrderDate(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse("2020-11-24T23:28:56.330Z"));
-        order.setRequiredDate(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse("2020-11-24T23:28:56.330Z"));
-        order.setShippedDate(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse("2020-11-24T23:28:56.330Z"));
+        order.setOrderDate("2020-11-24T23:28:56.330Z");
+        order.setRequiredDate("2020-11-24T23:28:56.330Z");
+        order.setShippedDate("2020-11-24T23:28:56.330Z");
         order.setStatus("Cancelled");
         order.setComments("We must pay it soon");
         order.setCustomerNumber(481);
@@ -114,17 +124,20 @@ public class OrderSopTest {
 
     @Test
     public void update() throws MalformedURLException, ParseException {
+        Client client = ClientBuilder.newClient();
+        String token = SecurityTest.getToken(client,"admin", "123");
+        if (token.equals("0")) return;
+
         Map<String, Object> req_ctx = ((BindingProvider)OInt).getRequestContext();
         Map<String, List<String>> headers = new HashMap<String, List<String>>();
-        String credential= "Basic "+ new String(Base64.encode("admin:123".getBytes()));
-        headers.put("Authorization", Collections.singletonList(credential));
+        headers.put("Authorization", Collections.singletonList(token));
         req_ctx.put(MessageContext.HTTP_REQUEST_HEADERS, headers);
 
         Order order = new Order();
         order.setOrderNumber(10426);
-        order.setOrderDate(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse("2017-07-17T23:28:56.330Z"));
-        order.setRequiredDate(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse("2018-08-18T23:28:56.330Z"));
-        order.setShippedDate(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse("2019-09-19T23:28:56.330Z"));
+        order.setOrderDate("2017-07-17T23:28:56.330Z");
+        order.setRequiredDate("2018-08-18T23:28:56.330Z");
+        order.setShippedDate("2019-09-19T23:28:56.330Z");
         order.setStatus("Shipped");
         order.setComments("We can't pay it soon");
         order.setCustomerNumber(496);

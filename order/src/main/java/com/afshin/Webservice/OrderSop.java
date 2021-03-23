@@ -1,11 +1,17 @@
 package com.afshin.Webservice;
-
+/**
+ * @Project order
+ * @Author Afshin Parhizkari
+ * @Date 3/22/21
+ * @Time 7:28 AM
+ * Created by   IntelliJ IDEA
+ * Email:       Afshin.Parhizkari@gmail.com
+ * Description:   http://localhost:8080/order/soap/order
+ * JJwt Authentication
+ */
 import com.afshin.Dao.OrderDao;
-import com.afshin.Entity.Customer;
 import com.afshin.Entity.Order;
 import com.afshin.General.Log4j;
-import com.afshin.General.Logback;
-
 import javax.annotation.Resource;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -17,15 +23,6 @@ import javax.xml.ws.handler.MessageContext;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @Project order
- * @Author Afshin Parhizkari
- * @Date 3/22/21
- * @Time 7:28 AM
- * Created by   IntelliJ IDEA
- * Email:       Afshin.Parhizkari@gmail.com
- * Description:   http://localhost:8080/order/soap/order
- */
 @WebService(name = "OrderInt",serviceName = "OrderSrv")
 @SOAPBinding(style = SOAPBinding.Style.RPC)
 public class OrderSop {
@@ -39,15 +36,15 @@ public class OrderSop {
     public Order find(@WebParam(name = "orderNumber") Integer orderNum){
         try {
             Map http_headers = (Map) wsctx.getMessageContext().get(MessageContext.HTTP_REQUEST_HEADERS);
-            String encodUsrPwd=http_headers.get("Authorization").toString().replaceFirst("Basic ","")
+            String token=http_headers.get("Authorization").toString().replaceFirst("Bearer ","")
                     .replaceFirst("\\[","").replace("]","");
-            if(!sec.basicAuthCheck(encodUsrPwd)) return null;
+            if(!sec.tokenAuthCheck(token)) return null;
 
             Order order = dao.findById(orderNum);
             Log4j.logger.info("{}.{}|Try: Send record to Soap", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
             return order;
         } catch (Exception e) {
-            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            Log4j.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
             return null;
         }
@@ -66,16 +63,16 @@ public class OrderSop {
     public Order[] all() {
         try {
             Map http_headers = (Map) wsctx.getMessageContext().get(MessageContext.HTTP_REQUEST_HEADERS);
-            String encodUsrPwd=http_headers.get("Authorization").toString().replaceFirst("Basic ","")
+            String token=http_headers.get("Authorization").toString().replaceFirst("Bearer ","")
                     .replaceFirst("\\[","").replace("]","");
-            if(!sec.basicAuthCheck(encodUsrPwd)) return null;
+            if(!sec.tokenAuthCheck(token)) return null;
 
             List<Order> oreders = dao.findAll();
             Order[] itemsArray = new Order[oreders.size()];
             Log4j.logger.info("{}.{}|Try: Send records to Soap", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
             return oreders.toArray(itemsArray);
         } catch (Exception e) {
-            Logback.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
+            Log4j.logger.error("{}.{}|Exception:{}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), e.getMessage());
             e.printStackTrace();
             return null;
         }
@@ -89,17 +86,17 @@ public class OrderSop {
     @WebResult(name = "returnStatus")
     public String delete(@WebParam(name = "orderNumber") Integer orderNum) {
         try {
-            Map http_headers= (Map) wsctx.getMessageContext().get(MessageContext.HTTP_REQUEST_HEADERS);
-                    String encodUsrPwd=http_headers.get("Authorization").toString().replaceFirst("Basic ","")
-                            .replaceFirst("\\[","").replace("]","");
-            if(!sec.basicAuthCheck(encodUsrPwd)) return null;
+            Map http_headers = (Map) wsctx.getMessageContext().get(MessageContext.HTTP_REQUEST_HEADERS);
+            String token=http_headers.get("Authorization").toString().replaceFirst("Bearer ","")
+                    .replaceFirst("\\[","").replace("]","");
+            if(!sec.tokenAuthCheck(token)) return null;
 
             Integer returnStatus = dao.delete(dao.findById(orderNum));
             Log4j.logger.info("{}.{}|Try: record is deleted", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
             return returnStatus.toString();
         } catch (Exception e) {
             String UUID = java.util.UUID.randomUUID().toString();
-            Logback.logger.error("{}.{}|UUID:{} - Exception: {}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(),UUID, e.getMessage());
+            Log4j.logger.error("{}.{}|UUID:{} - Exception: {}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(),UUID, e.getMessage());
             e.printStackTrace();
             return "Your Trace number is" + UUID + e.toString();
         }
@@ -118,16 +115,16 @@ public class OrderSop {
     public String insert(@WebParam(name = "Order") Order order) {
         try {
             Map http_headers = (Map) wsctx.getMessageContext().get(MessageContext.HTTP_REQUEST_HEADERS);
-            String encodUsrPwd=http_headers.get("Authorization").toString().replaceFirst("Basic ","")
+            String token=http_headers.get("Authorization").toString().replaceFirst("Bearer ","")
                     .replaceFirst("\\[","").replace("]","");
-            if(!sec.basicAuthCheck(encodUsrPwd)) return null;
+            if(!sec.tokenAuthCheck(token)) return null;
 
             Integer returnStatus = dao.insert(order);
             Log4j.logger.info("{}.{}|Try: record is inserted", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
             return returnStatus.toString();
         } catch (Exception e) {
             String UUID = java.util.UUID.randomUUID().toString();
-            Logback.logger.error("{}.{}|UUID:{} - Exception: {}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(),UUID, e.getMessage());
+            Log4j.logger.error("{}.{}|UUID:{} - Exception: {}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(),UUID, e.getMessage());
             e.printStackTrace();
             return "Your Trace number is" + UUID + e.toString();
         }
@@ -154,16 +151,16 @@ public class OrderSop {
     public String update(@WebParam(name = "Order") Order order) {
         try {
             Map http_headers = (Map) wsctx.getMessageContext().get(MessageContext.HTTP_REQUEST_HEADERS);
-            String encodUsrPwd=http_headers.get("Authorization").toString().replaceFirst("Basic ","")
+            String token=http_headers.get("Authorization").toString().replaceFirst("Bearer ","")
                     .replaceFirst("\\[","").replace("]","");
-            if(!sec.basicAuthCheck(encodUsrPwd)) return null;
+            if(!sec.tokenAuthCheck(token)) return null;
 
             Integer returnStatus = dao.update(order);
             Log4j.logger.info("{}.{}|Try: record is updated", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
             return returnStatus.toString();
         } catch (Exception e) {
             String UUID = java.util.UUID.randomUUID().toString();
-            Logback.logger.error("{}.{}|UUID:{} - Exception: {}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), UUID, e.getMessage());
+            Log4j.logger.error("{}.{}|UUID:{} - Exception: {}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), UUID, e.getMessage());
             e.printStackTrace();
             return "Your Trace number is" + UUID + e.toString();
         }

@@ -3,10 +3,7 @@ package com.afshin.Webservice.stub.order;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.datatype.XMLGregorianCalendar;
-import java.util.Date;
 
 
 /**
@@ -20,9 +17,9 @@ import java.util.Date;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="orderNumber" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/&gt;
- *         &lt;element name="orderDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/&gt;
- *         &lt;element name="requiredDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/&gt;
- *         &lt;element name="shippedDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/&gt;
+ *         &lt;element name="orderDate" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="requiredDate" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="shippedDate" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="status" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="comments" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="customerNumber" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/&gt;
@@ -47,12 +44,9 @@ import java.util.Date;
 public class Order {
 
     protected Integer orderNumber;
-    @XmlSchemaType(name = "dateTime")
-    protected Date orderDate;
-    @XmlSchemaType(name = "dateTime")
-    protected Date requiredDate;
-    @XmlSchemaType(name = "dateTime")
-    protected Date shippedDate;
+    protected String orderDate;
+    protected String requiredDate;
+    protected String shippedDate;
     protected String status;
     protected String comments;
     protected Integer customerNumber;
@@ -86,22 +80,22 @@ public class Order {
      * 
      * @return
      *     possible object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link String }
      *     
      */
-    public Date getOrderDate() {
+    public String getOrderDate() {
         return orderDate;
     }
 
     /**
      * Sets the value of the orderDate property.
-     *
+     * 
      * @param value
      *     allowed object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link String }
      *     
      */
-    public void setOrderDate(Date value) {
+    public void setOrderDate(String value) {
         this.orderDate = value;
     }
 
@@ -110,22 +104,22 @@ public class Order {
      * 
      * @return
      *     possible object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link String }
      *     
      */
-    public Date getRequiredDate() {
+    public String getRequiredDate() {
         return requiredDate;
     }
 
     /**
      * Sets the value of the requiredDate property.
-     *
+     * 
      * @param value
      *     allowed object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link String }
      *     
      */
-    public void setRequiredDate(Date value) {
+    public void setRequiredDate(String value) {
         this.requiredDate = value;
     }
 
@@ -134,22 +128,22 @@ public class Order {
      * 
      * @return
      *     possible object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link String }
      *     
      */
-    public Date getShippedDate() {
+    public String getShippedDate() {
         return shippedDate;
     }
 
     /**
      * Sets the value of the shippedDate property.
-     *
+     * 
      * @param value
      *     allowed object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link String }
      *     
      */
-    public void setShippedDate(Date value) {
+    public void setShippedDate(String value) {
         this.shippedDate = value;
     }
 

@@ -8,7 +8,6 @@ package com.afshin.Entity;
  * Email:       Afshin.Parhizkari@gmail.com
  * Description:
  */
-import com.afshin.General.GregorianDate;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonFormat;
 

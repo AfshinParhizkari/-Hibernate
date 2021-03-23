@@ -11,7 +11,6 @@ package com.afshin.Controller;
 import com.afshin.Dao.ProductDao;
 import com.afshin.Entity.Product;
 import com.afshin.General.Logback;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

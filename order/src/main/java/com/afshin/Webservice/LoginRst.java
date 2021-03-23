@@ -30,11 +30,21 @@ public class LoginRst {
     @GET
     @Path("/check")
     public Response echo(@Context HttpHeaders headers) {
-        String token=headers.getRequestHeader(HttpHeaders.AUTHORIZATION).get(0).substring("Bearer ".length()).trim();
-        if(sec.tokenAuthCheck(token))
-            return Response.status(Response.Status.OK).entity("token is valid").build();
-        else
-        return Response.status(Response.Status.UNAUTHORIZED).entity("token is Expired").build();
+        try {
+            String token = headers.getRequestHeader(HttpHeaders.AUTHORIZATION).get(0).substring("Bearer ".length()).trim();
+            if (sec.tokenAuthCheck(token)) {
+                Logback.logger.error("{}.{}| token is valid", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
+                return Response.status(Response.Status.OK).entity("token is valid").build();
+            } else {
+                Logback.logger.error("{}.{}| token is Expired", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName());
+                return Response.status(Response.Status.UNAUTHORIZED).entity("token is Expired").build();
+            }
+        } catch (Exception e) {
+            String UUID = java.util.UUID.randomUUID().toString();
+            Logback.logger.error("{}.{}|UUID:{} - Exception: {}", this.getClass().getSimpleName(), Thread.currentThread().getStackTrace()[1].getMethodName(), UUID, e.getMessage());
+            e.printStackTrace();
+            return Response.status(Response.Status.EXPECTATION_FAILED).entity("Your Trace number is" + UUID + e.toString()).build();
+        }
     }
 
     //  http://localhost:8080/order/rest/login/token

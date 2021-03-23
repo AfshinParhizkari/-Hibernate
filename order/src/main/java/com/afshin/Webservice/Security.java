@@ -15,15 +15,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.bouncycastle.util.encoders.Base64;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.handler.MessageContext;
-import java.io.StringWriter;
-import java.util.List;
-import java.util.Map;
-
 public class Security {
 
     protected boolean basicAuthCheck(String encodedUserPassword) {

@@ -8,7 +8,7 @@ package com.afshin.Entity;
  * Email:       Afshin.Parhizkari@gmail.com
  * Description:
  */
-import com.afshin.General.GregorianDate;
+import com.afshin.General.DateAdapter;
 import com.fasterxml.jackson.annotation.JsonFilter;
 
 import javax.persistence.*;
@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -34,12 +35,15 @@ public class Order {
     private Integer orderNumber;
 
     @Column(name = "orderDate")
+    @XmlJavaTypeAdapter(DateAdapter.class)
     private Date orderDate;
 
     @Column(name = "requiredDate")
+    @XmlJavaTypeAdapter(DateAdapter.class)
     private Date requiredDate;
 
     @Column(name = "shippedDate")
+    @XmlJavaTypeAdapter(DateAdapter.class)
     private Date shippedDate;
 
     @Column(name = "status")
@@ -124,7 +128,7 @@ public class Order {
         return "Order{" +
                 "orderNumber=" + orderNumber +
                 //", orderDate=" + GregorianDate.shamsiStr(GregorianDate.miladi2shamsi(orderDate)) +
-                ", requiredDate=" + GregorianDate.shamsiStr(GregorianDate.miladi2shamsi(requiredDate)) +
+                //", requiredDate=" + GregorianDate.shamsiStr(GregorianDate.miladi2shamsi(requiredDate)) +
                 //", shippedDate=" +GregorianDate.shamsiStr(GregorianDate.miladi2shamsi(shippedDate))+
                 ", status='" + status + '\'' +
                 ", comments='" + comments + '\'' +
