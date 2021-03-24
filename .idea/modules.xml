@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Hibernate.iml" filepath="$PROJECT_DIR$/.idea/Hibernate.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/J2EE.iml" filepath="$PROJECT_DIR$/.idea/J2EE.iml" />
       <module fileurl="file://$PROJECT_DIR$/order/order.iml" filepath="$PROJECT_DIR$/order/order.iml" />
     </modules>
   </component>

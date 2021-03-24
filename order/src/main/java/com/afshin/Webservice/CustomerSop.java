@@ -17,7 +17,11 @@ import java.util.List;
 import com.afshin.General.Log4j;
 import com.afshin.Dao.CustomerDao;
 import com.afshin.Entity.Customer;
-
+/*
+name: display on application server
+serviceName: display in URL and WSDL
+portName: display in WSDL
+targetNamespace : XML namespace, display in WSDL and XSD*/
 @WebService(name = "CustomerInt",serviceName = "CustomerSrv")
 @SOAPBinding(style=SOAPBinding.Style.RPC)
 public class CustomerSop {
